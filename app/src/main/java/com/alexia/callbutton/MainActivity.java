@@ -2,46 +2,67 @@ package com.alexia.callbutton;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
+
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
+
+        ImageButton settingsButton = (ImageButton)findViewById(R.id.settings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
 
 
     public void dial(View v) {
-        if(isPermissionGranted()){
+        if(isPermissionGranted()) {
             call_action();
         }
-
-        /*String toDial="tel:0933797479";
-        /*Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse(toDial));
-
-        if (ActivityCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        startActivity(callIntent);
-        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(toDial)));*/
     }
-    public void call_action(){
-        String toDial="tel:0933797479";
+
+    public void call_action() {
+        Log.d("phone:", preferences.getString("phone", ""));
+        String toDial = "tel:" + preferences.getString("phone" , "0933797479");
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + toDial));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         startActivity(callIntent);
     }
     public  boolean isPermissionGranted() {
@@ -51,7 +72,6 @@ public class MainActivity extends FragmentActivity {
                 Log.v("TAG","Permission is granted");
                 return true;
             } else {
-
                 Log.v("TAG","Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
                 return false;
@@ -66,7 +86,6 @@ public class MainActivity extends FragmentActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-
             case 1: {
 
                 if (grantResults.length > 0
