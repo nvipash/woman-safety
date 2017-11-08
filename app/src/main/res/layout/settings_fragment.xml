@@ -14,7 +14,7 @@
         android:baselineAligned="false"
         android:ems="10"
         android:hint="Введіть номер мобільного телефону"
-        android:inputType="textPersonName"
+        android:inputType="number"
         tools:ignore="MissingConstraints" />
 
     <Button
