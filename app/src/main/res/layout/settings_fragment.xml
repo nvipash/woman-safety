@@ -6,7 +6,11 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:weightSum="1">
-
+    <ListView
+        android:id="@+id/lvMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
