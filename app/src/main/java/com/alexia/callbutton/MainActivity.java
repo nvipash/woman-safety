@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity {
         Log.d("phone:", preferences.getString("phone", ""));
         String toDial = "tel:" + preferences.getString("phone" , "0933797479");
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + toDial));
+        callIntent.setData(Uri.parse(toDial));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
