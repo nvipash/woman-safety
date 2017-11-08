@@ -6,13 +6,16 @@
 
     <ImageButton
         android:id="@+id/button"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="dial"
-        android:src="@drawable/sos" />
+        android:src="@drawable/sos"
+        android:background="@null"/>
 
     <ImageButton
         android:id="@+id/settings"
-        android:layout_width="120dp"
-        android:layout_height="120dp" />
+        android:layout_width="236dp"
+        android:layout_height="157dp"
+        android:src="@drawable/settings"
+        android:background="@null"/>
 </LinearLayout>
