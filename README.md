@@ -6,11 +6,11 @@ Topic:
  
  
 Group IP-124, 125
-The Origins team
-Polina Kulbach
-Pavel Novitsky
-Darya Savinkina
-Oleksiy Musiyenko  
+The Origins team:
+Polina Kulbach,
+Pavel Novitsky,
+Darya Savinkina,
+Oleksiy Musiyenko, 
 Viktoria Mishchanyn
  
 Mentors: Rostislav Zabolotny
