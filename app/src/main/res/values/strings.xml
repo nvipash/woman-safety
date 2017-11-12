@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CallButton</string>
+    <string name="text_map">Карта</string>
+    <string name="text_help">Опитування</string>
+    <string name="text_sos">Допомога</string>
+    <string name="text_settings">Налаштування</string>
 </resources>
