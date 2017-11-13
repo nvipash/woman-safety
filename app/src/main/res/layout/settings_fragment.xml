@@ -26,7 +26,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/button2"
-        android:text="Оберіть номер за яким бажаєте звернутись у випадку термінової допомоги" />
+        android:text="@string/choose_number" />
 
     <ListView
         android:id="@+id/lvMain"
@@ -58,7 +58,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText"
-        android:text="Зберегти номер"
+        android:text="@string/save_number"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="168dp" />
