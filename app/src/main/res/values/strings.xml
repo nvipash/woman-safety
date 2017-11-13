@@ -4,4 +4,6 @@
     <string name="text_help">Опитування</string>
     <string name="text_sos">Допомога</string>
     <string name="text_settings">Налаштування</string>
+    <string name="choose_number">Оберіть номер за яким бажаєте звернутись у випадку термінової допомоги</string>
+    <string name="save_number">Зберегти номер</string>
 </resources>
