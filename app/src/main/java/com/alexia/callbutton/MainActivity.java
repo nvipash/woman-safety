@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.action_map:
 
-//                            case R.id.action_sos:
+                            case R.id.action_sos:
 
                             case R.id.action_settings:
 

@@ -13,12 +13,12 @@
         android:icon="@drawable/ic_map_white_24dp"
         android:title="@string/text_map"
         app:showAsAction="ifRoom" />
-    <!--<item-->
-    <!--android:id="@+id/action_sos"-->
-    <!--android:enabled="true"-->
-    <!--android:icon="@drawable/ic_sos_white_24dp"-->
-    <!--android:title="@string/text_sos"-->
-    <!--app:showAsAction="ifRoom" />-->
+    <item
+        android:id="@+id/action_sos"
+        android:enabled="true"
+        android:icon="@drawable/ic_sos_white_24dp"
+        android:title="@string/text_sos"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
