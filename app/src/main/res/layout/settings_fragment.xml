@@ -5,8 +5,55 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_gravity="center"
     android:weightSum="1">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/choose_number" />
+
+        <ListView
+            android:id="@+id/lvMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lvMain"
+            android:layout_marginTop="253dp"
+            android:hint="@string/print_number"
+            android:inputType="number"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/button_settings"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/editText"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:text="@string/save_number"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="168dp" />
+
+    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -14,54 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="visible"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/white"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
         app:menu="@menu/bottom_navigation_main" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button2"
-        android:text="@string/choose_number" />
-
-    <ListView
-        android:id="@+id/lvMain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button2"
-        android:layout_marginTop="34dp"></ListView>
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:baselineAligned="false"
-        android:ems="10"
-        android:hint="Введіть номер мобільного телефону"
-        android:inputType="number"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/button2"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText"
-        android:text="@string/save_number"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="168dp" />
 
 
 </RelativeLayout>
