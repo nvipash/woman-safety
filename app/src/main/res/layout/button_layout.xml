@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
@@ -8,9 +8,11 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
         android:onClick="dial"
-        android:src="@drawable/sos"
-        android:background="@null"/>
+        android:src="@drawable/sos" />
 
     <ImageButton
         android:id="@+id/settings"
@@ -18,4 +20,4 @@
         android:layout_height="157dp"
         android:src="@drawable/settings"
         android:background="@null"/>
-</LinearLayout>
+</RelativeLayout>
