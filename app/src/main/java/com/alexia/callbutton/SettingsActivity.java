@@ -15,15 +15,16 @@ import android.widget.ListView;
 public class SettingsActivity extends FragmentActivity {
     Button settingsButton;
     EditText editText;
-    String[] phones = { "0933797479", "0632478177", "0500213201" };
+    String[] phones = {"0933797479", "0632478177", "0500213201", "0980969198"};
     SharedPreferences preferences;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-        settingsButton = (Button)findViewById(R.id.button2);
-        editText = (EditText)findViewById(R.id.editText);
+        settingsButton = (Button) findViewById(R.id.button_settings);
+        editText = (EditText) findViewById(R.id.editText);
 
         preferences = SettingsActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
