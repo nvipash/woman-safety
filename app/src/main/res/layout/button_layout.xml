@@ -18,6 +18,11 @@
         android:id="@+id/settings"
         android:layout_width="236dp"
         android:layout_height="157dp"
-        android:src="@drawable/settings"
-        android:background="@null"/>
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignRight="@+id/button"
+        android:layout_below="@+id/button"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@null"
+        android:src="@drawable/settings" />
 </RelativeLayout>
