@@ -36,6 +36,31 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(intent);
             }
         });
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            //case R.id.action_help:
+                            //case R.id.action_map:
+                            //case R.id.action_sos:
+
+//                                selectedFragment = ButtonFragment.newInstance();
+//                                getSupportFragmentManager().beginTransaction().replace(R.id.content, selectedFragment).commit();
+//                                break;
+                            case R.id.action_settings:
+                                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
+                                MainActivity.this.startActivity(intent);
+//                                fragmentTransaction.replace(R.id.settings_fragment, new SettingsActivity()).commit();
+//                                return true;
+                        }
+                        return true;
+                    }
+                });
     }
 
     public void dial(View v) {
@@ -99,28 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                        Fragment selectedFragment = null;
-                        switch (item.getItemId()) {
-                            case R.id.action_help:
-                            case R.id.action_map:
-                            case R.id.action_sos:
-//                                selectedFragment = ButtonFragment.newInstance();
-//                                getSupportFragmentManager().beginTransaction().replace(R.id.content, selectedFragment).commit();
-//                                break;
-                            case R.id.action_settings:
-//                                fragmentTransaction.replace(R.id.settings_fragment, new SettingsActivity()).commit();
-//                                return true;
-                        }
-                        return true;
-                    }
-                });
+
 
     }
 }
