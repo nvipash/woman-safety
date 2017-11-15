@@ -28,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
 
-        ImageButton settingsButton = (ImageButton)findViewById(R.id.settings);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
-                MainActivity.this.startActivity(intent);
-            }
-        });
+//        ImageButton settingsButton = (ImageButton)findViewById(R.id.settings);
+//        settingsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
+//                MainActivity.this.startActivity(intent);
+//            }
+//        });
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
