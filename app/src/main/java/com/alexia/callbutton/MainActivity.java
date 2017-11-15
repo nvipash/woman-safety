@@ -2,26 +2,23 @@ package com.alexia.callbutton;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
 
@@ -39,8 +36,32 @@ public class MainActivity extends FragmentActivity {
                 MainActivity.this.startActivity(intent);
             }
         });
-    }
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            //case R.id.action_help:
+                            //case R.id.action_map:
+                            //case R.id.action_sos:
+
+//                                selectedFragment = ButtonFragment.newInstance();
+//                                getSupportFragmentManager().beginTransaction().replace(R.id.content, selectedFragment).commit();
+//                                break;
+                            case R.id.action_settings:
+                                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
+                                MainActivity.this.startActivity(intent);
+//                                fragmentTransaction.replace(R.id.settings_fragment, new SettingsActivity()).commit();
+//                                return true;
+                        }
+                        return true;
+                    }
+                });
+    }
 
     public void dial(View v) {
         if(isPermissionGranted()) {
@@ -100,6 +121,11 @@ public class MainActivity extends FragmentActivity {
 
             // other 'case' lines to check for other
             // permissions this app might request
+
+
         }
+
+
+
     }
 }
