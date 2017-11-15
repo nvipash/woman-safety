@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="1">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="dial"
+            android:src="@drawable/sos" />
+
+        <ImageButton
+            android:id="@+id/settings"
+            android:layout_width="236dp"
+            android:layout_height="157dp"
+            android:background="@null"
+            android:src="@drawable/settings" />
+
+    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -12,23 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="visible"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/white"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
         app:menu="@menu/bottom_navigation_main" />
 
-    <ImageButton
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="dial"
-        android:src="@drawable/sos"
-        android:background="@null"/>
 
-    <ImageButton
-        android:id="@+id/settings"
-        android:layout_width="236dp"
-        android:layout_height="157dp"
-        android:src="@drawable/settings"
-        android:background="@null"/>
 </RelativeLayout>
