@@ -32,4 +32,10 @@
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="168dp" />
 
+    <Button
+        android:id="@+id/addContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
 </LinearLayout>
