@@ -24,6 +24,7 @@
             android:layout_marginRight="60dp"
             android:text="@string/sos_button_text"
             android:textColor="#686868	"
+            android:textSize="17.5sp"
             android:textStyle="bold" />
 
         <ImageButton
