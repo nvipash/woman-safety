@@ -20,9 +20,9 @@
             android:lineSpacingMultiplier="1.2"
             android:gravity="center_horizontal"
             android:layout_below="@+id/button"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:text="@string/sos_button_text"
-            android:textColor="#3b3e63"
-            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageButton
