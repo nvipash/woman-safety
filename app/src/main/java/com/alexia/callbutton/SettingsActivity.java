@@ -16,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,18 +27,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends FragmentActivity {
     Button settingsButton;
     Button addContact;
     ArrayList<String> phones = new ArrayList<>();
-    SharedPreferences preferences;
     ArrayAdapter<String> adapter;
     ListView lvMain;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_fragment);
+        setContentView(R.layout.settings_activity);
+
+        settingsButton = (Button) findViewById(R.id.button_settings);
+
         preferences = SettingsActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         Set<String> entries = preferences.getStringSet("phones", null);
         if (entries != null) {
@@ -55,7 +60,7 @@ public class SettingsActivity extends Activity {
             lvMain.setItemChecked(index, true);
         }
 
-        settingsButton = (Button)findViewById(R.id.button2);
+        settingsButton = (Button)findViewById(R.id.button_settings);
         addContact = (Button)findViewById(R.id.addContact);
 
         final SharedPreferences.Editor editor = preferences.edit();
