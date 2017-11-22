@@ -10,12 +10,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,18 +43,17 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //                        Fragment selectedFragment = null;
                         switch (item.getItemId()) {
-                            //case R.id.action_help:
-                            //case R.id.action_map:
-                            //case R.id.action_sos:
+                            case R.id.action_help:
+                            {Intent intent1 = new Intent(MainActivity.this , QuestionnaireActivity.class);
+                                MainActivity.this.startActivity(intent1);}
+                                break;
 
-//                                selectedFragment = ButtonFragment.newInstance();
-//                                getSupportFragmentManager().beginTransaction().replace(R.id.content, selectedFragment).commit();
-//                                break;
-                            case R.id.action_settings:
-                                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
-                                MainActivity.this.startActivity(intent);
-//                                fragmentTransaction.replace(R.id.settings_fragment, new SettingsActivity()).commit();
-//                                return true;
+                            //case R.id.action_map:
+                           case R.id.action_settings:
+                            {Intent intent2 = new Intent(MainActivity.this , SettingsActivity.class);
+                                MainActivity.this.startActivity(intent2);}
+                                break;
+//
                         }
                         return true;
                     }
