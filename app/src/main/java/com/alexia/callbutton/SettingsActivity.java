@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -64,6 +65,19 @@ public class SettingsActivity extends FragmentActivity {
         addContact = (Button)findViewById(R.id.addContact);
 
         final SharedPreferences.Editor editor = preferences.edit();
+        lvMain.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long arg3) {
+
+                adapter.remove(phones.get(position));
+                adapter.notifyDataSetChanged();
+
+                return false;
+            }
+
+        });
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +128,6 @@ public class SettingsActivity extends FragmentActivity {
                     @SuppressLint("Recycle") Cursor c = getContentResolver().query(contactData, projection, null, null, null);
 
                     if (!c.moveToFirst()) { return; }
-
                     String number = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
                     if (number.equalsIgnoreCase("1")) {
                         String n = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
@@ -127,7 +140,10 @@ public class SettingsActivity extends FragmentActivity {
         }
 
 
+
+
     }
+
 }
 
 
