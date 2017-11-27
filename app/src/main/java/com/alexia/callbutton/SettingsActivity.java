@@ -124,14 +124,16 @@ public class SettingsActivity extends FragmentActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     assert contactData != null;
-                    String[] projection = new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.HAS_PHONE_NUMBER };
+                    String[] projection = new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.HAS_PHONE_NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME };
                     @SuppressLint("Recycle") Cursor c = getContentResolver().query(contactData, projection, null, null, null);
 
                     if (!c.moveToFirst()) { return; }
                     String number = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-                    if (number.equalsIgnoreCase("1")) {
+                    String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                    if (number.equalsIgnoreCase("1") || name.equalsIgnoreCase("1")) {
                         String n = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        phones.add(n);
+                        String nam = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                        phones.add(nam + "\n" + n);
                         adapter.notifyDataSetChanged();
                     } else {
 
