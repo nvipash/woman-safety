@@ -18,6 +18,5 @@
         </activity>
         <activity android:name=".SettingsActivity">
         </activity>
-        <activity android:name=".QuestionnaireActivity"></activity>
     </application>
 </manifest>

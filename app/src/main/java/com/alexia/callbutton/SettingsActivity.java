@@ -1,14 +1,11 @@
 package com.alexia.callbutton;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,38 +34,6 @@ public class SettingsActivity extends FragmentActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_single_choice, phones);
         lvMain.setAdapter(adapter);
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                        Fragment selectedFragment = null;
-                        switch (item.getItemId()) {
-                            case R.id.action_help:
-                            {Intent intent1 = new Intent(SettingsActivity.this , QuestionnaireActivity.class);
-                                SettingsActivity.this.startActivity(intent1);}
-                            break;
-
-                            //case R.id.action_map:
-                           // case R.id.action_settings:
-                            case R.id.action_sos:
-                            {Intent intent2 = new Intent(SettingsActivity.this , MainActivity.class);
-                                SettingsActivity.this.startActivity(intent2);}
-                            break;
-//
-                        }
-                        return true;
-                    }
-                });
-
-
-       Menu menu = bottomNavigationView.getMenu();
-        menu.getItem(3).setChecked(true);
-        menu.getItem(0).setChecked(false);
-        menu.getItem(1).setChecked(false);
-        menu.getItem(2).setChecked(false);
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +41,6 @@ public class SettingsActivity extends FragmentActivity {
 
                 editor.putString("phone", phones[lvMain.getCheckedItemPosition()]);
                 editor.commit();
-
-                Intent intent1 = new Intent(SettingsActivity.this , MainActivity.class);
-                SettingsActivity.this.startActivity(intent1);
             }
         });
 
