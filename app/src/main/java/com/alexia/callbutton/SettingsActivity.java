@@ -12,11 +12,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,6 +47,39 @@ public class SettingsActivity extends FragmentActivity {
         setContentView(R.layout.settings_activity);
 
         settingsButton = (Button) findViewById(R.id.button_settings);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                                findViewById(R.id.bottom_navigation);
+        
+                        bottomNavigationView.setOnNavigationItemSelectedListener(
+                                        new BottomNavigationView.OnNavigationItemSelectedListener() {
+                     @Override
+                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                                //                        Fragment selectedFragment = null;
+                                                                switch (item.getItemId()) {
+                                                                case R.id.action_help:
+                                                                    {Intent intent1 = new Intent(SettingsActivity.this , QuestionnaireActivity.class);
+                                                                        SettingsActivity.this.startActivity(intent1);}
+                                                                    break;
+                                    
+                                                                        //case R.id.action_map:
+                                                                               // case R.id.action_settings:
+                                                                                        case R.id.action_sos:
+                                                                    {Intent intent2 = new Intent(SettingsActivity.this , MainActivity.class);
+                                                                        SettingsActivity.this.startActivity(intent2);}
+                                                                    break;
+                                    //
+                                                                    }
+                                                        return true;
+                                                    }
+                 });
+        
+                
+                               Menu menu = bottomNavigationView.getMenu();
+                menu.getItem(3).setChecked(true);
+                menu.getItem(0).setChecked(false);
+                menu.getItem(1).setChecked(false);
+                menu.getItem(2).setChecked(false);
 
         preferences = SettingsActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         Set<String> entries = preferences.getStringSet("phones", null);
