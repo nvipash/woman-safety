@@ -4,10 +4,9 @@
     <string name="text_help">Опитування</string>
     <string name="text_sos">Допомога</string>
     <string name="text_settings">Налаштування</string>
-    <string name="choose_number">Оберіть номер за яким бажаєте звернутись у випадку термінової допомоги або введіть власний</string>
-    <string name="save_number">Зберегти</string>
+    <string name="choose_number">Виберіть номер з телефонної книги за яким бажаєте звернутись у випадку термінової допомоги</string>
+    <string name="add_contact">Додати контакт</string>
+    <string name="save_number">Зберегти обранний номер</string>
     <string name="print_number">Введіть номер мобільного телефону</string>
     <string name="sos_button_text">У разі погрози вашому життю терміново натисніть на цю кнопку</string>
-
-
 </resources>
