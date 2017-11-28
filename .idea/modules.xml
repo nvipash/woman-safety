@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\ANDROID_PROJECT\Woman_Safety-sos_button\Woman_Safety-sos_button\CallButton.iml" filepath="D:\ANDROID_PROJECT\Woman_Safety-sos_button\Woman_Safety-sos_button\CallButton.iml" />
       <module fileurl="file://D:\GitHub\Woman_Safety\CallButton.iml" filepath="D:\GitHub\Woman_Safety\CallButton.iml" />
-      <module fileurl="file://C:\Users\Alexia\AndroidStudioProjects\CallButton\Woman_Safety.iml" filepath="C:\Users\Alexia\AndroidStudioProjects\CallButton\Woman_Safety.iml" />
+      <module fileurl="file://D:\ANDROID_PROJECT\Woman_Safety-sos_button\Woman_Safety-sos_button\CallButton.iml" filepath="D:\ANDROID_PROJECT\Woman_Safety-sos_button\Woman_Safety-sos_button\CallButton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Woman_Safety.iml" filepath="$PROJECT_DIR$/Woman_Safety.iml" />
       <module fileurl="file://D:\ANDROID_PROJECT\Woman_Safety-sos_button\Woman_Safety-sos_button\Woman_Safety.iml" filepath="D:\ANDROID_PROJECT\Woman_Safety-sos_button\Woman_Safety-sos_button\Woman_Safety.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Woman_Safety-sos_button.iml" filepath="$PROJECT_DIR$/Woman_Safety-sos_button.iml" />
+      <module fileurl="file://C:\Users\Alexia\AndroidStudioProjects\CallButton\Woman_Safety.iml" filepath="C:\Users\Alexia\AndroidStudioProjects\CallButton\Woman_Safety.iml" />
       <module fileurl="file://C:\Users\Alexia\AndroidStudioProjects\CallButton\Woman_Safety-sos_button.iml" filepath="C:\Users\Alexia\AndroidStudioProjects\CallButton\Woman_Safety-sos_button.iml" />
+      <module fileurl="file://D:\GitHub\Woman_Safety\Woman_Safety-sos_button.iml" filepath="D:\GitHub\Woman_Safety\Woman_Safety-sos_button.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
