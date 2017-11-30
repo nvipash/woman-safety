@@ -50,7 +50,7 @@ public class SettingsActivity extends FragmentActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                                 findViewById(R.id.bottom_navigation);
-        
+        bottomNavigationView.setSelectedItemId(R.id.action_settings);
                         bottomNavigationView.setOnNavigationItemSelectedListener(
                                         new BottomNavigationView.OnNavigationItemSelectedListener() {
                      @Override
@@ -76,10 +76,7 @@ public class SettingsActivity extends FragmentActivity {
         
                 
                                Menu menu = bottomNavigationView.getMenu();
-                menu.getItem(3).setChecked(true);
-                menu.getItem(0).setChecked(false);
-                menu.getItem(1).setChecked(false);
-                menu.getItem(2).setChecked(false);
+
 
         preferences = SettingsActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         Set<String> entries = preferences.getStringSet("phones", null);
