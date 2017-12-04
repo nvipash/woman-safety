@@ -18,6 +18,7 @@ public class QuestionnaireActivity extends FragmentActivity {
         setContentView(R.layout.questionnaite_activity);
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_help);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
