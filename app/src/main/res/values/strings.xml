@@ -11,4 +11,6 @@
     <string name="sos_button_text">У разі погрози вашому життю терміново натисніть на цю кнопку</string>
     <string name="test_button_text">Для визначення рівня небезпеки пропонуємо вам пройти тест</string>
     <string name="star_test">Розпочати</string>
+    <!--Strings for Questionnaire-->
+    <string name="question"></string>
 </resources>
