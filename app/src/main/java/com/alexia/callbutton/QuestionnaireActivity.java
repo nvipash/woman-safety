@@ -9,23 +9,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 public class QuestionnaireActivity extends FragmentActivity {
-
+    private ImageButton descriptionButton;
     private TextView mTextMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaite_activity);
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_help);
@@ -54,6 +55,12 @@ public class QuestionnaireActivity extends FragmentActivity {
                     }
                 });
 
+        descriptionButton = (ImageButton) findViewById(R.id.imageButton);
+        descriptionButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setContentView(R.layout.card_questionnaire);
+            }
+        });
 
     }
 
@@ -100,6 +107,4 @@ public class QuestionnaireActivity extends FragmentActivity {
         }
 
     }
-
-
 }

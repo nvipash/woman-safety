@@ -16,5 +16,5 @@ public class QuestionnaireFragment extends Fragment {
         return inflater.inflate(R.layout.questionnaire_fragment, container, false);
 
     }
-
 }
+
