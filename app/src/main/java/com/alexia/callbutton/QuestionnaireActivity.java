@@ -7,10 +7,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 
 public class QuestionnaireActivity extends FragmentActivity {
-    private ImageButton descriptionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +42,10 @@ public class QuestionnaireActivity extends FragmentActivity {
                     }
                 });
 
-        descriptionButton = (ImageButton) findViewById(R.id.imageButton);
-        descriptionButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setContentView(R.layout.card_questionnaire);
-            }
-        });
+    }
 
+    public void onClickChooseSurvey(View view) {
+        Intent intentChooseSurvey = new Intent(QuestionnaireActivity.this, QuestionnaireChooseActivity.class);
+        startActivity(intentChooseSurvey);
     }
 }

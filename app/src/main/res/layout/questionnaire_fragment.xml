@@ -46,8 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_survey_start"
             android:layout_centerHorizontal="true"
+            android:onClick="onClickChooseSurvey"
             android:text="@string/choose_survey"
-            tools:ignore="MissingConstraints,NotSibling"
+            tools:ignore="MissingConstraints,NotSibling,OnClick"
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="168dp" />
     </RelativeLayout>

@@ -1,15 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="com.alexia.callbutton.QuestionnaireFragment">
+    android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fragment_container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -30,9 +27,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="100dp"
+                android:gravity="center_horizontal"
                 android:lineSpacingMultiplier="1.2"
                 android:text="@string/description_1"
-                android:gravity="center_horizontal"
                 android:textColor="@color/colorPrimary"
                 android:textSize="22.5sp" />
         </android.support.v7.widget.CardView>
@@ -44,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_survey"
             android:layout_centerHorizontal="true"
+            android:onClick="onClickStart"
             android:text="@string/start_survey"
             tools:ignore="MissingConstraints,NotSibling"
             tools:layout_editor_absoluteX="148dp"
