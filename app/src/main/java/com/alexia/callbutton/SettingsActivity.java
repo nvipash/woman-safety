@@ -49,33 +49,35 @@ public class SettingsActivity extends FragmentActivity {
         settingsButton = (Button) findViewById(R.id.button_settings);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                                findViewById(R.id.bottom_navigation);
+                findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_settings);
-                        bottomNavigationView.setOnNavigationItemSelectedListener(
-                                        new BottomNavigationView.OnNavigationItemSelectedListener() {
-                     @Override
-                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                                //                        Fragment selectedFragment = null;
-                                                                switch (item.getItemId()) {
-                                                                case R.id.action_help:
-                                                                    {Intent intent1 = new Intent(SettingsActivity.this , QuestionnaireActivity.class);
-                                                                        SettingsActivity.this.startActivity(intent1);}
-                                                                    break;
-                                    
-                                                                        //case R.id.action_map:
-                                                                               // case R.id.action_settings:
-                                                                                        case R.id.action_sos:
-                                                                    {Intent intent2 = new Intent(SettingsActivity.this , MainActivity.class);
-                                                                        SettingsActivity.this.startActivity(intent2);}
-                                                                    break;
-                                    //
-                                                                    }
-                                                        return true;
-                                                    }
-                 });
-        
-                
-                               Menu menu = bottomNavigationView.getMenu();
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        //                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            case R.id.action_help: {
+                                Intent intent1 = new Intent(SettingsActivity.this, QuestionnaireActivity.class);
+                                SettingsActivity.this.startActivity(intent1);
+                            }
+                            break;
+
+                            //case R.id.action_map:
+                            // case R.id.action_settings:
+                            case R.id.action_sos: {
+                                Intent intent2 = new Intent(SettingsActivity.this, MainActivity.class);
+                                SettingsActivity.this.startActivity(intent2);
+                            }
+                            break;
+                            //
+                        }
+                        return true;
+                    }
+                });
+
+
+        Menu menu = bottomNavigationView.getMenu();
 
 
         preferences = SettingsActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
@@ -95,8 +97,8 @@ public class SettingsActivity extends FragmentActivity {
             lvMain.setItemChecked(index, true);
         }
 
-        settingsButton = (Button)findViewById(R.id.button_settings);
-        addContact = (Button)findViewById(R.id.addContact);
+        settingsButton = (Button) findViewById(R.id.button_settings);
+        addContact = (Button) findViewById(R.id.addContact);
 
         final SharedPreferences.Editor editor = preferences.edit();
         lvMain.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -144,11 +146,12 @@ public class SettingsActivity extends FragmentActivity {
                     Manifest.permission.READ_CONTACTS)) {
             } else {
                 ActivityCompat.requestPermissions(SettingsActivity.this,
-                        new String[]{Manifest.permission.READ_CONTACTS},1) ;
+                        new String[]{Manifest.permission.READ_CONTACTS}, 1);
             }
         }
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -158,10 +161,12 @@ public class SettingsActivity extends FragmentActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     assert contactData != null;
-                    String[] projection = new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.HAS_PHONE_NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME };
+                    String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.HAS_PHONE_NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
                     @SuppressLint("Recycle") Cursor c = getContentResolver().query(contactData, projection, null, null, null);
 
-                    if (!c.moveToFirst()) { return; }
+                    if (!c.moveToFirst()) {
+                        return;
+                    }
                     String number = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
                     String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                     if (number.equalsIgnoreCase("1") || name.equalsIgnoreCase("1")) {
@@ -174,8 +179,6 @@ public class SettingsActivity extends FragmentActivity {
                     }
                 }
         }
-
-
 
 
     }
