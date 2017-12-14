@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/questionnaireCard_1"
+            android:id="@+id/surveyCard_1"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_margin="20dp">
@@ -18,30 +18,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center_horizontal"
-                android:text="@string/first_questionnaire_text"
+                android:text="@string/first_survey"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/questionnaireCard_2"
+            android:id="@+id/surveyCard_2"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:layout_alignTop="@+id/questionnaireCard_1"
+            android:layout_alignTop="@+id/surveyCard_1"
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"
-            android:layout_toEndOf="@+id/questionnaireCard_1"
-            android:layout_toRightOf="@+id/questionnaireCard_1"
+            android:layout_toEndOf="@+id/surveyCard_1"
+            android:layout_toRightOf="@+id/surveyCard_1"
             tools:ignore="DuplicateIds">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center_horizontal"
-                android:text="@string/future_questionnaire" />
+                android:text="@string/future_survey" />
         </android.support.v7.widget.CardView>
 
     </RelativeLayout>

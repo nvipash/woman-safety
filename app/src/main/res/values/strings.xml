@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CallButton</string>
+    <string name="app_name">Woman Safety Lviv</string>
     <string name="text_map">Карта</string>
     <string name="text_help">Опитування</string>
     <string name="text_sos">Допомога</string>
@@ -10,9 +10,11 @@
     <string name="print_number">Введіть номер мобільного телефону</string>
     <string name="sos_button_text">У разі погрози вашому життю терміново натисніть на цю кнопку</string>
     <string name="test_button_text">Для визначення рівня небезпеки пропонуємо вам пройти один з тестів</string>
-    <string name="star_test">Обрати тест</string>
+    <string name="choose_survey">Обрати тест</string>
     <!--Strings for Questionnaire-->
     <string name="question"></string>
-    <string name="first_questionnaire_text">Тест для визначення рівня небезпеки</string>
-    <string name="future_questionnaire">Наступні тести у розробці</string>
+    <string name="first_survey">Опитування для визначення ризику насильства</string>
+    <string name="future_survey">Наступні опитування у розробці</string>
+    <string name="start_survey">Розпочати тест</string>
+    <string name="description_1">Шановний користувач, зараз Ви маєте змогу пройти опитування для визначення ризику стати жертвою насилля. Якщо Ви вже були жертвою насилля або вважаєте, що можете нею стати, то пройдіть опитування, щоб дізнатися у якій групі ризику Ви зараз перебуваєте.</string>
 </resources>

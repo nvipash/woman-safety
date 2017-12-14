@@ -17,7 +17,6 @@
             android:id="@+id/card_survey"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:layout_above="@+id/floatingActionButtonYes"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -25,44 +24,31 @@
             card_view:cardUseCompatPadding="true">
 
             <TextView
-                android:id="@+id/test_info"
+                android:id="@+id/survey_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="125dp"
+                android:layout_marginTop="100dp"
                 android:lineSpacingMultiplier="1.2"
-                android:text="@string/question"
+                android:text="@string/description_1"
+                android:gravity="center_horizontal"
                 android:textColor="@color/colorPrimary"
                 android:textSize="22.5sp" />
         </android.support.v7.widget.CardView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButtonYes"
+        <Button
+            android:id="@+id/start_test_button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/card_survey"
-            android:layout_alignStart="@+id/card_survey"
-            android:layout_alignTop="@+id/floatingActionButtonNo"
-            android:layout_marginLeft="54dp"
-            android:layout_marginStart="54dp"
-            android:clickable="true"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_check_white_48px" />
+            android:layout_below="@+id/card_survey"
+            android:layout_centerHorizontal="true"
+            android:text="@string/start_survey"
+            tools:ignore="MissingConstraints,NotSibling"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="168dp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButtonNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/card_survey"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/card_survey"
-            android:layout_marginBottom="69dp"
-            android:layout_marginEnd="49dp"
-            android:layout_marginRight="49dp"
-            android:clickable="true"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_close_white_48px" />
     </RelativeLayout>
 
 
