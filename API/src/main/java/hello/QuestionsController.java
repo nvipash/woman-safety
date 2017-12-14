@@ -38,7 +38,7 @@ public class QuestionsController {
     public QuestionsEntity getQuestions(@RequestParam(value="id") int id) {
         final Session session = getSession();
         try {
-            org.hibernate.query.Query query = session.createQuery("from " + "QuestionsEntity where idQuestion = :code");
+            org.hibernate.Query query = session.createQuery("from " + "QuestionsEntity where idQuestion = :code");
             query.setParameter("code", id);
 
             QuestionsEntity  question = (QuestionsEntity)query.list().get(0);

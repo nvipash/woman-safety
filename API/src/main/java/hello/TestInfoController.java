@@ -35,7 +35,7 @@ public class TestInfoController {
     public List<SurveysEntity> getTestInfo(){
         final Session session = getSession();
         try {
-            org.hibernate.query.Query query = session.createQuery("from " + "SurveysEntity");
+            org.hibernate.Query query = session.createQuery("from " + "SurveysEntity");
             List<SurveysEntity> list = query.list();
             return list;
 
