@@ -42,7 +42,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     Button button;
 
 
-    public static String url = "http://192.168.1.105:9090/api/tests/questions/?id=";
+    public static String url = "http://your IP here:9090/api/tests/questions/?id=";
     static int currentId = 1;
 
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
@@ -58,11 +58,8 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentId > 12) {
-                    //hardcode
-                } else {
                     new GetQuestion().execute();
-                }
+
             }
         });
 
@@ -73,13 +70,13 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
         ArrayList<Question> objects = new ArrayList<>();
         Question question;
+         String error="0";
 
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             String questionUrl = url + String.valueOf(currentId);
             String jsonStr = sh.makeServiceCall(questionUrl);
-
             if (jsonStr != null) {
                 try {
                     currentId += 1;
@@ -113,15 +110,18 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                                 .show() ;
                     }
                 });
+                this.error = "500";
 
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
+            if(this.error!="500")
             questionTextView.setText((String.valueOf(question.question)));
+            else
+                questionTextView.setText("Тут перехід на інструкцію");
         }
 
 
