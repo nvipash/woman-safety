@@ -1,8 +1,6 @@
 package hello;
 
 import hello.Entity.InstructionsEntity;
-import hello.Entity.QuestionsEntity;
-import hello.Entity.UserScoreEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

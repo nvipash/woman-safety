@@ -26,13 +26,13 @@
 
             <TextView
                 android:id="@+id/test_text"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="130dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_marginTop="130dp"
-                android:layout_marginBottom="130dp"
                 android:gravity="center_horizontal"
                 android:lineSpacingMultiplier="1.2"
                 android:text="@string/test_button_text"
@@ -50,7 +50,7 @@
             android:layout_centerHorizontal="true"
             android:onClick="onClickChooseSurvey"
             android:text="@string/choose_survey"
-            tools:ignore="MissingConstraints,NotSibling,OnClick"/>
+            tools:ignore="MissingConstraints,NotSibling,OnClick" />
     </RelativeLayout>
 
 

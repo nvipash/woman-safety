@@ -30,7 +30,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="125dp"
                 android:lineSpacingMultiplier="1.2"
-                android:text="@string/question_id"
+                android:text="Тут має номер питання"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="22.5sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_marginTop="160dp"
                 android:layout_marginBottom="140dp"
                 android:lineSpacingMultiplier="1.2"
-                android:text="LFLFLFFL"
+                android:text="Тут має бути питання"
                 android:textColor="@color/colorPrimary"
                 android:textSize="22.5sp" />
         </android.support.v7.widget.CardView>

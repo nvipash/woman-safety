@@ -58,7 +58,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    new GetQuestion().execute();
+                new GetQuestion().execute();
 
             }
         });
@@ -70,7 +70,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
         ArrayList<Question> objects = new ArrayList<>();
         Question question;
-         String error="0";
+        String error = "0";
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -107,7 +107,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 "Couldn't get json from server. Check LogCat for possible errors!",
                                 Toast.LENGTH_LONG)
-                                .show() ;
+                                .show();
                     }
                 });
                 this.error = "500";
@@ -118,8 +118,8 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            if(this.error!="500")
-            questionTextView.setText((String.valueOf(question.question)));
+            if (this.error != "500")
+                questionTextView.setText((String.valueOf(question.question)));
             else
                 questionTextView.setText("Тут перехід на інструкцію");
         }
