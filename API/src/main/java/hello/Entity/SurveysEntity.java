@@ -1,5 +1,7 @@
 package hello.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -59,6 +61,7 @@ public class SurveysEntity {
     }
 
     @OneToMany(mappedBy = "surveyBySurvey")
+    @JsonIgnore
     public Collection<UserScoreEntity> getUserBySurvey() {
         return userBySurvey;
     }
