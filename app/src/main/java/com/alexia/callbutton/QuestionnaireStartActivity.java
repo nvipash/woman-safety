@@ -32,7 +32,8 @@ class QuestionStart {
 
 public class QuestionnaireStartActivity extends AppCompatActivity {
     TextView testDescriptionTextView;
-    public static String url = "http://192.168.0.102:9090/api/tests/info";
+
+    public static String url = "http://Your IP here:9090/api/tests/info";
 
     private String TAG = QuestionnaireStartActivity.class.getSimpleName();
 
@@ -97,6 +98,7 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
         protected void onProgressUpdate(Void... values) {
             testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
