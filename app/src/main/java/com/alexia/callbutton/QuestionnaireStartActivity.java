@@ -17,9 +17,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-/**
- * Created by DELL on 16/12/2017.
- */
 class QuestionStart {
     String testDescription;
 
@@ -29,37 +26,41 @@ class QuestionStart {
 
     @Override
     public String toString() {
-        return "Description:" + testDescription + "\n";
+        return "description: " + testDescription + "\n";
     }
 }
 
-/**
- * Created by DELL on 14/12/2017.
- */
 public class QuestionnaireStartActivity extends AppCompatActivity {
     TextView testDescriptionTextView;
-
 
     private String TAG = QuestionnaireStartActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.questionnaire_survey_start_layout);
-        testDescriptionTextView = (TextView) findViewById(R.id.survey_info);
     }
 
+    public void onClickStart(View view) {
+        startActivity(new Intent(QuestionnaireStartActivity.this, QuestionnaireSurveyActivity.class));
+    }
 
     @SuppressLint("StaticFieldLeak")
     private class GetTestDescription extends AsyncTask<Void, Void, Void> {
         QuestionStart testDescription;
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            testDescriptionTextView = (TextView) findViewById(R.id.survey_info);
+        }
+
+        @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             String testDescriptionUrl = url;
             String jsonStr = sh.makeServiceCall(testDescriptionUrl);
+            publishProgress(testDescription);
             if (jsonStr != null) {
                 try {
                     JSONObject c = new JSONObject(jsonStr);
@@ -93,12 +94,12 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-                testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
+        protected void onProgressUpdate(Void... values) {
+            testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
         }
-
-        public void onClickStart(View view) {
-            startActivity(new Intent(QuestionnaireStartActivity.this, QuestionnaireSurveyActivity.class));
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
         }
     }
 }
