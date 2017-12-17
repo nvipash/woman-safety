@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +33,7 @@ class QuestionStart {
 public class QuestionnaireStartActivity extends AppCompatActivity {
     TextView testDescriptionTextView;
 
-    public static String url = "http://Your IP here:9090/api/tests/info";
+    public static String url = "http://192.168.0.102:9090/api/tests/info";
 
     private String TAG = QuestionnaireStartActivity.class.getSimpleName();
 
@@ -41,6 +41,7 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire_survey_start_layout);
+        new GetTestDescription().execute();
     }
 
     public void onClickStart(View view) {
@@ -49,6 +50,8 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private class GetTestDescription extends AsyncTask<Void, Void, Void> {
+
+//        ArrayList<QuestionStart> objects = new ArrayList<>();
         QuestionStart testDescription;
 
         @Override
@@ -64,8 +67,11 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(testDescriptionUrl);
             if (jsonStr != null) {
                 try {
-                    JSONObject c = new JSONObject(jsonStr);
-                    testDescription = new QuestionStart(c);
+                    JSONObject jsonObject = new JSONObject(jsonStr);
+                    testDescription = new QuestionStart(jsonObject);
+//                    for (int i = 0; i < objects.size(); i++) {
+//                        JSONObject object = jsonObject.getJSONObject(i);
+//                    }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
