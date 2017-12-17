@@ -3,6 +3,7 @@ package com.alexia.callbutton;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -39,10 +40,13 @@ class Question {
 public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
     TextView questionTextView;
-    Button button;
+    TextView questionIDTextView;
+
+    FloatingActionButton yesButton;
+    FloatingActionButton noButton;
 
 
-    public static String url = "http://your IP here:9090/api/tests/questions/?id=";
+    public static String url = "http://192.168.1.107:3000/api/tests/questions/?id=";
     static int currentId = 1;
 
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
@@ -53,22 +57,31 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire_survey_layout);
 
+        yesButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonYes);
+        noButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonNo);
+
         questionTextView = (TextView) findViewById(R.id.question);
-        button = (Button) findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener() {
+        questionIDTextView = (TextView) findViewById(R.id.question_id) ;
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new GetQuestion().execute();
 
             }
         });
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new GetQuestion().execute();
 
+            }
+        });
     }
 
 
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
-        ArrayList<Question> objects = new ArrayList<>();
         Question question;
         String error = "0";
 
@@ -82,10 +95,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                     currentId += 1;
                     JSONObject c = new JSONObject(jsonStr);
                     question = new Question(c);
-//                    for(int i = 0; i < c.length(); i++) {
-//                        Question obj = new Question(c.getJSONObject();
-//                        objects.add(obj);
-//                    }
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -118,12 +128,13 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            if (this.error != "500")
-                questionTextView.setText((String.valueOf(question.question)));
-            else
+            if (this.error != "500") {
+                questionIDTextView.setText(String.valueOf(question.idQuestion));
+                questionTextView.setText(String.valueOf(question.question));
+            } else {
                 questionTextView.setText("Тут перехід на інструкцію");
+            }
         }
-
 
     }
 }
