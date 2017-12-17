@@ -1,6 +1,10 @@
 package hello;
 
+<<<<<<< HEAD
 import hello.Entity.SurveysEntity;
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> origin/questionnaire
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
