@@ -46,7 +46,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     FloatingActionButton noButton;
 
 
-    public static String url = "http://192.168.1.107:3000/api/tests/questions/?id=";
+    public static String url = "http://Your IP here:9090/api/tests/questions/?id=";
     static int currentId = 1;
 
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();

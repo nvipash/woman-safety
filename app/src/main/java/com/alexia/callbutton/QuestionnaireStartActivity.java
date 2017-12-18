@@ -14,8 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 
 class QuestionStart {
     String testDescription;
@@ -26,14 +24,14 @@ class QuestionStart {
 
     @Override
     public String toString() {
-        return "description: " + testDescription + "\n";
+        return "description: " + testDescription;
     }
 }
 
 public class QuestionnaireStartActivity extends AppCompatActivity {
     TextView testDescriptionTextView;
 
-    public static String url = "http://192.168.0.102:9090/api/tests/info";
+    public static String url = "http://Your IP here:9090/api/tests/info";
 
     private String TAG = QuestionnaireStartActivity.class.getSimpleName();
 
@@ -50,8 +48,6 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private class GetTestDescription extends AsyncTask<Void, Void, Void> {
-
-//        ArrayList<QuestionStart> objects = new ArrayList<>();
         QuestionStart testDescription;
 
         @Override
@@ -67,11 +63,10 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(testDescriptionUrl);
             if (jsonStr != null) {
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonStr);
+                    JSONArray jsonArray = new JSONArray(jsonStr);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
                     testDescription = new QuestionStart(jsonObject);
-//                    for (int i = 0; i < objects.size(); i++) {
-//                        JSONObject object = jsonObject.getJSONObject(i);
-//                    }
+                    String.valueOf(jsonObject.getString("description"));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -101,13 +96,8 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {
-            testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
-        }
-
-        @Override
         protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
+            testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
         }
     }
 }
