@@ -21,7 +21,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            card_view:cardElevation="5dp"
+            card_view:cardElevation="15dp"
             card_view:cardUseCompatPadding="true">
 
             <TextView
@@ -29,12 +29,11 @@
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:gravity="center"
                 android:lineSpacingMultiplier="1.2"
-                android:text="Шановний користувач, зараз Ви маєте змогу пройти опитування для визначення ризику стати жертвою насилля.\nЯкщо Ви вже були жертвою насилля або вважаєте, що можете нею стати, то пройдіть опитування, щоб дізнатися у якій групі ризику Ви зараз перебуваєте."
                 android:textColor="@color/colorPrimary"
-                android:textSize="20.5sp"
+                android:textSize="16.5sp"
                 android:textStyle="bold" />
         </android.support.v7.widget.CardView>
 

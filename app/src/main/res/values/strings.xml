@@ -20,4 +20,5 @@
     <string name="questionnaire_screen_title">Оберіть опитування для проходження</string>
     <string name="yes_button">ТАК</string>
     <string name="no_button">НІ</string>
+    <string name="question_numbers">/12</string>
 </resources>
