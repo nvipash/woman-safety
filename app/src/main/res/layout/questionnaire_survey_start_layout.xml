@@ -13,27 +13,29 @@
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_survey"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
             <TextView
                 android:id="@+id/survey_info"
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:gravity="center"
                 android:lineSpacingMultiplier="1.2"
-                android:text=""
+                android:text="Шановний користувач, зараз Ви маєте змогу пройти опитування для визначення ризику стати жертвою насилля.\nЯкщо Ви вже були жертвою насилля або вважаєте, що можете нею стати, то пройдіть опитування, щоб дізнатися у якій групі ризику Ви зараз перебуваєте."
                 android:textColor="@color/colorPrimary"
-                android:textSize="22.5sp" />
+                android:textSize="20.5sp"
+                android:textStyle="bold" />
         </android.support.v7.widget.CardView>
 
         <Button
@@ -41,8 +43,9 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/card_survey"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="95dp"
             android:onClick="onClickStart"
             android:text="@string/start_survey"
             tools:ignore="MissingConstraints,NotSibling" />
