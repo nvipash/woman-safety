@@ -109,17 +109,13 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                 questionTextView.setText(String.valueOf(question.question));
                 question.points = pointSum;
             } else {
-                Intent intent = new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class).putExtra("ARG_POINT_SUM", pointSum);
-                startActivity(intent);
+                startActivity(new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class));
+//                --- For passing data of "pointSum"
+//                Intent intent = new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class).putExtra("ARG_POINT_SUM", pointSum);
+//                startActivity(intent);
 //                Bundle extras = getIntent().getExtras();
+
 //                Log.d("SCORE OF THE TEST", String.valueOf(extras.getInt("ARG_POINT_SUM")));
-
-//                startActivity(new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class));
-
-//                if (pointSum <= instructions.rangeEnd)
-//                    questionTextView.setText(String.valueOf(instructions.instruction));
-//                else
-//                    questionTextView.setText("RUN AWAY");
             }
         }
 

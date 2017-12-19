@@ -19,8 +19,10 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
     TextView surveyInstructionTitle;
     TextView surveyInstruction;
     public static String url = "http://192.168.0.102:9090/api/tests/instruction/?count=";
-    Bundle extras = getIntent().getExtras();
-    int score = extras.getInt("ARG_POINT_SUM");
+    static int score = 1;
+//    --- For passing data
+//    Bundle extras = getIntent().getExtras();
+//    int score = extras.getInt("ARG_POINT_SUM");
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
 
 

@@ -36,8 +36,8 @@
                 android:layout_marginTop="103dp"
                 android:layout_toLeftOf="@id/question_count"
                 android:layout_toStartOf="@id/question_count"
-                android:text="12"
                 android:lineSpacingMultiplier="1.2"
+                android:text="12"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="50.5sp"
                 android:textStyle="bold" />
