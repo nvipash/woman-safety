@@ -26,5 +26,6 @@
         <activity android:name=".QuestionnaireChooseActivity"></activity>
         <activity android:name=".QuestionnaireStartActivity"></activity>
         <activity android:name=".QuestionnaireSurveyActivity"></activity>
+        <activity android:name=".QuestionnaireInstructionActivity"></activity>
     </application>
 </manifest>

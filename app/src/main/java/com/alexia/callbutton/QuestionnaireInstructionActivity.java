@@ -10,63 +10,49 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-class QuestionStart {
-    String testDescription;
+public class QuestionnaireInstructionActivity extends AppCompatActivity {
 
-    QuestionStart(JSONObject json) throws JSONException {
-        testDescription = json.getString("description");
-    }
+    TextView surveyInstructionTitle;
+    TextView surveyInstruction;
+    public static String url = "http://192.168.0.102:9090/api/tests/instruction/?count=";
+    static int currentId = 1; //pointSum
+    private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
 
-    @Override
-    public String toString() {
-        return "description: " + testDescription;
-    }
-}
-
-public class QuestionnaireStartActivity extends AppCompatActivity {
-    TextView testDescriptionTextView;
-
-    public static String url = "http://192.168.0.102:9090/api/tests/info";
-
-    private String TAG = QuestionnaireStartActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.questionnaire_survey_start_layout);
-        new GetTestDescription().execute();
+        setContentView(R.layout.questionnaire_instruction_layout);
+        surveyInstruction = (TextView) findViewById(R.id.survey_instruction);
+        surveyInstructionTitle = (TextView) findViewById(R.id.survey_instruction_title);
+        new GetInstruction().execute();
     }
 
-    public void onClickStart(View view) {
-        startActivity(new Intent(QuestionnaireStartActivity.this, QuestionnaireSurveyActivity.class));
+    public void onClickFinishTest(View view) {
+        Toast questionnaireFinishedInfo = Toast.makeText(getApplicationContext(),
+                "Опитування успішно завершено", Toast.LENGTH_SHORT);
+        questionnaireFinishedInfo.show();
+        startActivity(new Intent(QuestionnaireInstructionActivity.this, QuestionnaireChooseActivity.class));
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class GetTestDescription extends AsyncTask<Void, Void, Void> {
-        QuestionStart testDescription;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            testDescriptionTextView = (TextView) findViewById(R.id.survey_info);
-        }
+    private class GetInstruction extends AsyncTask<Void, Void, Void> {
+        Instructions instruction;
 
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            String testDescriptionUrl = url;
-            String jsonStr = sh.makeServiceCall(testDescriptionUrl);
+            String instructionUrl = url + String.valueOf(currentId);
+            String jsonStr = sh.makeServiceCall(instructionUrl);
             if (jsonStr != null) {
                 try {
-                    JSONArray jsonArray = new JSONArray(jsonStr);
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    testDescription = new QuestionStart(jsonObject);
-                    String.valueOf(jsonObject.getString("description"));
+                    JSONObject c = new JSONObject(jsonStr);
+                    instruction = new Instructions(c);
+                    Log.d("JSONValue", String.valueOf(instruction));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -97,7 +83,8 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
+            surveyInstructionTitle.setText(String.valueOf(instruction.title));
+            surveyInstruction.setText(String.valueOf(instruction.instruction));
         }
     }
 }

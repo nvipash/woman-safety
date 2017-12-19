@@ -3,6 +3,7 @@ package com.alexia.callbutton;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
+
 public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
     TextView questionTextView;
@@ -31,7 +33,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     FloatingActionButton yesButton;
     FloatingActionButton noButton;
 
-    public static String url = "http://Your IP here:9090/api/tests/questions/?id=";
+    public static String url = "http://192.168.0.102:9090/api/tests/questions/?id=";
 
     static int currentId = 1;
     Question question;
@@ -56,7 +58,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new GetQuestion().execute();
-                pointSum ++;
+                pointSum++;
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
@@ -123,10 +125,11 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                 questionIDTextView.setText(String.valueOf(question.idQuestion));
                 questionTextView.setText(String.valueOf(question.question));
             } else {
-                if (pointSum <= instructions.rangeEnd)
-                    questionTextView.setText("Все ок (треба буде вставити текст з БД)");
-                else
-                    questionTextView.setText("RUN AWAY");
+                startActivity(new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class));
+//                if (currentId > 12)
+//                    questionTextView.setText(String.valueOf(instructions.instruction));
+//                else
+//                    questionTextView.setText("RUN AWAY");
             }
         }
 
