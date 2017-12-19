@@ -13,38 +13,60 @@
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_survey"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            card_view:cardElevation="5dp"
+            android:layout_marginBottom="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            card_view:cardElevation="15dp"
             card_view:cardUseCompatPadding="true">
-
-            <TextView
-                android:id="@+id/question_id"
-                style="@android:style/TextAppearance.DeviceDefault.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/question"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="125dp"
-                android:lineSpacingMultiplier="1.2"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="22.5sp" />
 
             <TextView
                 android:id="@+id/question"
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="160dp"
-                android:layout_marginBottom="140dp"
+                android:layout_below="@id/question_id"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="230dp"
+                android:gravity="center|center_vertical"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/colorPrimary"
-                android:textSize="22.5sp" />
+                android:textSize="26.5sp" />
+
+            <TextView
+                android:id="@+id/question_id"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/card_survey"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="154dp"
+                android:layout_toLeftOf="@id/question_count"
+                android:layout_toStartOf="@id/question_count"
+                android:lineSpacingMultiplier="1.2"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="50.5sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/question_count"
+                style="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/question"
+                android:layout_marginLeft="92dp"
+                android:layout_marginStart="85dp"
+                android:layout_marginTop="184dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/question_numbers"
+                android:textSize="20.5sp"
+                android:textStyle="bold" />
         </android.support.v7.widget.CardView>
 
         <android.support.design.widget.FloatingActionButton
@@ -53,26 +75,48 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/card_survey"
             android:layout_alignStart="@+id/card_survey"
-            android:layout_below="@id/card_survey"
-            android:layout_marginLeft="54dp"
-            android:layout_marginStart="54dp"
+            android:layout_alignTop="@+id/floatingActionButtonNo"
+            android:layout_marginLeft="65dp"
+            android:layout_marginStart="65dp"
             android:clickable="true"
+            android:focusable="true"
             app:fabSize="normal"
             app:srcCompat="@drawable/ic_check_white_48px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/floatingActionButtonYes"
+            android:layout_alignStart="@+id/floatingActionButtonYes"
+            android:layout_below="@+id/floatingActionButtonYes"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:text="@string/yes_button" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButtonNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/card_survey"
+            android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/card_survey"
-            android:layout_below="@id/card_survey"
-            android:layout_marginBottom="69dp"
-            android:layout_marginEnd="49dp"
-            android:layout_marginRight="49dp"
+            android:layout_marginBottom="97dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginRight="65dp"
             android:clickable="true"
+            android:focusable="true"
             app:fabSize="normal"
             app:srcCompat="@drawable/ic_close_white_48px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/floatingActionButtonNo"
+            android:layout_alignRight="@+id/floatingActionButtonNo"
+            android:layout_below="@+id/floatingActionButtonYes"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
+            android:text="@string/no_button" />
     </RelativeLayout>
 
 

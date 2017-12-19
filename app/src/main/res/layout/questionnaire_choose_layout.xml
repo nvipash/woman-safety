@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,47 +9,71 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/survey_screen_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center|center_vertical"
+            android:text="@string/questionnaire_screen_title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25.5sp" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/surveyCard_1"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_margin="20dp"
-            android:onClick="onClickFirstSurvey">
+            android:layout_width="155dp"
+            android:layout_height="155dp"
+            android:layout_alignLeft="@+id/survey_screen_title"
+            android:layout_alignStart="@+id/survey_screen_title"
+            android:layout_alignTop="@+id/surveyCard_2"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:onClick="onClickFirstSurvey"
+            card_view:cardElevation="15dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="55dp"
-                android:gravity="center_horizontal"
-                android:onClick="onClickFirstSurvey"
-                android:text="@string/first_survey"
+                android:id="@+id/survey_text_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
                 android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
+                android:textSize="15.5sp" />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:id="@+id/surveyCard_2"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_alignTop="@+id/surveyCard_1"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_toEndOf="@+id/surveyCard_1"
-            android:layout_toRightOf="@+id/surveyCard_1"
+            android:layout_width="155dp"
+            android:layout_height="155dp"
+            android:layout_alignEnd="@+id/survey_screen_title"
+            android:layout_alignRight="@+id/survey_screen_title"
+            android:layout_below="@+id/survey_screen_title"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            card_view:cardElevation="15dp"
             tools:ignore="DuplicateIds">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="55dp"
-                android:gravity="center_horizontal"
-                android:text="@string/future_survey" />
+                android:id="@+id/survey_text_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="@string/future_survey"
+                android:textSize="15.5sp" />
+
+
         </android.support.v7.widget.CardView>
 
     </RelativeLayout>

@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 
 class QuestionStart {
@@ -26,7 +24,7 @@ class QuestionStart {
 
     @Override
     public String toString() {
-        return "description: " + testDescription + "\n";
+        return "description: " + testDescription;
     }
 }
 
@@ -41,6 +39,7 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire_survey_start_layout);
+        new GetTestDescription().execute();
     }
 
     public void onClickStart(View view) {
@@ -64,8 +63,10 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(testDescriptionUrl);
             if (jsonStr != null) {
                 try {
-                    JSONObject c = new JSONObject(jsonStr);
-                    testDescription = new QuestionStart(c);
+                    JSONArray jsonArray = new JSONArray(jsonStr);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    testDescription = new QuestionStart(jsonObject);
+                    String.valueOf(jsonObject.getString("description"));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -95,13 +96,8 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {
-            testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
-        }
-
-        @Override
         protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
+            testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
         }
     }
 }
