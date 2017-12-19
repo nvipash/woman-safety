@@ -1,10 +1,15 @@
 package com.alexia.callbutton;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,27 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
-
-class Question {
-    int idQuestion;
-    String question;
-    int points;
-
-    Question(JSONObject json) throws JSONException {
-        idQuestion = json.getInt("idQuestion");
-        question = json.getString("question");
-        points = json.getInt("points");
-
-    }
-
-    @Override
-    public String toString() {
-        return "idQuestion: " + idQuestion + "\n" +
-                "question: " + question + "\n" +
-                "points: " + points;
-    }
-}
 
 public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
@@ -45,9 +31,10 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     FloatingActionButton yesButton;
     FloatingActionButton noButton;
 
-
-    public static String url = "http://192.168.1.107:3000/api/tests/questions/?id=";
+    public static String url = "http://192.168.1.107:9090/api/tests/questions/?id=";
     static int currentId = 1;
+    Question question;
+    int pointSum = 0;
 
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
 
@@ -61,13 +48,14 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
         noButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonNo);
 
         questionTextView = (TextView) findViewById(R.id.question);
-        questionIDTextView = (TextView) findViewById(R.id.question_id) ;
+        questionIDTextView = (TextView) findViewById(R.id.question_id);
+
 
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new GetQuestion().execute();
-
+                pointSum ++;
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +71,9 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
         Question question;
+        Instructions instructions;
         String error = "0";
+
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -132,11 +122,16 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                 questionIDTextView.setText(String.valueOf(question.idQuestion));
                 questionTextView.setText(String.valueOf(question.question));
             } else {
-                questionTextView.setText("Тут перехід на інструкцію");
+                if (pointSum <= instructions.rangeEnd)
+                    questionTextView.setText("Все ок (треба буде вставити текст з БД)");
+                else
+                    questionTextView.setText("RUN AWAY");
             }
         }
 
     }
+
+
 }
 
 
