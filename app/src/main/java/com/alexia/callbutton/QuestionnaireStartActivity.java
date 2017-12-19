@@ -15,19 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-class QuestionStart {
-    String testDescription;
-
-    QuestionStart(JSONObject json) throws JSONException {
-        testDescription = json.getString("description");
-    }
-
-    @Override
-    public String toString() {
-        return "description: " + testDescription;
-    }
-}
-
 public class QuestionnaireStartActivity extends AppCompatActivity {
     TextView testDescriptionTextView;
 
@@ -48,7 +35,7 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private class GetTestDescription extends AsyncTask<Void, Void, Void> {
-        QuestionStart testDescription;
+        JSONtestDescription testDescription;
 
         @Override
         protected void onPreExecute() {
@@ -65,7 +52,7 @@ public class QuestionnaireStartActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = new JSONArray(jsonStr);
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    testDescription = new QuestionStart(jsonObject);
+                    testDescription = new JSONtestDescription(jsonObject);
                     String.valueOf(jsonObject.getString("description"));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
