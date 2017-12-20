@@ -58,7 +58,7 @@ public class SurveysEntity {
         return Objects.hash(idSurvey, survey, description);
     }
 
-    @OneToMany(mappedBy = "surveyBySurvey")
+    @OneToMany(mappedBy = "surveyBySurvey", fetch = FetchType.EAGER)
     public Collection<UserScoreEntity> getUserBySurvey() {
         return userBySurvey;
     }
