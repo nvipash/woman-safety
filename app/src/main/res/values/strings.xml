@@ -22,4 +22,5 @@
     <string name="no_button">НІ</string>
     <string name="question_numbers">/12</string>
     <string name="finish_test_button">Завершити тест</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -8,12 +8,14 @@
     android:weightSum="1"
     tools:context="com.alexia.callbutton.QuestionnaireFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fragment_container"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        tools:context=".MapsActivity"/>
 
-    </RelativeLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
