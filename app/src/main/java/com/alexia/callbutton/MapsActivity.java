@@ -1,7 +1,11 @@
 package com.alexia.callbutton;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,11 +21,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        setContentView(R.layout.maps_layout);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_map);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        //                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            case R.id.action_help: {
+                                Intent intent1 = new Intent(MapsActivity.this, QuestionnaireActivity.class);
+                                MapsActivity.this.startActivity(intent1);
+                            }
+                            break;
+
+                            case R.id.action_settings:{
+                                Intent intent2 = new Intent(MapsActivity.this, SettingsActivity.class);
+                                MapsActivity.this.startActivity(intent2);
+                            }
+                            case R.id.action_sos: {
+                                Intent intent2 = new Intent(MapsActivity.this, MainActivity.class);
+                                MapsActivity.this.startActivity(intent2);
+                            }
+                            break;
+                            //
+                        }
+                        return true;
+                    }
+                });
     }
 
     /**
@@ -33,12 +62,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng( 49.84407, 24.026155471801758);
+        LatLng sydney = new LatLng(49.84407, 24.026155471801758);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Lviv(I hope so)"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
