@@ -8,7 +8,7 @@ FLUSH PRIVILEGES;
 create table if not exists WomanSafety.surveys (
 id_survey int not null auto_increment,
 survey nvarchar(200) not null,
-description  text not null,
+description nvarchar(2000) not null,
 primary key (id_survey)
 );
 
@@ -53,7 +53,7 @@ foreign key (id_survey) references WomanSafety.surveys(id_survey));
 create table if not exists WomanSafety.instructions(
 id_instruction int auto_increment not null,
 title nvarchar(100) not null,
-instruction text not null,
+instruction nvarchar(1000) not null,
 range_start int not null,
 range_end int not null,
 id_survey int not null,
@@ -63,7 +63,7 @@ foreign key (id_survey) references WomanSafety.surveys(id_survey));
 
 /*create table WomanSafety.answers(
 id_answer int auto_increment not null,
-answer varchar(100) not null,
+answer nvarchar(100) not null,
 primary key (idAnswer));*/
 
 /*create table WomanSafety.points(
