@@ -1,5 +1,7 @@
 package hello.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -58,7 +60,8 @@ public class SurveysEntity {
         return Objects.hash(idSurvey, survey, description);
     }
 
-    @OneToMany(mappedBy = "surveyBySurvey", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "surveyBySurvey")
+    @JsonIgnore
     public Collection<UserScoreEntity> getUserBySurvey() {
         return userBySurvey;
     }
