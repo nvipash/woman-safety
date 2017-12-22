@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class QuestionnaireStartActivity extends AppCompatActivity {
     TextView testDescriptionTextView;
 
-    public static String url = "http://192.168.0.102:9090/api/tests/info";
+    public static String url = "http://192.168.214.51:9999/api/tests/info";
 
     private String TAG = QuestionnaireStartActivity.class.getSimpleName();
 

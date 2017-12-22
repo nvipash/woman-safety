@@ -3,7 +3,9 @@ package com.alexia.callbutton;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +20,11 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
 
     TextView surveyInstructionTitle;
     TextView surveyInstruction;
-    public static String url = "http://192.168.0.102:9090/api/tests/instruction/?count=";
-    static int score = 1;
-//    --- For passing data
-//    Bundle extras = getIntent().getExtras();
-//    int score = extras.getInt("ARG_POINT_SUM");
+    public static String url = "http://192.168.214.51:9999/api/tests/instruction/?count=";
+    static int currentId = 1; //pointSum
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
+
+
 
 
     @Override
@@ -37,24 +38,25 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
 
     public void onClickFinishTest(View view) {
         Toast questionnaireFinishedInfo = Toast.makeText(getApplicationContext(),
-                "Опитування успішно завершено. Бережіть себе!", Toast.LENGTH_SHORT);
+                "Опитування успішно завершено", Toast.LENGTH_SHORT);
         questionnaireFinishedInfo.show();
         startActivity(new Intent(QuestionnaireInstructionActivity.this, QuestionnaireChooseActivity.class));
     }
 
+
     @SuppressLint("StaticFieldLeak")
     private class GetInstruction extends AsyncTask<Void, Void, Void> {
-        JSONinstructions instruction;
+        Instructions instruction;
 
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            String instructionUrl = url + String.valueOf(score);
+            String instructionUrl = url + String.valueOf(currentId);
             String jsonStr = sh.makeServiceCall(instructionUrl);
             if (jsonStr != null) {
                 try {
                     JSONObject c = new JSONObject(jsonStr);
-                    instruction = new JSONinstructions(c);
+                    instruction = new Instructions(c);
                     Log.d("JSONValue", String.valueOf(instruction));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());

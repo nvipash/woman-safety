@@ -1,38 +1,54 @@
 package com.alexia.callbutton;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 
 
 public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
     TextView questionTextView;
     TextView questionIDTextView;
+
     FloatingActionButton yesButton;
     FloatingActionButton noButton;
 
-    public static String url = "http://192.168.0.102:9090/api/tests/questions/?id=";
+    public static String url = "http://192.168.214.51:9999/api/tests/questions/?id=";
 
     static int currentId = 1;
+    Question question;
     int pointSum = 0;
 
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire_survey_layout);
+
         yesButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonYes);
         noButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonNo);
 
@@ -41,6 +57,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
 
         yesButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
             @Override
             public void onClick(View view) {
                 new GetQuestion().execute();
@@ -48,6 +65,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
             @Override
             public void onClick(View view) {
                 new GetQuestion().execute();
@@ -57,10 +75,13 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     }
 
 
+
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
-        JSONquestion question;
+        Question question;
+        Instructions instructions;
         String error = "0";
+
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -71,7 +92,8 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                 try {
                     currentId += 1;
                     JSONObject c = new JSONObject(jsonStr);
-                    question = new JSONquestion(c);
+                    question = new Question(c);
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -107,21 +129,18 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
             if (this.error != "500") {
                 questionIDTextView.setText(String.valueOf(question.idQuestion));
                 questionTextView.setText(String.valueOf(question.question));
-                question.points = pointSum;
             } else {
-                startActivity(new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class));
-//                --- For passing data of "pointSum"
-//                Intent intent = new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class).putExtra("ARG_POINT_SUM", pointSum);
-//                startActivity(intent);
-//                Bundle extras = getIntent().getExtras();
-
-//                Log.d("SCORE OF THE TEST", String.valueOf(extras.getInt("ARG_POINT_SUM")));
+                startActivity(new Intent(QuestionnaireSurveyActivity.this, UserScore.class));
+            }
+//                if (currentId > 12)
+//                    questionTextView.setText(String.valueOf(instructions.instruction));
+//                else
+//                    questionTextView.setText("RUN AWAY");
             }
         }
 
     }
 
 
-}
 
 

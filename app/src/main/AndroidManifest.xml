@@ -27,5 +27,6 @@
         <activity android:name=".QuestionnaireStartActivity"></activity>
         <activity android:name=".QuestionnaireSurveyActivity"></activity>
         <activity android:name=".QuestionnaireInstructionActivity"></activity>
+        <activity android:name=".UserScore"></activity>
     </application>
 </manifest>
