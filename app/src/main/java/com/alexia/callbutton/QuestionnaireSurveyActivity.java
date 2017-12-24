@@ -125,7 +125,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                 questionIDTextView.setText(String.valueOf(question.idQuestion));
                 questionTextView.setText(String.valueOf(question.question));
             } else {
-                startActivity(new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class));
+                startActivity(new Intent(QuestionnaireSurveyActivity.this, UserScore.class));
 //                --- For passing data of "pointSum"
 //                Intent intent = new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class).putExtra("ARG_POINT_SUM", pointSum);
 //                startActivity(intent);
