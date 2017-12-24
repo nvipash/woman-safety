@@ -17,6 +17,19 @@ import org.json.JSONObject;
 /**
  * Created by DELL on 14/12/2017.
  */
+class QuestionChoose {
+    String chooseTestDescription;
+
+    QuestionChoose(JSONObject json) throws JSONException {
+        chooseTestDescription = json.getString("survey");
+    }
+
+    @Override
+    public String toString() {
+        return "survey: " + chooseTestDescription;
+    }
+}
+
 public class QuestionnaireChooseActivity extends AppCompatActivity {
     TextView chooseTestDescriptionTextView;
 
@@ -37,7 +50,7 @@ public class QuestionnaireChooseActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private class GetChooseTestDescription extends AsyncTask<Void, Void, Void> {
-        JSONsurveyTitle chooseTestDescription;
+        QuestionChoose chooseTestDescription;
 
         @Override
         protected void onPreExecute() {
@@ -53,7 +66,7 @@ public class QuestionnaireChooseActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = new JSONArray(jsonStr);
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    chooseTestDescription = new JSONsurveyTitle(jsonObject);
+                    chooseTestDescription = new QuestionChoose(jsonObject);
                     String.valueOf(jsonObject.getString("survey"));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
