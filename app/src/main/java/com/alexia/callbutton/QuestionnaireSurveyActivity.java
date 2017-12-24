@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +33,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     FloatingActionButton yesButton;
     FloatingActionButton noButton;
 
-    public static String url = "http://192.168.214.51:9999/api/tests/questions/?id=";
+    public static String url = "http://192.168.0.102:9090/api/tests/questions/?id=";
 
     static int currentId = 1;
     Question question;
@@ -57,7 +55,6 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
 
 
         yesButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
             @Override
             public void onClick(View view) {
                 new GetQuestion().execute();
@@ -65,7 +62,6 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
             @Override
             public void onClick(View view) {
                 new GetQuestion().execute();
@@ -73,7 +69,6 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     @SuppressLint("StaticFieldLeak")
@@ -130,8 +125,13 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                 questionIDTextView.setText(String.valueOf(question.idQuestion));
                 questionTextView.setText(String.valueOf(question.question));
             } else {
-                startActivity(new Intent(QuestionnaireSurveyActivity.this, UserScore.class));
-            }
+                startActivity(new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class));
+//                --- For passing data of "pointSum"
+//                Intent intent = new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class).putExtra("ARG_POINT_SUM", pointSum);
+//                startActivity(intent);
+//                Bundle extras = getIntent().getExtras();
+
+//                Log.d("SCORE OF THE TEST", String.valueOf(extras.getInt("ARG_POINT_SUM")));
 //                if (currentId > 12)
 //                    questionTextView.setText(String.valueOf(instructions.instruction));
 //                else
@@ -142,5 +142,6 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     }
 
 
+}
 
 

@@ -4,7 +4,7 @@ package com.alexia.callbutton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JSONinstructions {
+public class Instructions {
 
     int idInstruction;
     String title;
@@ -12,7 +12,7 @@ public class JSONinstructions {
     int rangeStart;
     int rangeEnd;
 
-    JSONinstructions(JSONObject json) throws JSONException {
+    Instructions(JSONObject json) throws JSONException {
         idInstruction = json.getInt("idInstruction");
         title = json.getString("title");
         instruction = json.getString("instruction");

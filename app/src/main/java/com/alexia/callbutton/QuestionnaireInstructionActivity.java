@@ -20,11 +20,13 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
 
     TextView surveyInstructionTitle;
     TextView surveyInstruction;
-    public static String url = "http://192.168.214.51:9999/api/tests/instruction/?count=";
+    public static String url = "http://192.168.0.102:9090/api/tests/instruction/?count=";
+    static int score = 1;
+//    --- For passing data
+//    Bundle extras = getIntent().getExtras();
+//    int score = extras.getInt("ARG_POINT_SUM");
     static int currentId = 1; //pointSum
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
-
-
 
 
     @Override
@@ -42,7 +44,6 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
         questionnaireFinishedInfo.show();
         startActivity(new Intent(QuestionnaireInstructionActivity.this, QuestionnaireChooseActivity.class));
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private class GetInstruction extends AsyncTask<Void, Void, Void> {
