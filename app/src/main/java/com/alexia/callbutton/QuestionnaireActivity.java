@@ -6,11 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
 public class QuestionnaireActivity extends FragmentActivity {
-
-    private TextView mTextMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +37,15 @@ public class QuestionnaireActivity extends FragmentActivity {
                                 QuestionnaireActivity.this.startActivity(intent2);
                             }
                             break;
-//
                         }
                         return true;
                     }
                 });
 
-
     }
 
+    public void onClickChooseSurvey(View view) {
+        Intent intentChooseSurvey = new Intent(QuestionnaireActivity.this, QuestionnaireChooseActivity.class);
+        startActivity(intentChooseSurvey);
+    }
 }
