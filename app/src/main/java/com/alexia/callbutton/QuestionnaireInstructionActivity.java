@@ -20,14 +20,9 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
 
     TextView surveyInstructionTitle;
     TextView surveyInstruction;
-    public static String url = "http://192.168.0.102:9090/api/tests/instruction/?count=";
-    static int score = 1;
-//    --- For passing data
-//    Bundle extras = getIntent().getExtras();
-//    int score = extras.getInt("ARG_POINT_SUM");
-    static int currentId = 1; //pointSum
+    public static String url = "http://192.168.0.105:9090/api/tests/instruction/?count=";
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
-
+    int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +46,13 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
+            //    --- For passing data
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                score = extras.getInt("ARG_POINT_SUM");
+            }
             HttpHandler sh = new HttpHandler();
-            String instructionUrl = url + String.valueOf(currentId);
+            String instructionUrl = url + String.valueOf(score);
             String jsonStr = sh.makeServiceCall(instructionUrl);
             if (jsonStr != null) {
                 try {

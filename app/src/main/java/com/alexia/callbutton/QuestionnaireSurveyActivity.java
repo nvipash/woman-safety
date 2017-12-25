@@ -1,28 +1,18 @@
 package com.alexia.callbutton;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 
 
 public class QuestionnaireSurveyActivity extends AppCompatActivity {
@@ -33,10 +23,9 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     FloatingActionButton yesButton;
     FloatingActionButton noButton;
 
-    public static String url = "http://192.168.0.102:9090/api/tests/questions/?id=";
+    public static String url = "http://192.168.0.105:9090/api/tests/questions/?id=";
 
     static int currentId = 1;
-    Question question;
     int pointSum = 0;
 
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
@@ -46,13 +35,15 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire_survey_layout);
-
         yesButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonYes);
         noButton = (FloatingActionButton) findViewById(R.id.floatingActionButtonNo);
 
+        new GetQuestion().execute();
         questionTextView = (TextView) findViewById(R.id.question);
         questionIDTextView = (TextView) findViewById(R.id.question_id);
-
+        if (getIntent().hasExtra("bundle") && savedInstanceState == null) {
+            savedInstanceState = getIntent().getExtras().getBundle("bundle");
+        }
 
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +65,7 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
         Question question;
-        Instructions instructions;
         String error = "0";
-
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -125,23 +114,14 @@ public class QuestionnaireSurveyActivity extends AppCompatActivity {
                 questionIDTextView.setText(String.valueOf(question.idQuestion));
                 questionTextView.setText(String.valueOf(question.question));
             } else {
-                startActivity(new Intent(QuestionnaireSurveyActivity.this, UserScore.class));
 //                --- For passing data of "pointSum"
-//                Intent intent = new Intent(QuestionnaireSurveyActivity.this, QuestionnaireInstructionActivity.class).putExtra("ARG_POINT_SUM", pointSum);
-//                startActivity(intent);
-//                Bundle extras = getIntent().getExtras();
-
-//                Log.d("SCORE OF THE TEST", String.valueOf(extras.getInt("ARG_POINT_SUM")));
-//                if (currentId > 12)
-//                    questionTextView.setText(String.valueOf(instructions.instruction));
-//                else
-//                    questionTextView.setText("RUN AWAY");
+                Intent intent = new Intent(getApplicationContext(), QuestionnaireInstructionActivity.class);
+                intent.putExtra("ARG_POINT_SUM", pointSum);
+                startActivity(intent);
             }
         }
 
     }
-
-
 }
 
 
