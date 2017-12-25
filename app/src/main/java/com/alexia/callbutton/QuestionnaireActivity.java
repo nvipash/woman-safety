@@ -31,7 +31,11 @@ public class QuestionnaireActivity extends FragmentActivity {
                             }
                             break;
 
-                            //case R.id.action_map:
+                            case R.id.action_map: {
+                                Intent intent3 = new Intent(QuestionnaireActivity.this, MapsActivity.class);
+                                QuestionnaireActivity.this.startActivity(intent3);
+                            }
+                            break;
                             case R.id.action_settings: {
                                 Intent intent2 = new Intent(QuestionnaireActivity.this, SettingsActivity.class);
                                 QuestionnaireActivity.this.startActivity(intent2);

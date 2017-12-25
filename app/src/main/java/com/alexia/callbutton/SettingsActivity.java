@@ -60,7 +60,11 @@ public class SettingsActivity extends FragmentActivity {
                             }
                             break;
 
-                            //case R.id.action_map:
+                            case R.id.action_map: {
+                                Intent intent3 = new Intent(SettingsActivity.this, MapsActivity.class);
+                                SettingsActivity.this.startActivity(intent3);
+                            }
+                            break;
                             // case R.id.action_settings:
                             case R.id.action_sos: {
                                 Intent intent2 = new Intent(SettingsActivity.this, MainActivity.class);
