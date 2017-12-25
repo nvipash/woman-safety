@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_sos);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,18 +46,19 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //                        Fragment selectedFragment = null;
                         switch (item.getItemId()) {
-                            //case R.id.action_help:
-                            //case R.id.action_map:
-                            //case R.id.action_sos:
+                            case R.id.action_help: {
+                                Intent intent1 = new Intent(MainActivity.this, QuestionnaireActivity.class);
+                                MainActivity.this.startActivity(intent1);
+                            }
+                            break;
 
-//                                selectedFragment = ButtonFragment.newInstance();
-//                                getSupportFragmentManager().beginTransaction().replace(R.id.content, selectedFragment).commit();
-//                                break;
-                            case R.id.action_settings:
-                                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
-                                MainActivity.this.startActivity(intent);
-//                                fragmentTransaction.replace(R.id.settings_fragment, new SettingsActivity()).commit();
-//                                return true;
+                            //case R.id.action_map:
+                            case R.id.action_settings: {
+                                Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
+                                MainActivity.this.startActivity(intent2);
+                            }
+                            break;
+//
                         }
                         return true;
                     }
@@ -64,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void dial(View v) {
-        if(isPermissionGranted()) {
+        if (isPermissionGranted()) {
             call_action();
         }
     }
 
     public void call_action() {
         Log.d("phone:", preferences.getString("phone", ""));
-        String toDial = "tel:" + preferences.getString("phone" , "0933797479");
+        String toDial = "tel:" + preferences.getString("phone", "0933797479");
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(toDial));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -86,23 +88,24 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(callIntent);
     }
-    public  boolean isPermissionGranted() {
+
+    public boolean isPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.v("TAG","Permission is granted");
+                Log.v("TAG", "Permission is granted");
                 return true;
             } else {
-                Log.v("TAG","Permission is revoked");
+                Log.v("TAG", "Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
                 return false;
             }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.v("TAG","Permission is granted");
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("TAG", "Permission is granted");
             return true;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -122,10 +125,6 @@ public class MainActivity extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request
 
-
         }
-
-
-
     }
 }

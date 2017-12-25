@@ -1,13 +1,25 @@
 <resources>
-    <string name="app_name">CallButton</string>
+    <string name="app_name">WomanSafety Lviv</string>
+    <!--Strings for BotoomNavigationView-->
     <string name="text_map">Карта</string>
     <string name="text_help">Опитування</string>
     <string name="text_sos">Допомога</string>
     <string name="text_settings">Налаштування</string>
-    <string name="choose_number">Оберіть номер за яким бажаєте звернутись у випадку термінової допомоги або введіть власний</string>
-    <string name="save_number">Зберегти</string>
+    <!--Strings for Settings-->
+    <string name="choose_number">Виберіть номер з телефонної книги за яким бажаєте звернутись у випадку термінової допомоги</string>
+    <string name="add_contact">Додати контакт</string>
+    <string name="save_number">Зберегти обранний номер</string>
     <string name="print_number">Введіть номер мобільного телефону</string>
+    <!--Strings for MainActivity-->
     <string name="sos_button_text">У разі погрози вашому життю терміново натисніть на цю кнопку</string>
-
-
+    <!--Strings for Questionnaire-->
+    <string name="test_button_text">Для визначення рівня небезпеки пропонуємо вам пройти один з тестів</string>
+    <string name="choose_survey">Обрати тест</string>
+    <string name="future_survey">Наступні опитування у розробці</string>
+    <string name="start_survey">Розпочати тест</string>
+    <string name="questionnaire_screen_title">Оберіть опитування для проходження</string>
+    <string name="yes_button">ТАК</string>
+    <string name="no_button">НІ</string>
+    <string name="question_numbers">/12</string>
+    <string name="finish_test_button">Завершити тест</string>
 </resources>
