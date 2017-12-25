@@ -52,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                             break;
 
-                            //case R.id.action_map:
+                            case R.id.action_map: {
+                                Intent intent3 = new Intent(MainActivity.this, MapsActivity.class);
+                                MainActivity.this.startActivity(intent3);
+                            }
+                            break;
                             case R.id.action_settings: {
                                 Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
                                 MainActivity.this.startActivity(intent2);
