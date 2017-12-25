@@ -64,6 +64,8 @@ public class MapsActivity extends FragmentActivity implements
                                 Intent intent2 = new Intent(MapsActivity.this, SettingsActivity.class);
                                 MapsActivity.this.startActivity(intent2);
                             }
+                            break;
+
                             case R.id.action_sos: {
                                 Intent intent2 = new Intent(MapsActivity.this, MainActivity.class);
                                 MapsActivity.this.startActivity(intent2);

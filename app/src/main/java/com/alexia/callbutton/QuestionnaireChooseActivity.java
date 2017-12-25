@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +36,7 @@ class QuestionChoose {
 public class QuestionnaireChooseActivity extends AppCompatActivity {
     TextView chooseTestDescriptionTextView;
 
-    public static String url = "http://192.168.0.105:9090/api/tests/info";
+    public static String url = "http://192.168.43.186:9090/api/tests/info";
 
     private String TAG = QuestionnaireChooseActivity.class.getSimpleName();
 
@@ -42,6 +45,43 @@ public class QuestionnaireChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.questionnaire_choose_layout);
         new GetChooseTestDescription().execute();
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_help);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            case R.id.action_help: {
+                                Intent intent1 = new Intent(QuestionnaireChooseActivity.this, QuestionnaireActivity.class);
+                                QuestionnaireChooseActivity.this.startActivity(intent1);
+                            }
+                            break;
+
+                            case R.id.action_map: {
+                                Intent intent3 = new Intent(QuestionnaireChooseActivity.this, MapsActivity.class);
+                                QuestionnaireChooseActivity.this.startActivity(intent3);
+                            }
+                            break;
+
+                            case R.id.action_sos: {
+                                Intent intent2 = new Intent(QuestionnaireChooseActivity.this, MainActivity.class);
+                                QuestionnaireChooseActivity.this.startActivity(intent2);
+                            }
+                            break;
+                            case R.id.action_settings: {
+                                Intent intent2 = new Intent(QuestionnaireChooseActivity.this, SettingsActivity.class);
+                                QuestionnaireChooseActivity.this.startActivity(intent2);
+                            }
+                            break;
+                        }
+                        return true;
+                    }
+                });
     }
 
     public void onClickFirstSurvey(View view) {

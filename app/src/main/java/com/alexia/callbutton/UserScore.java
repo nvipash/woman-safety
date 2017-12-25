@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class UserScore extends QuestionnaireSurveyActivity {
 
-    private static String url = "http://192.168.0.105:9090/api/tests/score/?phone=";
+    private static String url = "http://192.168.43.186:9090/api/tests/score/?phone=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

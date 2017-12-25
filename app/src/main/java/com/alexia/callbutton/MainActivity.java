@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this.startActivity(intent3);
                             }
                             break;
+
                             case R.id.action_settings: {
                                 Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
                                 MainActivity.this.startActivity(intent2);

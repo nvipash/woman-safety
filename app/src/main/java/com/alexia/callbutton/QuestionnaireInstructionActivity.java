@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +23,7 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
 
     TextView surveyInstructionTitle;
     TextView surveyInstruction;
-    public static String url = "http://192.168.0.105:9090/api/tests/instruction/?count=";
+    public static String url = "http://192.168.43.186:9090/api/tests/instruction/?count=";
     private String TAG = QuestionnaireSurveyActivity.class.getSimpleName();
     int score;
 
@@ -31,6 +34,43 @@ public class QuestionnaireInstructionActivity extends AppCompatActivity {
         surveyInstruction = (TextView) findViewById(R.id.survey_instruction);
         surveyInstructionTitle = (TextView) findViewById(R.id.survey_instruction_title);
         new GetInstruction().execute();
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_help);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            case R.id.action_help: {
+                                Intent intent1 = new Intent(QuestionnaireInstructionActivity.this, QuestionnaireActivity.class);
+                                QuestionnaireInstructionActivity.this.startActivity(intent1);
+                            }
+                            break;
+
+                            case R.id.action_map: {
+                                Intent intent3 = new Intent(QuestionnaireInstructionActivity.this, MapsActivity.class);
+                                QuestionnaireInstructionActivity.this.startActivity(intent3);
+                            }
+                            break;
+
+                            case R.id.action_sos: {
+                                Intent intent2 = new Intent(QuestionnaireInstructionActivity.this, MainActivity.class);
+                                QuestionnaireInstructionActivity.this.startActivity(intent2);
+                            }
+                            break;
+                            case R.id.action_settings: {
+                                Intent intent2 = new Intent(QuestionnaireInstructionActivity.this, SettingsActivity.class);
+                                QuestionnaireInstructionActivity.this.startActivity(intent2);
+                            }
+                            break;
+                        }
+                        return true;
+                    }
+                });
     }
 
     public void onClickFinishTest(View view) {
