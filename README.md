@@ -1,19 +1,16 @@
-### Finally project
-# Topic: "Woman safety" 
-*Group IP-124, 125 IoT@NULP*
+# Student's project: "WomanSafety Lviv" 
+*Group IP-21, 22 [IoT@NULP](http://iot.lviv.ua)*
 
-**The Origins team:**
-- [Polina Kulbach](https://github.com/Kulbach),
-- [Pavel Novitsky](https://github.com/nvipash),
-- [Darya Savinkina](https://github.com/dsvnkna),
-- [Oleksiy Musiyenko](https://github.com/musiienko), 
-- [Viktoria Mishchanyn](https://github.com/VikaMi)
+**The 'Origins' team:**
+- [Polina Kulbach 👑](https://github.com/Kulbach)
+- [Pavel Novitsky 👽](https://github.com/nvipash)
+- [Darya Savinkina 🙈](https://github.com/dsvnkna)
+- [Oleksiy Musiyenko 🦐](https://github.com/musiienko)
+- [Viktoria Mishchanyn 🌞](https://github.com/VikaMi)
  
 **Mentors:**
 - [Rostislav Zabolotny](https://github.com/rstzab), 
-- Andrei Ageev
-
-*Lviv 2017*
+- Andrei Ageev (customer)
 
 ## 1. Introduction
  There is an organization that helps women who become a victim of violence (often at home). This organization is interested in a mobile application that will let them know about the facts of violence, and there will be also a list (step by step) what to do if a woman has become a victim of domestic violence.
@@ -29,3 +26,5 @@
 
 ## 5. Conclusions and expected results
  As a result of the application, we hope to see a significant reduction in the number of cases of violence against women, namely the reduction in the number of hits in the police of beatings and, eventually, the lower results of questionnaires with a high level of threat. We also expect an increase in the level of feeling of security of woman and the formation of a strong and trusting community among the women of Lviv, and then we hope to extend the application to other regions of Ukraine. In conclusion, the organization should gain popularity and make a significant contribution to the life of Lviv and Ukrainian women in general.
+
+*Lviv 2017*
