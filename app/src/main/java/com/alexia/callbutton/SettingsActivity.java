@@ -41,7 +41,6 @@ public class SettingsActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_fragment);
-        setContentView(R.layout.settings_activity);
 
         settingsButton = (Button) findViewById(R.id.button_settings);
 

@@ -1,8 +1,10 @@
 package com.alexia.callbutton;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -10,64 +12,101 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.alexia.callbutton.Fragment.ButtonFragment;
+import com.alexia.callbutton.Fragment.MapsFragment;
+import com.alexia.callbutton.Fragment.QuestionnaireFragment;
+import com.alexia.callbutton.Fragment.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
+    private ViewPager viewPager;
+    BottomNavigationView bottomNavigationView;
 
+    //Fragments
+    QuestionnaireFragment questionnaireFragment;
+    ButtonFragment buttonFragment;
+    MapsFragment mapsFragment;
+    SettingsFragment settingsFragment;
+    MenuItem prevMenuItem;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
 
-//        ImageButton settingsButton = (ImageButton)findViewById(R.id.settings);
-//        settingsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this , SettingsActivity.class);
-//                MainActivity.this.startActivity(intent);
-//            }
-//        });
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+        bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
+
         bottomNavigationView.setSelectedItemId(R.id.action_sos);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                        Fragment selectedFragment = null;
                         switch (item.getItemId()) {
-                            case R.id.action_help: {
-                                Intent intent1 = new Intent(MainActivity.this, QuestionnaireActivity.class);
-                                MainActivity.this.startActivity(intent1);
-                            }
-                            break;
 
-                            case R.id.action_map: {
-                                Intent intent3 = new Intent(MainActivity.this, MapsActivity.class);
-                                MainActivity.this.startActivity(intent3);
-                            }
-                            break;
+                            case R.id.action_help:
+                                viewPager.setCurrentItem(3);
+                                return true;
 
-                            case R.id.action_settings: {
-                                Intent intent2 = new Intent(MainActivity.this, SettingsActivity.class);
-                                MainActivity.this.startActivity(intent2);
-                            }
-                            break;
-//
+                            case R.id.action_map:
+                                viewPager.setCurrentItem(2);
+                                return true;
+
+                            case R.id.action_sos:
+                                viewPager.setCurrentItem(0);
+                                return true;
+
+                            case R.id.action_settings:
+                                viewPager.setCurrentItem(1);
+                                return true;
                         }
                         return true;
                     }
                 });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+        setupViewPager(viewPager);
     }
 
     public void dial(View v) {
@@ -112,8 +151,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
 
@@ -131,5 +169,18 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
 
         }
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        questionnaireFragment = new QuestionnaireFragment();
+        buttonFragment = new ButtonFragment();
+        mapsFragment = new MapsFragment();
+        settingsFragment = new SettingsFragment();
+        adapter.addFragment(buttonFragment);
+        adapter.addFragment(settingsFragment);
+        adapter.addFragment(mapsFragment);
+        adapter.addFragment(questionnaireFragment);
+        viewPager.setAdapter(adapter);
     }
 }

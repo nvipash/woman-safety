@@ -13,7 +13,7 @@ public class QuestionnaireActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.questionnaite_activity);
+//        setContentView(R.layout.questionnaite_fragment);
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_help);
