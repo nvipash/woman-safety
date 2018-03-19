@@ -1,4 +1,4 @@
-package hello.Entity;
+package safety.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

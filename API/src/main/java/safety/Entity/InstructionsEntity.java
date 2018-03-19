@@ -1,4 +1,4 @@
-package hello.Entity;
+package safety.Entity;
 
 import javax.persistence.*;
 import java.util.Objects;

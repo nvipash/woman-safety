@@ -1,6 +1,6 @@
-package hello;
+package safety.Controllers;
 
-import hello.Entity.SurveysEntity;
+import safety.Entity.SurveysEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

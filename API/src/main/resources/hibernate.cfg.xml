@@ -8,10 +8,11 @@
         <property name="connection.username">safety</property>
         <property name="connection.password">457417</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <mapping class="hello.Entity.InstructionsEntity"/>
-        <mapping class="hello.Entity.QuestionsEntity"/>
-        <mapping class="hello.Entity.SurveysEntity"/>
-        <mapping class="hello.Entity.UserScoreEntity"/>
+        <mapping class="safety.Entity.InstructionsEntity"/>
+        <mapping class="safety.Entity.QuestionsEntity"/>
+        <mapping class="safety.Entity.SurveysEntity"/>
+        <mapping class="safety.Entity.UserScoreEntity"/>
+        <mapping class="safety.Entity.LocationsEntity"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

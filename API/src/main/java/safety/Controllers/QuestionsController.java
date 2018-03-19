@@ -1,5 +1,5 @@
-package hello;
-import hello.Entity.QuestionsEntity;
+package safety.Controllers;
+import safety.Entity.QuestionsEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
