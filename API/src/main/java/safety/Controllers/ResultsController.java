@@ -1,6 +1,6 @@
-package hello;
+package safety.Controllers;
 
-import hello.Entity.InstructionsEntity;
+import safety.Entity.InstructionsEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

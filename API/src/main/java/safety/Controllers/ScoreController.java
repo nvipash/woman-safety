@@ -1,5 +1,5 @@
-package hello;
-import hello.Entity.SurveysEntity;
+package safety.Controllers;
+import safety.Entity.SurveysEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import hello.Entity.UserScoreEntity;
+import safety.Entity.UserScoreEntity;
 
 @RestController
 public class ScoreController {
