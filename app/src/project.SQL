@@ -70,9 +70,24 @@ values
 ('Все в нормі', 'Вам немає за що хвилюватись. Не забувайте про спілкування зі своїм партнером та не тримайте у собі, якщо бачите проблеми у ваших стосунках', 1, 3, 1),
 ('Вам варто поговорити зі своїм партнером', 'Якщо щось йде не так, як хотілося б, необхідно просто поговорити і пошукати вирішення проблеми. Пам’ятайте, розмова і пошуки рішення повинні проходити в максимально доброзичливому тоні, з урахуванням думки всіх сторін.', 4, 6, 1),
 ('Ви можете бути потенційною жертвою насильства', 'Щоденно в Україні фіксують численну кількість випадків насильства в сім’ї, а близько половини жінок страждають від домашнього насильства на постійній основі. Не зволікайте, якщо вважаєте що вам потрібна допомога - натисність SOS і ми обовяково допоможемо вам', 7, 9, 1),
-('Ви в небезпеці!', 'Пам’ятайте, що спричинення будь-якого виду тілесних ушкоджень, а також вчинення будь-яких інших дій проти життя та здоров’я, є злочинами. Перебування з кривдником в сімейних відносинах не виключає необхідності притягнення його до кримінальної відповідальності. Якщо вам буде потрібна допомога, не вагайтесь та натисніть SOS!', 10, 12, 1)
+('Ви в небезпеці!', 'Пам’ятайте, що спричинення будь-якого виду тілесних ушкоджень, а також вчинення будь-яких інших дій проти життя та здоров’я, є злочинами. Перебування з кривдником в сімейних відносинах не виключає необхідності притягнення його до кримінальної відповідальності. Якщо вам буде потрібна допомога, не вагайтесь та натисніть SOS!', 10, 12, 1);
 
 
+
+
+CREATE TABLE IF NOT EXISTS WomanSafety.locations(
+id_place INT AUTO_INCREMENT NOT NULL,
+name_of_place nvarchar(200) NOT NULL,
+place_description TEXT NULL,
+phone varchar(20) NULL,
+lat double NOT NULL,
+lng double NOT NULL,
+primary key (id_place));
+
+insert into WomanSafety.locations (name_of_place, place_description, phone, lat, lng)
+values
+('Головне управління національної поліції у Львівській області', '','0322586840', 49.84161, 24.0220921),
+('Управління патрульної поліції у м. Львові', '','0322340932', 49.8143646, 23.9876744);
 /*create table WomanSafety.answers(
 id_answer int auto_increment not null,
 answer varchar(100) not null,
@@ -85,13 +100,7 @@ idAnswer int not null,
 point int not null,
 primary key (id_p),
 foreign key (idQuestion) references WomanSafety.questions(id_q),
-foreign key (idAnswer) references WomanSafety.answers(id_asw));*/
-
-/*create table WomanSafety.locations(
-place nvarchar(200) not null,
-coordinates point not null,
-primary key (place));
-
+foreign key (idAnswer) references WomanSafety.answers(id_asw));
 create table WomanSafety.phones (
 owner nvarchar(200) not null,
 phone varchar(20) not null,

@@ -7,9 +7,11 @@
 - [Darya Savinkina 🙈](https://github.com/dsvnkna)
 - [Oleksiy Musiyenko 🦐](https://github.com/musiienko)
 - [Viktoria Mishchanyn 🌞](https://github.com/VikaMi)
+- [Marta Liutyk 😎](https://github.com/MartaLiutyk)
  
 **Mentors:**
-- [Rostislav Zabolotny](https://github.com/rstzab), 
+- [Rostislav Zabolotny](https://github.com/rstzab),
+- Orest Vovchak,
 - Andrei Ageev (customer)
 
 ## 1. Introduction
