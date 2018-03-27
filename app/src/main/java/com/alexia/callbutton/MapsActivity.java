@@ -39,12 +39,6 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.maps_fragment);
-//
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_map);
@@ -71,7 +65,6 @@ public class MapsActivity extends FragmentActivity implements
                                 MapsActivity.this.startActivity(intent2);
                             }
                             break;
-                            //
                         }
                         return true;
                     }
@@ -109,7 +102,7 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+//        mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(49.834893, 23.991080))
