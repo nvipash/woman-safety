@@ -175,14 +175,8 @@ public class SettingsActivity extends FragmentActivity {
                         phones.add(nam + "\n" + n);
                         adapter.notifyDataSetChanged();
                     } else {
-
                     }
                 }
         }
-
-
     }
-
 }
-
-
