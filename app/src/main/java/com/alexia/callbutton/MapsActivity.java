@@ -1,10 +1,12 @@
 package com.alexia.callbutton;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -31,10 +34,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,LocationListener {
 
     private GoogleMap mMap;
+    public static String url = "http://192.168.0.102:9090/api/locations";
+    private String TAG = MapsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +105,52 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
+    private class GetLocations extends AsyncTask<Void, Void, Void> {
+        Locations location;
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            //    --- For passing data
+            Bundle extras = getIntent().getExtras();
+            HttpHandler sh = new HttpHandler();
+            String locationUrl = url;
+            String jsonStr = sh.makeServiceCall(locationUrl);
+            if (jsonStr != null) {
+                try {
+
+                    JSONObject c = new JSONObject(jsonStr);
+                    location = new Locations(c);
+                    Log.d("JSONValue", String.valueOf(location));
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+            }
+            return null;
+        }
+    }
+
 
     /**
      * Manipulates the map once available.
@@ -106,6 +161,8 @@ public class MapsActivity extends FragmentActivity implements
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
