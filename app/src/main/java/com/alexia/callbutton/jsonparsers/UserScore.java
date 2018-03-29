@@ -1,23 +1,23 @@
-package com.alexia.callbutton;
+package com.alexia.callbutton.jsonparsers;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alexia.callbutton.MainActivity;
+import com.alexia.callbutton.fragments.QuestionnaireInstructionFragment;
+import com.alexia.callbutton.fragments.QuestionnaireSurveyFragment;
 
-public class UserScore extends QuestionnaireSurveyActivity {
+public class UserScore extends QuestionnaireSurveyFragment {
 
     private static String url = "http://192.168.43.186:9090/api/tests/score/?phone=";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new PostScore().execute();
 
-        startActivity(new Intent(UserScore.this, QuestionnaireInstructionActivity.class));
+        ((MainActivity) getActivity()).openFragment(new QuestionnaireInstructionFragment());
     }
 
     @SuppressLint("StaticFieldLeak")

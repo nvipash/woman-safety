@@ -3,5 +3,7 @@
     <color name="colorPrimary">#3b3e63</color>
     <color name="colorPrimaryDark">#2b2e4a</color>
     <color name="colorAccent">#E84545</color>
+    <color name="colorControlHighlight">#8c8fba</color>
+    <color name="surveyRippleColor">#fab7b7</color>
     <color name="white">#FFFFFF</color>
 </resources>

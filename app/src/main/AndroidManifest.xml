@@ -34,14 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".QuestionnaireActivity" />
-        <activity android:name=".QuestionnaireChooseActivity" />
-        <activity android:name=".QuestionnaireStartActivity" />
-        <activity android:name=".QuestionnaireSurveyActivity" />
-        <activity android:name=".QuestionnaireInstructionActivity" />
-        <activity android:name=".UserScore" />
-        <activity android:name=".MapsActivity" />
+        <activity android:name=".jsonparsers.UserScore" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

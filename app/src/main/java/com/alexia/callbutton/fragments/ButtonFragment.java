@@ -1,5 +1,6 @@
-package com.alexia.callbutton.Fragment;
+package com.alexia.callbutton.fragments;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -8,31 +9,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.Manifest;
 
 import com.alexia.callbutton.R;
-
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
-
-/**
- * Created by Alexia on 05.11.2017.
- */
 
 public class ButtonFragment extends Fragment {
     SharedPreferences preferences;
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.button_layout, container, false);
-//
-//    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.button_fragment, container, false);
 
+    }
 
 
     public void call_action() {
@@ -79,5 +71,6 @@ public class ButtonFragment extends Fragment {
                 }
                 return;
             }
-  }
-    }}
+        }
+    }
+}

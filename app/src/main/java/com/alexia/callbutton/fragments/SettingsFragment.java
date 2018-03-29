@@ -1,4 +1,4 @@
-package com.alexia.callbutton;
+package com.alexia.callbutton.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -10,86 +10,48 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.alexia.callbutton.R;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SettingsActivity extends FragmentActivity {
+import static android.content.Context.MODE_PRIVATE;
+import static com.alexia.callbutton.R.id.button_settings;
+
+public class SettingsFragment extends Fragment {
+
     Button settingsButton;
     Button addContact;
     ArrayList<String> phones = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+    ArrayAdapter adapter;
     ListView lvMain;
     SharedPreferences preferences;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_fragment);
-
-        settingsButton = (Button) findViewById(R.id.button_settings);
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.action_settings);
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        //                        Fragment selectedFragment = null;
-                        switch (item.getItemId()) {
-                            case R.id.action_help: {
-                                Intent intent1 = new Intent(SettingsActivity.this, QuestionnaireActivity.class);
-                                SettingsActivity.this.startActivity(intent1);
-                            }
-                            break;
-
-                            case R.id.action_map: {
-                                Intent intent3 = new Intent(SettingsActivity.this, MapsActivity.class);
-                                SettingsActivity.this.startActivity(intent3);
-                            }
-                            break;
-                            // case R.id.action_settings:
-                            case R.id.action_sos: {
-                                Intent intent2 = new Intent(SettingsActivity.this, MainActivity.class);
-                                SettingsActivity.this.startActivity(intent2);
-                            }
-                            break;
-                            //
-                        }
-                        return true;
-                    }
-                });
-
-
-        Menu menu = bottomNavigationView.getMenu();
-
-
-        preferences = SettingsActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.settings_fragment, container, false);
+        preferences = SettingsFragment.this.getActivity().getSharedPreferences("shared_pref", MODE_PRIVATE);
         Set<String> entries = preferences.getStringSet("phones", null);
         if (entries != null) {
             phones = new ArrayList(entries);
         }
 
-        lvMain = (ListView) findViewById(R.id.lvMain);
+        lvMain = (ListView) v.findViewById(R.id.lvMain);
         lvMain.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_single_choice, phones);
+        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_single_choice, phones);
         String selectedNumber = preferences.getString("phone", null);
         int index = phones.indexOf(selectedNumber);
         lvMain.setAdapter(adapter);
@@ -97,8 +59,6 @@ public class SettingsActivity extends FragmentActivity {
             lvMain.setItemChecked(index, true);
         }
 
-        settingsButton = (Button) findViewById(R.id.button_settings);
-        addContact = (Button) findViewById(R.id.addContact);
 
         final SharedPreferences.Editor editor = preferences.edit();
         lvMain.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -115,6 +75,7 @@ public class SettingsActivity extends FragmentActivity {
 
         });
 
+        settingsButton = (Button) v.findViewById(button_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +83,7 @@ public class SettingsActivity extends FragmentActivity {
                 editor.putStringSet("phones", phonesSet);
                 int position = lvMain.getCheckedItemPosition();
                 if (position == -1) {
-                    Toast.makeText(getApplicationContext(), "Choose number before saving", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Choose number before saving", Toast.LENGTH_SHORT).show();
                 } else {
                     editor.putString("phone", phones.get(position));
                 }
@@ -130,6 +91,7 @@ public class SettingsActivity extends FragmentActivity {
             }
         });
 
+        addContact = (Button) v.findViewById(R.id.addContact);
         addContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,21 +101,30 @@ public class SettingsActivity extends FragmentActivity {
             }
         });
 
-        if (ContextCompat.checkSelfPermission(SettingsActivity.this,
+        if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                     Manifest.permission.READ_CONTACTS)) {
             } else {
-                ActivityCompat.requestPermissions(SettingsActivity.this,
+                ActivityCompat.requestPermissions(getActivity(),
                         new String[]{Manifest.permission.READ_CONTACTS}, 1);
             }
         }
 
+        return v;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        settingsButton = (Button) view.findViewById(button_settings);
+        addContact = (Button) view.findViewById(R.id.addContact);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
@@ -162,7 +133,7 @@ public class SettingsActivity extends FragmentActivity {
                     Uri contactData = data.getData();
                     assert contactData != null;
                     String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.HAS_PHONE_NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-                    @SuppressLint("Recycle") Cursor c = getContentResolver().query(contactData, projection, null, null, null);
+                    @SuppressLint("Recycle") Cursor c = getActivity().getContentResolver().query(contactData, projection, null, null, null);
 
                     if (!c.moveToFirst()) {
                         return;
@@ -174,7 +145,6 @@ public class SettingsActivity extends FragmentActivity {
                         String nam = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                         phones.add(nam + "\n" + n);
                         adapter.notifyDataSetChanged();
-                    } else {
                     }
                 }
         }

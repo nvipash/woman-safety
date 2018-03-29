@@ -35,19 +35,34 @@ captures/
 # Intellij Android Studio
 app/app.iml
 Woman_Safety.iml
+.idea/
+.idea/libraries/
 .idea/workspace.xml
-.idea/modules.xml
 .idea/tasks.xml
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+.idea/runConfigurations.xml
 .idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
 
 # Intellij IDEA
+API/.idea/
+API/.idea/libraries/
 API/.idea/workspace.xml
 API/.idea/tasks.xml
-API/.idea/gradle.xml
-API/.idea/dictionaries
-API/.idea/libraries
+API/.idea/.name
+API/.idea/compiler.xml
+API/.idea/copyright/profiles_settings.xml
+API/.idea/encodings.xml
+API/.idea/misc.xml
+API/.idea/modules.xml
+API/.idea/scopes/scope_settings.xml
+API/.idea/vcs.xml
 
 # Keystore files
 *.jks

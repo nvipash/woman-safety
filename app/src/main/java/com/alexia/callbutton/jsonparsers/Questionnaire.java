@@ -1,19 +1,18 @@
-package com.alexia.callbutton;
+package com.alexia.callbutton.jsonparsers;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-class Question {
-    int idQuestion;
-    String question;
+public class Questionnaire {
+    public int idQuestion;
+    public String question;
     int points;
 
-    Question(JSONObject json) throws JSONException {
+    public Questionnaire(JSONObject json) throws JSONException {
         idQuestion = json.getInt("idQuestion");
         question = json.getString("question");
         points = json.getInt("points");
-
     }
 
     @Override

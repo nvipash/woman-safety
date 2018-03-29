@@ -1,4 +1,4 @@
-package com.alexia.callbutton.Fragment;
+package com.alexia.callbutton.fragments;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.alexia.callbutton.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,13 +34,14 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback,  GoogleApiClient.ConnectionCallbacks,
+public class MapsFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+
     public MapsFragment() {
 
     }
@@ -50,11 +50,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,  Googl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.maps_fragment, container, false);
 
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        FragmentManager manager = getChildFragmentManager();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         SupportMapFragment fragment = new SupportMapFragment();
-        transaction.add(R.id.map, fragment);
-        transaction.commit();
+        transaction.add(R.id.map, fragment)
+                .commit();
 
         fragment.getMapAsync(this);
 
@@ -76,8 +76,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,  Googl
                 //Request Location Permission
                 checkLocationPermission();
             }
-        }
-        else {
+        } else {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
@@ -87,8 +86,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,  Googl
                 .snippet("вул. Генерала Чупринки, 65"));
 
 
+    }
 
-}
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addConnectionCallbacks(this)
@@ -114,8 +113,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,  Googl
     }
 
     @Override
-    public void onLocationChanged(Location location)
-    {
+    public void onLocationChanged(Location location) {
         mLastLocation = location;
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
@@ -130,11 +128,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,  Googl
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,13));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
 
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -155,7 +154,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,  Googl
                                 //Prompt the user once explanation has been shown
                                 ActivityCompat.requestPermissions(getActivity(),
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION );
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
                             }
                         })
                         .create()
@@ -166,7 +165,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,  Googl
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(getActivity(),
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION );
+                        MY_PERMISSIONS_REQUEST_LOCATION);
             }
         }
     }

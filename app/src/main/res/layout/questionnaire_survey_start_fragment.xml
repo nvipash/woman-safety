@@ -1,16 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/questionnaire_layout"
+    android:id="@+id/questionnaire_survey_start_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="com.alexia.callbutton.fragments.QuestionnaireFragment">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_survey_start"
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_survey"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
@@ -23,18 +23,17 @@
         card_view:cardElevation="15dp"
         card_view:cardUseCompatPadding="true">
 
-
         <TextView
-            android:id="@+id/test_text"
+            android:id="@+id/survey_info"
             style="@android:style/TextAppearance.DeviceDefault.Medium"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:gravity="center"
             android:lineSpacingMultiplier="1.2"
-            android:text="@string/test_button_text"
             android:textColor="@color/colorPrimary"
-            android:textSize="29.5sp" />
+            android:textSize="16.5sp"
+            android:textStyle="bold" />
     </android.support.v7.widget.CardView>
 
     <Button
@@ -45,7 +44,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="95dp"
-        android:onClick="onClick"
-        android:text="@string/choose_survey"
-        tools:ignore="MissingConstraints,NotSibling,OnClick" />
+        android:text="@string/start_survey"
+        tools:ignore="MissingConstraints,NotSibling" />
+
+
 </RelativeLayout>
+
+

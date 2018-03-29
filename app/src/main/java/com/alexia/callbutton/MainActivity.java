@@ -9,104 +9,59 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.alexia.callbutton.Fragment.ButtonFragment;
-import com.alexia.callbutton.Fragment.MapsFragment;
-import com.alexia.callbutton.Fragment.QuestionnaireFragment;
-import com.alexia.callbutton.Fragment.SettingsFragment;
+import com.alexia.callbutton.fragments.BottomNavigationFragment;
+import com.alexia.callbutton.fragments.MapsFragment;
+import com.alexia.callbutton.fragments.QuestionnaireFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Bundle questionnaireResultBundle = new Bundle();
     SharedPreferences preferences;
-    private ViewPager viewPager;
-    BottomNavigationView bottomNavigationView;
+    RelativeLayout questionnaireLayout;
+    private static boolean activityPass;
 
-    //Fragments
-    QuestionnaireFragment questionnaireFragment;
-    ButtonFragment buttonFragment;
-    MapsFragment mapsFragment;
-    SettingsFragment settingsFragment;
-    MenuItem prevMenuItem;
-
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        openFragment(new BottomNavigationFragment());
+    }
 
-        bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
+    public void openFragment(final Fragment fragment) {
+        final FragmentManager supportFragmentManager = getSupportFragmentManager();
+        final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        if (activityPass) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
+        activityPass = true;
+    }
 
-        bottomNavigationView.setSelectedItemId(R.id.action_sos);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-
-                            case R.id.action_help:
-                                viewPager.setCurrentItem(3);
-                                return true;
-
-                            case R.id.action_map:
-                                viewPager.setCurrentItem(2);
-                                return true;
-
-                            case R.id.action_sos:
-                                viewPager.setCurrentItem(0);
-                                return true;
-
-                            case R.id.action_settings:
-                                viewPager.setCurrentItem(1);
-                                return true;
-                        }
-                        return true;
-                    }
-                });
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-
-        setupViewPager(viewPager);
+    public void replaceViewPager(final Fragment fragment){
+        final FragmentManager supportFragmentManager = getSupportFragmentManager();
+        final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction()
+                .replace(R.id.viewpager_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        if (activityPass) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
+        activityPass = true;
     }
 
     public void dial(View v) {
@@ -169,18 +124,5 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
 
         }
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        questionnaireFragment = new QuestionnaireFragment();
-        buttonFragment = new ButtonFragment();
-        mapsFragment = new MapsFragment();
-        settingsFragment = new SettingsFragment();
-        adapter.addFragment(buttonFragment);
-        adapter.addFragment(settingsFragment);
-        adapter.addFragment(mapsFragment);
-        adapter.addFragment(questionnaireFragment);
-        viewPager.setAdapter(adapter);
     }
 }
