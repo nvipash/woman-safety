@@ -38,6 +38,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,LocationListener {
 
@@ -119,9 +122,17 @@ public class MapsActivity extends FragmentActivity implements
             if (jsonStr != null) {
                 try {
 
-                    JSONObject c = new JSONObject(jsonStr);
-                    location = new Locations(c);
-                    Log.d("JSONValue", String.valueOf(location));
+                    JSONArray jsonArray = new JSONArray(jsonStr);
+                    //creating a string array for listview
+                    //String[] locationInfo = new String[jsonArray.length()];
+                    ArrayList<Locations> info = new  ArrayList<>(jsonArray.length());
+                    //looping through all the elements in json array
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        Locations objectLocation = new Locations(obj.getInt("idLocation"), obj.getString("name"), obj.getString("description"), obj.getString("phone"), obj.getDouble("latitude"), obj.getDouble("longitude"));
+                        info.add(objectLocation);
+                    }
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -170,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(49.834893, 23.991080))
-                .title("Залізничний районний відділ поліції" )
+                .title("Франківський районний відділ поліції")
                 .snippet("вул. Генерала Чупринки, 65"));
 
         mMap.addMarker(new MarkerOptions()
