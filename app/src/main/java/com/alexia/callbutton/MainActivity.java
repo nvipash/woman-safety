@@ -32,7 +32,10 @@ import android.view.ViewGroup;
 import com.alexia.callbutton.fragments.ButtonFragment;
 import com.alexia.callbutton.fragments.MapsFragment;
 import com.alexia.callbutton.fragments.QuestionnaireFragment;
+import com.alexia.callbutton.fragments.QuestionnaireInstructionFragment;
 import com.alexia.callbutton.fragments.QuestionnaireSelectionFragment;
+import com.alexia.callbutton.fragments.QuestionnaireStartFragment;
+import com.alexia.callbutton.fragments.QuestionnaireSurveyFragment;
 import com.alexia.callbutton.fragments.SettingsFragment;
 
 import java.lang.reflect.Field;
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     MapsFragment mapsFragment;
     SettingsFragment settingsFragment;
     QuestionnaireSelectionFragment selectionFragment;
+    QuestionnaireStartFragment startFragment;
+    QuestionnaireSurveyFragment surveyFragment;
+    QuestionnaireInstructionFragment instructionFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,11 +236,17 @@ public class MainActivity extends AppCompatActivity {
         mapsFragment = new MapsFragment();
         settingsFragment = new SettingsFragment();
         selectionFragment = new QuestionnaireSelectionFragment();
+        startFragment = new QuestionnaireStartFragment();
+        surveyFragment = new QuestionnaireSurveyFragment();
+        instructionFragment = new QuestionnaireInstructionFragment();
         adapter.addFragment(buttonFragment);
         adapter.addFragment(settingsFragment);
         adapter.addFragment(mapsFragment);
         adapter.addFragment(questionnaireFragment);
         adapter.addFragment(selectionFragment);
+        adapter.addFragment(startFragment);
+        adapter.addFragment(surveyFragment);
+        adapter.addFragment(instructionFragment);
         viewPager.setAdapter(adapter);
     }
 
