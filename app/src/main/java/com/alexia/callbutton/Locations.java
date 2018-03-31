@@ -25,4 +25,16 @@ public class Locations {
         longitude=json.getDouble("longitude");
 
     }
+
+    Locations(int idLocation, String name, String description, String phone, double latitude, double longitude){
+        this.idLocation=idLocation;
+        this.name=name;
+        this.description=description;
+        this.phone=phone;
+        this.latitude=latitude;
+        this.longitude=longitude;
+
+
+
+    }
 }
