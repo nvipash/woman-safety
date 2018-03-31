@@ -1,6 +1,5 @@
 package com.alexia.callbutton.jsonparsers;
 
-
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -67,7 +66,6 @@ public class HttpHandler {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
@@ -77,6 +75,5 @@ public class HttpHandler {
         } catch (Exception e) {
             Log.e(TAG, "Exception: " + e.getMessage());
         }
-
     }
 }

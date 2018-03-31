@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +25,16 @@ import org.json.JSONObject;
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireInstructionFragment extends Fragment {
-    TextView surveyInstructionTitle;
-    TextView surveyInstruction;
-    public static String url = "http://192.168.0.103:9090/api/tests/instruction/?count=";
+    private TextView surveyInstructionTitle;
+    private TextView surveyInstruction;
     private String TAG = QuestionnaireSurveyFragment.class.getSimpleName();
-    int score = MainActivity.questionnaireResultBundle.getInt("ARG_POINT_SUM");
+    private int score = MainActivity.questionnaireResultBundle.getInt("ARG_POINT_SUM");
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.questionnaire_survey_end_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.questionnaire_survey_end_fragment,
+                container, false);
         surveyInstruction = (TextView) view.findViewById(R.id.survey_instruction);
         surveyInstructionTitle = (TextView) view.findViewById(R.id.survey_instruction_title);
 
@@ -43,6 +45,7 @@ public class QuestionnaireInstructionFragment extends Fragment {
                 ((MainActivity) getActivity()).setCurrentPagerItem(4);
             }
         });
+        Log.e("PARSE_ERROR", Integer.toString(score));
         new QuestionnaireInstructionFragment.GetInstruction().execute();
         return view;
     }
@@ -54,13 +57,14 @@ public class QuestionnaireInstructionFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
 
-            HttpHandler sh = new HttpHandler();
+            HttpHandler handler = new HttpHandler();
+            String url = "http://192.168.0.103:9090/api/tests/instruction/?count=";
             String instructionUrl = url + String.valueOf(score);
-            String jsonStr = sh.makeServiceCall(instructionUrl);
+            String jsonStr = handler.makeServiceCall(instructionUrl);
             if (jsonStr != null) {
                 try {
-                    JSONObject c = new JSONObject(jsonStr);
-                    instruction = new QuestionnaireInstruction(c);
+                    JSONObject object = new JSONObject(jsonStr);
+                    instruction = new QuestionnaireInstruction(object);
                     Log.d("JSONValue", String.valueOf(instruction));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());

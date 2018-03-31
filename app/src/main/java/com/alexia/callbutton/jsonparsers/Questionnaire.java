@@ -1,13 +1,12 @@
 package com.alexia.callbutton.jsonparsers;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Questionnaire {
     public int idQuestion;
     public String question;
-    int points;
+    private int points;
 
     public Questionnaire(JSONObject json) throws JSONException {
         idQuestion = json.getInt("idQuestion");

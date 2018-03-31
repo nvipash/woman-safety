@@ -25,23 +25,21 @@ import static com.alexia.callbutton.MainActivity.questionnaireResultBundle;
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireSurveyFragment extends Fragment {
-    TextView questionTextView;
-    TextView questionIDTextView;
-    FloatingActionButton yesButton;
-    FloatingActionButton noButton;
-
-    public static String url = "http://192.168.0.103:9090/api/tests/questions/?id=";
-
-    static int currentId = 1;
+    private static int currentId = 1;
+    private String TAG = QuestionnaireSurveyFragment.class.getSimpleName();
+    private TextView questionTextView;
+    private TextView questionIDTextView;
     public int pointSum = 0;
 
-    private String TAG = QuestionnaireSurveyFragment.class.getSimpleName();
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.questionnaire_survey_fragment, container, false);
-        yesButton = (FloatingActionButton) view.findViewById(R.id.floatingActionButtonYes);
-        noButton = (FloatingActionButton) view.findViewById(R.id.floatingActionButtonNo);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.questionnaire_survey_fragment,
+                container, false);
+        FloatingActionButton yesButton = (FloatingActionButton)
+                view.findViewById(R.id.floatingActionButtonYes);
+        FloatingActionButton noButton = (FloatingActionButton)
+                view.findViewById(R.id.floatingActionButtonNo);
 
         questionTextView = (TextView) view.findViewById(R.id.question);
         questionIDTextView = (TextView) view.findViewById(R.id.question_id);
@@ -66,6 +64,11 @@ public class QuestionnaireSurveyFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
         Questionnaire questionnaire;
@@ -73,14 +76,15 @@ public class QuestionnaireSurveyFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            HttpHandler sh = new HttpHandler();
+            HttpHandler handler = new HttpHandler();
+            String url = "http://192.168.0.103:9090/api/tests/questions/?id=";
             String questionUrl = url + String.valueOf(currentId);
-            String jsonStr = sh.makeServiceCall(questionUrl);
+            String jsonStr = handler.makeServiceCall(questionUrl);
             if (jsonStr != null) {
                 try {
                     currentId += 1;
-                    JSONObject jsonObject = new JSONObject(jsonStr);
-                    questionnaire = new Questionnaire(jsonObject);
+                    JSONObject object = new JSONObject(jsonStr);
+                    questionnaire = new Questionnaire(object);
 
                 } catch (final JSONException jsonException) {
                     Log.e(TAG, "Json parsing error: " + jsonException.getMessage());
@@ -93,19 +97,9 @@ public class QuestionnaireSurveyFragment extends Fragment {
                                     .show();
                         }
                     });
-
                 }
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        Toast.makeText(getActivity().getApplicationContext(),
-//                                "Couldn't get json from server. Check LogCat for possible errors!",
-//                                Toast.LENGTH_LONG)
-//                                .show();
-                    }
-                });
                 this.error = "500";
             }
             return null;
@@ -121,9 +115,10 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 Fragment fragment = new QuestionnaireInstructionFragment();
                 questionnaireResultBundle.putInt("ARG_POINT_SUM", pointSum);
                 fragment.setArguments(questionnaireResultBundle);
+                Log.e("ARG_POINT_SUM", Integer.toString(pointSum));
                 ((MainActivity) getActivity()).setCurrentPagerItem(7);
+                currentId = 1;
             }
         }
-
     }
 }

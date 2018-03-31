@@ -24,15 +24,14 @@ import org.json.JSONObject;
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireStartFragment extends Fragment{
-    TextView testDescriptionTextView;
-    public static String url = "http://192.168.0.103:9090/api/tests/info";
+    private TextView testDescriptionTextView;
     private String TAG = QuestionnaireStartFragment.class.getSimpleName();
 
-    public QuestionnaireStartFragment(){}
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.questionnaire_survey_start_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.questionnaire_survey_start_fragment,
+                container, false);
         testDescriptionTextView = (TextView) view.findViewById(R.id.survey_info);
         new GetTestDescription().execute();
 
@@ -56,15 +55,16 @@ public class QuestionnaireStartFragment extends Fragment{
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            HttpHandler sh = new HttpHandler();
+            HttpHandler handler = new HttpHandler();
+            String url = "http://192.168.0.103:9090/api/tests/info";
             String testDescriptionUrl = url;
-            String jsonStr = sh.makeServiceCall(testDescriptionUrl);
+            String jsonStr = handler.makeServiceCall(testDescriptionUrl);
             if (jsonStr != null) {
                 try {
-                    JSONArray jsonArray = new JSONArray(jsonStr);
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    testDescription = new QuestionnaireStart(jsonObject);
-                    String.valueOf(jsonObject.getString("description"));
+                    JSONArray array = new JSONArray(jsonStr);
+                    JSONObject object = array.getJSONObject(0);
+                    testDescription = new QuestionnaireStart(object);
+                    String.valueOf(object.getString("description"));
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -98,5 +98,4 @@ public class QuestionnaireStartFragment extends Fragment{
             testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
         }
     }
-
 }

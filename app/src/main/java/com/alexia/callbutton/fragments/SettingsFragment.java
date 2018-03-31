@@ -32,26 +32,29 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.alexia.callbutton.R.id.button_settings;
 
 public class SettingsFragment extends Fragment {
-
-    Button settingsButton;
-    Button addContact;
-    ArrayList<String> phones = new ArrayList<>();
-    ArrayAdapter adapter;
-    ListView lvMain;
-    SharedPreferences preferences;
+    private Button settingsButton;
+    private Button addContact;
+    private ArrayList<String> phones = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+    private ListView lvMain;
+    public SharedPreferences preferences;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.settings_fragment, container, false);
-        preferences = SettingsFragment.this.getActivity().getSharedPreferences("shared_pref", MODE_PRIVATE);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.settings_fragment,
+                container, false);
+        preferences = SettingsFragment.this.getActivity()
+                .getSharedPreferences("shared_pref", MODE_PRIVATE);
         Set<String> entries = preferences.getStringSet("phones", null);
         if (entries != null) {
-            phones = new ArrayList(entries);
+            phones = new ArrayList<>(entries);
         }
 
-        lvMain = (ListView) v.findViewById(R.id.lvMain);
+        lvMain = (ListView) view.findViewById(R.id.lvMain);
         lvMain.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_single_choice, phones);
+        adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_single_choice, phones);
         String selectedNumber = preferences.getString("phone", null);
         int index = phones.indexOf(selectedNumber);
         lvMain.setAdapter(adapter);
@@ -59,31 +62,29 @@ public class SettingsFragment extends Fragment {
             lvMain.setItemChecked(index, true);
         }
 
-
         final SharedPreferences.Editor editor = preferences.edit();
         lvMain.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long arg3) {
-
                 adapter.remove(phones.get(position));
                 adapter.notifyDataSetChanged();
-
                 return false;
             }
 
         });
 
-        settingsButton = (Button) v.findViewById(button_settings);
+        settingsButton = (Button) view.findViewById(button_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Set phonesSet = new HashSet(phones);
+                Set<String> phonesSet = new HashSet<>(phones);
                 editor.putStringSet("phones", phonesSet);
                 int position = lvMain.getCheckedItemPosition();
                 if (position == -1) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Choose number before saving", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Choose number before saving", Toast.LENGTH_SHORT).show();
                 } else {
                     editor.putString("phone", phones.get(position));
                 }
@@ -91,11 +92,12 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        addContact = (Button) v.findViewById(R.id.addContact);
+        addContact = (Button) view.findViewById(R.id.addContact);
         addContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                Intent pickContact = new Intent(Intent.ACTION_PICK,
+                        ContactsContract.Contacts.CONTENT_URI);
                 pickContact.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                 startActivityForResult(pickContact, 1);
             }
@@ -111,10 +113,8 @@ public class SettingsFragment extends Fragment {
                         new String[]{Manifest.permission.READ_CONTACTS}, 1);
             }
         }
-
-        return v;
+        return view;
     }
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -126,27 +126,33 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case 1:
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri contactData = data.getData();
-                    assert contactData != null;
-                    String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.HAS_PHONE_NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-                    @SuppressLint("Recycle") Cursor c = getActivity().getContentResolver().query(contactData, projection, null, null, null);
-
-                    if (!c.moveToFirst()) {
-                        return;
-                    }
-                    String number = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-                    String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                    if (number.equalsIgnoreCase("1") || name.equalsIgnoreCase("1")) {
-                        String n = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        String nam = c.getString(c.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                        phones.add(nam + "\n" + n);
-                        adapter.notifyDataSetChanged();
-                    }
-                }
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            assert contactData != null;
+            String[] projection = new String[]{
+                    ContactsContract.CommonDataKinds.Phone.NUMBER,
+                    ContactsContract.Contacts.HAS_PHONE_NUMBER,
+                    ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+            @SuppressLint("Recycle") Cursor query = getActivity()
+                    .getContentResolver()
+                    .query(contactData, projection, null, null, null);
+            assert query != null;
+            if (!query.moveToFirst()) {
+                return;
+            }
+            String number = query.getString(query.getColumnIndexOrThrow(ContactsContract.
+                    Contacts.HAS_PHONE_NUMBER));
+            String name = query.getString(query.getColumnIndexOrThrow(ContactsContract.
+                    CommonDataKinds.Phone.DISPLAY_NAME));
+            if (number.equalsIgnoreCase("1") || name.
+                    equalsIgnoreCase("1")) {
+                String n = query.getString(query.getColumnIndexOrThrow(
+                        ContactsContract.CommonDataKinds.Phone.NUMBER));
+                String nam = query.getString(query.getColumnIndexOrThrow(
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                phones.add(nam + "\n" + n);
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 }
