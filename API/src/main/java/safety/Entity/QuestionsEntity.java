@@ -52,7 +52,6 @@ public class QuestionsEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(idQuestion, question, points);
     }
 }

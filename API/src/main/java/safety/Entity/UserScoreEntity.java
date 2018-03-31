@@ -9,7 +9,7 @@ public class UserScoreEntity {
     private int idScore;
     private String userPhone;
     private int score;
-    SurveysEntity surveysEntity;
+    private SurveysEntity surveysEntity;
 
     public UserScoreEntity (){}
     public UserScoreEntity(String phone, int score){

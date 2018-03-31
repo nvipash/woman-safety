@@ -13,6 +13,7 @@ import safety.Entity.UserScoreEntity;
 @RestController
 public class ScoreController {
     private static final SessionFactory ourSessionFactory;
+
     static {
         try {
             Configuration configuration = new Configuration();
@@ -24,27 +25,21 @@ public class ScoreController {
         }
     }
 
-    public static Session getSession() throws HibernateException {
+    private static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
     @RequestMapping(value="/api/tests/score", params={"phone", "score", "survey"})
     public void  setScore(@RequestParam("phone") String phone, @RequestParam("score") int score, @RequestParam("survey") int id ){
 
-        final Session session = getSession();
-        try {
-        session.beginTransaction();
-        SurveysEntity surveysEntity = (SurveysEntity)session.get(SurveysEntity.class, id);
+        try (Session session = getSession()) {
+            session.beginTransaction();
+            SurveysEntity surveysEntity = (SurveysEntity) session.get(SurveysEntity.class, id);
             System.out.println(surveysEntity.getIdSurvey());
-        UserScoreEntity userScoreEntity =new UserScoreEntity(phone, score);
-        userScoreEntity.setSurveyBySurvey(surveysEntity);
-        session.save(userScoreEntity);
-        session.getTransaction().commit();
-        } finally {
-            session.close();
+            UserScoreEntity userScoreEntity = new UserScoreEntity(phone, score);
+            userScoreEntity.setSurveyBySurvey(surveysEntity);
+            session.save(userScoreEntity);
+            session.getTransaction().commit();
         }
-
-
     }
-
 }
