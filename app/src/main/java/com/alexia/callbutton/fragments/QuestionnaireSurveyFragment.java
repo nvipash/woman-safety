@@ -121,7 +121,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 Fragment fragment = new QuestionnaireInstructionFragment();
                 questionnaireResultBundle.putInt("ARG_POINT_SUM", pointSum);
                 fragment.setArguments(questionnaireResultBundle);
-                ((MainActivity) getActivity()).replaceViewPager(new QuestionnaireInstructionFragment());
+                ((MainActivity) getActivity()).setCurrentPagerItem(7);
             }
         }
 

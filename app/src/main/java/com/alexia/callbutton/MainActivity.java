@@ -9,6 +9,10 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,13 +20,22 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.alexia.callbutton.fragments.BottomNavigationFragment;
+import com.alexia.callbutton.fragments.ButtonFragment;
 import com.alexia.callbutton.fragments.MapsFragment;
 import com.alexia.callbutton.fragments.QuestionnaireFragment;
+import com.alexia.callbutton.fragments.QuestionnaireSelectionFragment;
+import com.alexia.callbutton.fragments.SettingsFragment;
+
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,14 +43,25 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     RelativeLayout questionnaireLayout;
     private static boolean activityPass;
+    ViewPager viewPager;
+    QuestionnaireFragment questionnaireFragment;
+    ButtonFragment buttonFragment;
+    MapsFragment mapsFragment;
+    SettingsFragment settingsFragment;
+    QuestionnaireSelectionFragment selectionFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.bottomnavigationview_fragment);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        openFragment(new BottomNavigationFragment());
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottomnav);
+        bottomNav.setSelectedItemId(R.id.action_sos);
+        setUpViewPager(viewPager, bottomNav);
+        removeShiftMode(bottomNav);
+
     }
 
     public void openFragment(final Fragment fragment) {
@@ -52,17 +76,12 @@ public class MainActivity extends AppCompatActivity {
         activityPass = true;
     }
 
-    public void replaceViewPager(final Fragment fragment){
-        final FragmentManager supportFragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction()
-                .replace(R.id.viewpager_container, fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        if (activityPass) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
-        activityPass = true;
+    public void setCurrentPagerItem(int item){
+        viewPager.setCurrentItem(item, false);
+
     }
+
+
 
     public void dial(View v) {
         if (isPermissionGranted()) {
@@ -125,4 +144,99 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    @SuppressLint("RestrictedApi")
+    public static void removeShiftMode(BottomNavigationView bottomNav) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNav.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.e("BottomNav", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.e("BottomNav", "Unable to change value of shift mode", e);
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setUpViewPager(final ViewPager viewPager, final BottomNavigationView bottomNav) {
+
+        bottomNav.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+
+                            case R.id.action_help:
+                                viewPager.setCurrentItem(3, false);
+                                return true;
+
+                            case R.id.action_map:
+                                viewPager.setCurrentItem(2, false);
+                                return true;
+
+                            case R.id.action_sos:
+                                viewPager.setCurrentItem(0, false);
+                                return true;
+
+                            case R.id.action_settings:
+                                viewPager.setCurrentItem(1, false);
+                                return true;
+                        }
+                        return true;
+                    }
+                });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position < 4)
+                bottomNav.getMenu().getItem(position).setChecked(true);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+        setupViewPager(viewPager);
+    }
+
+    public void setupViewPager(ViewPager viewPager) {
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        questionnaireFragment = new QuestionnaireFragment();
+        buttonFragment = new ButtonFragment();
+        mapsFragment = new MapsFragment();
+        settingsFragment = new SettingsFragment();
+        selectionFragment = new QuestionnaireSelectionFragment();
+        adapter.addFragment(buttonFragment);
+        adapter.addFragment(settingsFragment);
+        adapter.addFragment(mapsFragment);
+        adapter.addFragment(questionnaireFragment);
+        adapter.addFragment(selectionFragment);
+        viewPager.setAdapter(adapter);
+    }
+
+
 }

@@ -23,7 +23,7 @@ public class QuestionnaireFragment extends Fragment {
         selectionTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceViewPager(new QuestionnaireSelectionFragment());
+               ((MainActivity) getActivity()).setCurrentPagerItem(4);
             }
         });
         return view;
