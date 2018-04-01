@@ -53,7 +53,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     private GoogleApiClient mGoogleApiClient;
     private Marker mCurrLocationMarker;
     public Location mLastLocation;
-    public static String url = "http://192.168.0.102:9090/api/locations";
     private String TAG = MapsFragment.class.getSimpleName();
 
     @Override
@@ -107,7 +106,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
             //    --- For passing data
             //Bundle extras = getIntent().getExtras();
             HttpHandler sh = new HttpHandler();
-            String locationUrl = url;
+            String locationUrl = "http://192.168.0.102:9090/api/locations";
             String jsonStr = sh.makeServiceCall(locationUrl);
             if (jsonStr != null) {
                 try {
@@ -115,14 +114,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                     JSONArray jsonArray = new JSONArray(jsonStr);
                     //creating a string array for listview
                     //String[] locationInfo = new String[jsonArray.length()];
-                    ArrayList<Locations> info = new  ArrayList<>(jsonArray.length());
+                    ArrayList<Locations> info = new ArrayList<>(jsonArray.length());
                     //looping through all the elements in json array
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
-                        Locations objectLocation = new Locations(obj.getInt("idLocation"), obj.getString("name"), obj.getString("description"), obj.getString("phone"), obj.getDouble("latitude"), obj.getDouble("longitude"));
+                        Locations objectLocation = new Locations(obj.getInt("idLocation"),
+                                obj.getString("name"),
+                                obj.getString("description"), obj.getString("phone"),
+                                obj.getDouble("latitude"), obj.getDouble("longitude"));
                         info.add(objectLocation);
                     }
-
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -134,7 +135,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                                     .show();
                         }
                     });
-
                 }
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
@@ -151,7 +151,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
             return null;
         }
     }
-
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -253,8 +252,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
-
-
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
     }
@@ -267,4 +264,3 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     public void onProviderDisabled(String s) {
     }
 }
-

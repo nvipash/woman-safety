@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
-public class QuestionnaireStartFragment extends Fragment{
+public class QuestionnaireStartFragment extends Fragment {
     private TextView testDescriptionTextView;
     private String TAG = QuestionnaireStartFragment.class.getSimpleName();
 
@@ -39,11 +39,12 @@ public class QuestionnaireStartFragment extends Fragment{
         surveyStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).setCurrentPagerItem(6);
+                ((MainActivity) getActivity()).replaceFragment(new QuestionnaireSurveyFragment());
             }
         });
         return view;
     }
+
     @SuppressLint("StaticFieldLeak")
     private class GetTestDescription extends AsyncTask<Void, Void, Void> {
         QuestionnaireStart testDescription;
@@ -56,8 +57,7 @@ public class QuestionnaireStartFragment extends Fragment{
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.0.103:9090/api/tests/info";
-            String testDescriptionUrl = url;
+            String testDescriptionUrl = "http://192.168.0.103:9090/api/tests/info";
             String jsonStr = handler.makeServiceCall(testDescriptionUrl);
             if (jsonStr != null) {
                 try {

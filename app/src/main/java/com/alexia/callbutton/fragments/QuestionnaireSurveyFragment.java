@@ -1,13 +1,10 @@
 package com.alexia.callbutton.fragments;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +21,6 @@ import com.alexia.callbutton.jsonparsers.Questionnaire;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.alexia.callbutton.MainActivity.questionnaireResultBundle;
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireSurveyFragment extends Fragment {
@@ -114,15 +110,11 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 questionIDTextView.setText(String.valueOf(questionnaire.idQuestion));
                 questionTextView.setText(String.valueOf(questionnaire.question));
             } else {
-//                --- For passing data of "pointSum"
-//                Fragment fragment = new QuestionnaireInstructionFragment();
-//                questionnaireResultBundle.putInt("ARG_POINT_SUM", pointSum);
-//                fragment.setArguments(questionnaireResultBundle);
-//                Log.e("ARG_POINT_SUM", Integer.toString(pointSum));
-                final WomanSafetyApp application = (WomanSafetyApp)getContext()
+                final WomanSafetyApp application = (WomanSafetyApp) getContext()
                         .getApplicationContext();
                 application.setScore(pointSum);
-                ((MainActivity) getActivity()).setCurrentPagerItem(7);
+                ((MainActivity) getActivity())
+                        .replaceFragment(new QuestionnaireInstructionFragment());
                 currentId = 1;
                 pointSum = 0;
             }

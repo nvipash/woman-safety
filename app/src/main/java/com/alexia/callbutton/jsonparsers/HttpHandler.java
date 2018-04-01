@@ -61,7 +61,6 @@ public class HttpHandler {
     }
 
     public void makeServiceCall1(String reqUrl) {
-        String response = null;
         try {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

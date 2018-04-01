@@ -40,7 +40,7 @@ public class QuestionnaireSelectionFragment extends Fragment {
         firstTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).setCurrentPagerItem(5);
+                ((MainActivity) getActivity()).replaceFragment(new QuestionnaireStartFragment());
             }
         });
         return view;
@@ -58,8 +58,7 @@ public class QuestionnaireSelectionFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.0.103:9090/api/tests/info";
-            String chooseTestDescriptionUrl = url;
+            String chooseTestDescriptionUrl = "http://192.168.0.103:9090/api/tests/info";
             String jsonStr = handler.makeServiceCall(chooseTestDescriptionUrl);
             if (jsonStr != null) {
                 try {

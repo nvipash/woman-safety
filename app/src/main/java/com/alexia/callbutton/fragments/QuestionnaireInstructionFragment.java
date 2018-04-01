@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
-import com.alexia.callbutton.ViewPagerAdapter;
 import com.alexia.callbutton.WomanSafetyApp;
 import com.alexia.callbutton.jsonparsers.HttpHandler;
 import com.alexia.callbutton.jsonparsers.QuestionnaireInstruction;
@@ -29,7 +27,6 @@ public class QuestionnaireInstructionFragment extends Fragment {
     private TextView surveyInstructionTitle;
     private TextView surveyInstruction;
     private String TAG = QuestionnaireSurveyFragment.class.getSimpleName();
-    //    private int score = MainActivity.questionnaireResultBundle.getInt("ARG_POINT_SUM");
     private int score;
 
     @Override
@@ -39,18 +36,25 @@ public class QuestionnaireInstructionFragment extends Fragment {
                 container, false);
         surveyInstruction = (TextView) view.findViewById(R.id.survey_instruction);
         surveyInstructionTitle = (TextView) view.findViewById(R.id.survey_instruction_title);
-        final WomanSafetyApp application = (WomanSafetyApp) getContext().getApplicationContext();
-        score = application.getScore();
         Button surveyEnd = (Button) view.findViewById(R.id.finish_test_button);
         surveyEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).setCurrentPagerItem(4);
+                ((MainActivity) getActivity())
+                        .replaceFragment(new QuestionnaireSelectionFragment());
             }
         });
         Log.e("PARSE_ERROR", Integer.toString(score));
-        new QuestionnaireInstructionFragment.GetInstruction().execute();
+        new GetInstruction().execute();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final WomanSafetyApp application = (WomanSafetyApp) getContext().getApplicationContext();
+        score = application.getScore();
+        new GetInstruction().execute();
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -59,7 +63,6 @@ public class QuestionnaireInstructionFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             HttpHandler handler = new HttpHandler();
             String url = "http://192.168.0.103:9090/api/tests/instruction/?count=";
             String instructionUrl = url + String.valueOf(score);
@@ -80,7 +83,6 @@ public class QuestionnaireInstructionFragment extends Fragment {
                                     .show();
                         }
                     });
-
                 }
             } else {
                 Log.e(TAG, "Couldn't get json from server.");

@@ -14,8 +14,7 @@ public class UserScore extends QuestionnaireSurveyFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new PostScore().execute();
-
-        ((MainActivity) getActivity()).useUserScore(new QuestionnaireInstructionFragment());
+        ((MainActivity) getActivity()).replaceFragment(new QuestionnaireInstructionFragment());
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -35,4 +34,3 @@ public class UserScore extends QuestionnaireSurveyFragment {
         }
     }
 }
-

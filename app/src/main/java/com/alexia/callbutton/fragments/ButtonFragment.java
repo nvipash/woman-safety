@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +24,9 @@ public class ButtonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.button_fragment, container, false);
-
     }
 
-    public void call_action() {
+    public void callAction() {
         String toDial = "tel:" + preferences.getString("phone", "0933797479");
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(toDial));
@@ -58,7 +56,7 @@ public class ButtonFragment extends Fragment {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Permission granted", Toast.LENGTH_SHORT).show();
-                    call_action();
+                    callAction();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Permission denied", Toast.LENGTH_SHORT).show();
