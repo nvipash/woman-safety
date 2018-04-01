@@ -42,21 +42,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottomnavigationview_fragment);
+        setContentView(R.layout.activity_main);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottomnav);
         bottomNav.setSelectedItemId(R.id.action_sos);
         setUpBottomNavigationView(viewPager, bottomNav);
         removeShiftMode(bottomNav);
-
     }
 
     public void useUserScore(final Fragment fragment) {
         final FragmentManager supportFragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                .replace(R.id.viewpager_container, fragment);
         if (activityPass) {
             fragmentTransaction.addToBackStack(null);
         }
@@ -201,10 +199,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        setupViewPager(viewPager);
+        setUpViewPager(viewPager);
     }
 
-    public void setupViewPager(final ViewPager viewPager) {
+    public void setUpViewPager(final ViewPager viewPager) {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         QuestionnaireFragment questionnaireFragment = new QuestionnaireFragment();
         ButtonFragment buttonFragment = new ButtonFragment();

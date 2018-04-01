@@ -1,6 +1,5 @@
 package com.alexia.callbutton.fragments;
 
-
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +15,8 @@ import android.widget.Toast;
 
 import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
+import com.alexia.callbutton.ViewPagerAdapter;
+import com.alexia.callbutton.WomanSafetyApp;
 import com.alexia.callbutton.jsonparsers.HttpHandler;
 import com.alexia.callbutton.jsonparsers.QuestionnaireInstruction;
 
@@ -28,7 +29,8 @@ public class QuestionnaireInstructionFragment extends Fragment {
     private TextView surveyInstructionTitle;
     private TextView surveyInstruction;
     private String TAG = QuestionnaireSurveyFragment.class.getSimpleName();
-    private int score = MainActivity.questionnaireResultBundle.getInt("ARG_POINT_SUM");
+    //    private int score = MainActivity.questionnaireResultBundle.getInt("ARG_POINT_SUM");
+    private int score;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +39,8 @@ public class QuestionnaireInstructionFragment extends Fragment {
                 container, false);
         surveyInstruction = (TextView) view.findViewById(R.id.survey_instruction);
         surveyInstructionTitle = (TextView) view.findViewById(R.id.survey_instruction_title);
-
+        final WomanSafetyApp application = (WomanSafetyApp) getContext().getApplicationContext();
+        score = application.getScore();
         Button surveyEnd = (Button) view.findViewById(R.id.finish_test_button);
         surveyEnd.setOnClickListener(new View.OnClickListener() {
             @Override

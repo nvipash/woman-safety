@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
+import com.alexia.callbutton.WomanSafetyApp;
 import com.alexia.callbutton.jsonparsers.HttpHandler;
 import com.alexia.callbutton.jsonparsers.Questionnaire;
 
@@ -107,17 +110,21 @@ public class QuestionnaireSurveyFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            if (this.error != "500") {
+            if (!this.error.equals("500")) {
                 questionIDTextView.setText(String.valueOf(questionnaire.idQuestion));
                 questionTextView.setText(String.valueOf(questionnaire.question));
             } else {
 //                --- For passing data of "pointSum"
-                Fragment fragment = new QuestionnaireInstructionFragment();
-                questionnaireResultBundle.putInt("ARG_POINT_SUM", pointSum);
-                fragment.setArguments(questionnaireResultBundle);
-                Log.e("ARG_POINT_SUM", Integer.toString(pointSum));
+//                Fragment fragment = new QuestionnaireInstructionFragment();
+//                questionnaireResultBundle.putInt("ARG_POINT_SUM", pointSum);
+//                fragment.setArguments(questionnaireResultBundle);
+//                Log.e("ARG_POINT_SUM", Integer.toString(pointSum));
+                final WomanSafetyApp application = (WomanSafetyApp)getContext()
+                        .getApplicationContext();
+                application.setScore(pointSum);
                 ((MainActivity) getActivity()).setCurrentPagerItem(7);
                 currentId = 1;
+                pointSum = 0;
             }
         }
     }
