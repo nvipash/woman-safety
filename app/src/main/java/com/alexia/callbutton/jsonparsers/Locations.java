@@ -8,8 +8,8 @@ public class Locations {
     public String name;
     public String description;
     public String phone;
-    private double latitude;
-    private double longitude;
+    public double latitude;
+    public double longitude;
 
     public Locations(JSONObject json) throws JSONException {
         idLocation = json.getInt("idLocation");

@@ -91,6 +91,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                 .snippet("вул. Генерала Чупринки, 65"));
     }
 
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
@@ -98,15 +99,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class GetLocations extends AsyncTask<Void, Void, Void> {
-        Locations location;
-
+    private class GetLocations extends AsyncTask<Void, Void, ArrayList<Locations>> {
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected ArrayList<Locations> doInBackground(Void... arg0) {
             //    --- For passing data
             //Bundle extras = getIntent().getExtras();
             HttpHandler sh = new HttpHandler();
-            String locationUrl = "http://192.168.0.102:9090/api/locations";
+            String locationUrl = "http://192.168.1.102:9090/api/locations";
             String jsonStr = sh.makeServiceCall(locationUrl);
             if (jsonStr != null) {
                 try {
@@ -118,12 +117,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                     //looping through all the elements in json array
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject obj = jsonArray.getJSONObject(i);
-                        Locations objectLocation = new Locations(obj.getInt("idLocation"),
-                                obj.getString("name"),
+                        Locations objectLocation = new Locations(obj.getInt("idPlace"),
+                                obj.getString("placeName"),
                                 obj.getString("description"), obj.getString("phone"),
                                 obj.getDouble("latitude"), obj.getDouble("longitude"));
                         info.add(objectLocation);
+//                        mMap.addMarker(new MarkerOptions()
+//                                .position(new LatLng(objectLocation.latitude, objectLocation.longitude))
+//                                .title(objectLocation.name)
+//                                .snippet(objectLocation.description)
+//                        );
                     }
+                    return info;
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -150,6 +155,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
             }
             return null;
         }
+
+        @Override
+        protected void onPostExecute(ArrayList<Locations> locations) {
+            if (locations == null) {
+                return;
+            }
+            for(Locations objectLocation: locations) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(objectLocation.latitude, objectLocation.longitude))
+                        .title(objectLocation.name)
+                        .snippet(objectLocation.description)
+                );
+            }
+        }
     }
 
     @Override
@@ -165,6 +184,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new GetLocations().execute();
     }
 
     @Override
