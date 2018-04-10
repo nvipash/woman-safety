@@ -16,8 +16,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -30,32 +31,38 @@ import com.alexia.callbutton.fragments.SettingsFragment;
 import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
-    private static boolean activityPass;
-    private ViewPager viewPager;
-    public static Bundle questionnaireResultBundle = new Bundle();
+    private static boolean ACTIVITY_PASS;
     private SharedPreferences preferences;
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
+        manager = getSupportFragmentManager();
         BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
         bottomNav.setSelectedItemId(R.id.action_sos);
         removeShiftModeInBottomNav(bottomNav);
     }
 
-    public void replaceFragment(final Fragment fragment) {
-        final FragmentManager supportFragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction()
+    public void replaceBottomNavFragment(final Fragment fragment) {
+        final FragmentTransaction fragmentTransaction = manager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        if (activityPass) {
+        fragmentTransaction.commit();
+    }
+
+    public void replaceWithStack(final Fragment fragment) {
+        final FragmentTransaction fragmentTransaction = manager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        if (ACTIVITY_PASS) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commit();
-        activityPass = true;
+        ACTIVITY_PASS = true;
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener
@@ -64,16 +71,16 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_help:
-                    replaceFragment(new QuestionnaireFragment());
+                    replaceBottomNavFragment(new QuestionnaireFragment());
                     return true;
                 case R.id.action_map:
-                    replaceFragment(new MapsFragment());
+                    replaceBottomNavFragment(new MapsFragment());
                     return true;
                 case R.id.action_sos:
-                    replaceFragment(new ButtonFragment());
+                    replaceBottomNavFragment(new ButtonFragment());
                     return true;
                 case R.id.action_settings:
-                    replaceFragment(new SettingsFragment());
+                    replaceBottomNavFragment(new SettingsFragment());
                     return true;
             }
             return true;

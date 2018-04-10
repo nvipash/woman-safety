@@ -85,10 +85,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(49.834893, 23.991080))
-                .title("Залізничний районний відділ поліції")
-                .snippet("вул. Генерала Чупринки, 65"));
     }
 
 
@@ -102,31 +98,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     private class GetLocations extends AsyncTask<Void, Void, ArrayList<Locations>> {
         @Override
         protected ArrayList<Locations> doInBackground(Void... arg0) {
-            //    --- For passing data
-            //Bundle extras = getIntent().getExtras();
             HttpHandler sh = new HttpHandler();
-            String locationUrl = "http://192.168.1.102:9090/api/locations";
+            String locationUrl = "http:/192.168.0.103:9090/api/locations";
             String jsonStr = sh.makeServiceCall(locationUrl);
             if (jsonStr != null) {
                 try {
-
                     JSONArray jsonArray = new JSONArray(jsonStr);
                     //creating a string array for listview
-                    //String[] locationInfo = new String[jsonArray.length()];
                     ArrayList<Locations> info = new ArrayList<>(jsonArray.length());
-                    //looping through all the elements in json array
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject obj = jsonArray.getJSONObject(i);
-                        Locations objectLocation = new Locations(obj.getInt("idPlace"),
-                                obj.getString("placeName"),
-                                obj.getString("description"), obj.getString("phone"),
-                                obj.getDouble("latitude"), obj.getDouble("longitude"));
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        Locations objectLocation = new Locations(object.getInt("idPlace"),
+                                object.getString("placeName"),
+                                object.getString("description"),
+                                object.getString("phone"),
+                                object.getDouble("latitude"),
+                                object.getDouble("longitude"));
                         info.add(objectLocation);
-//                        mMap.addMarker(new MarkerOptions()
-//                                .position(new LatLng(objectLocation.latitude, objectLocation.longitude))
-//                                .title(objectLocation.name)
-//                                .snippet(objectLocation.description)
-//                        );
                     }
                     return info;
                 } catch (final JSONException e) {
@@ -161,7 +149,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
             if (locations == null) {
                 return;
             }
-            for(Locations objectLocation: locations) {
+            for (Locations objectLocation : locations) {
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(objectLocation.latitude, objectLocation.longitude))
                         .title(objectLocation.name)

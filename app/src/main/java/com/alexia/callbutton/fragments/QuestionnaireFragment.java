@@ -20,7 +20,7 @@ public class QuestionnaireFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((MainActivity) getActivity())
-                        .replaceFragment(new QuestionnaireSelectionFragment());
+                        .replaceWithStack(new QuestionnaireSelectionFragment());
             }
         });
         return view;

@@ -1,6 +1,5 @@
 package com.alexia.callbutton.fragments;
 
-
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,7 +39,7 @@ public class QuestionnaireSelectionFragment extends Fragment {
         firstTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceFragment(new QuestionnaireStartFragment());
+                ((MainActivity) getActivity()).replaceWithStack(new QuestionnaireStartFragment());
             }
         });
         return view;

@@ -41,7 +41,7 @@ public class QuestionnaireInstructionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((MainActivity) getActivity())
-                        .replaceFragment(new QuestionnaireSelectionFragment());
+                        .replaceWithStack(new QuestionnaireSelectionFragment());
             }
         });
         Log.e("PARSE_ERROR", Integer.toString(score));

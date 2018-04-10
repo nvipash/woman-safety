@@ -2,6 +2,7 @@ package com.alexia.callbutton.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,10 +22,12 @@ import com.alexia.callbutton.jsonparsers.Questionnaire;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireSurveyFragment extends Fragment {
-    private static int currentId = 1;
+    private static int CURRENT_ID = 1;
     private String TAG = QuestionnaireSurveyFragment.class.getSimpleName();
     private TextView questionTextView;
     private TextView questionIDTextView;
@@ -43,7 +46,10 @@ public class QuestionnaireSurveyFragment extends Fragment {
         questionTextView = (TextView) view.findViewById(R.id.question);
         questionIDTextView = (TextView) view.findViewById(R.id.question_id);
         if (getActivity().getIntent().hasExtra("bundle") && savedInstanceState == null) {
-            savedInstanceState = getActivity().getIntent().getExtras().getBundle("bundle");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                savedInstanceState = Objects.requireNonNull(getActivity()
+                        .getIntent().getExtras()).getBundle("bundle");
+            }
         }
 
         yesButton.setOnClickListener(new View.OnClickListener() {
@@ -77,11 +83,11 @@ public class QuestionnaireSurveyFragment extends Fragment {
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
             String url = "http://192.168.0.103:9090/api/tests/questions/?id=";
-            String questionUrl = url + String.valueOf(currentId);
+            String questionUrl = url + String.valueOf(CURRENT_ID);
             String jsonStr = handler.makeServiceCall(questionUrl);
             if (jsonStr != null) {
                 try {
-                    currentId += 1;
+                    CURRENT_ID += 1;
                     JSONObject object = new JSONObject(jsonStr);
                     questionnaire = new Questionnaire(object);
 
@@ -114,8 +120,8 @@ public class QuestionnaireSurveyFragment extends Fragment {
                         .getApplicationContext();
                 application.setScore(pointSum);
                 ((MainActivity) getActivity())
-                        .replaceFragment(new QuestionnaireInstructionFragment());
-                currentId = 1;
+                        .replaceWithStack(new QuestionnaireInstructionFragment());
+                CURRENT_ID = 1;
                 pointSum = 0;
             }
         }
