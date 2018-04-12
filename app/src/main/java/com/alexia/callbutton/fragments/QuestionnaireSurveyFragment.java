@@ -1,6 +1,7 @@
 package com.alexia.callbutton.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
 import com.alexia.callbutton.WomanSafetyApp;
+import com.alexia.callbutton.databases.SQLiteDatabaseHandler;
 import com.alexia.callbutton.jsonparsers.HttpHandler;
 import com.alexia.callbutton.jsonparsers.Questionnaire;
 
@@ -52,20 +54,21 @@ public class QuestionnaireSurveyFragment extends Fragment {
             }
         }
 
+        final Context context = this.getContext();
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new GetQuestion().execute();
+                new GetQuestion(context).execute();
                 pointSum++;
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new GetQuestion().execute();
+                new GetQuestion(context).execute();
             }
         });
-        new GetQuestion().execute();
+        new GetQuestion(context).execute();
         return view;
     }
 
@@ -78,11 +81,16 @@ public class QuestionnaireSurveyFragment extends Fragment {
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
         Questionnaire questionnaire;
         String error = "0";
+        private SQLiteDatabaseHandler db;
 
+        GetQuestion(Context context) {
+            super();
+            db = new SQLiteDatabaseHandler(context);
+        }
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.0.103:9090/api/tests/questions/?id=";
+            String url = "http://192.168.1.103:9090/api/tests/questions?id=";
             String questionUrl = url + String.valueOf(CURRENT_ID);
             String jsonStr = handler.makeServiceCall(questionUrl);
             if (jsonStr != null) {
@@ -90,7 +98,6 @@ public class QuestionnaireSurveyFragment extends Fragment {
                     CURRENT_ID += 1;
                     JSONObject object = new JSONObject(jsonStr);
                     questionnaire = new Questionnaire(object);
-
                 } catch (final JSONException jsonException) {
                     Log.e(TAG, "Json parsing error: " + jsonException.getMessage());
                     runOnUiThread(new Runnable() {
@@ -115,6 +122,13 @@ public class QuestionnaireSurveyFragment extends Fragment {
             if (!this.error.equals("500")) {
                 questionIDTextView.setText(String.valueOf(questionnaire.idQuestion));
                 questionTextView.setText(String.valueOf(questionnaire.question));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.addQuestion(questionnaire);
+                        Log.e(TAG, db.getQuestions().toString());
+                    }
+                });
             } else {
                 final WomanSafetyApp application = (WomanSafetyApp) getContext()
                         .getApplicationContext();
@@ -124,6 +138,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 CURRENT_ID = 1;
                 pointSum = 0;
             }
+//            Log.e(TAG, db.getQuestions().toString());
         }
     }
 }

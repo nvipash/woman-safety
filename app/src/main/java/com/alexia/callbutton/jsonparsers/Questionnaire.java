@@ -14,6 +14,12 @@ public class Questionnaire {
         points = json.getInt("points");
     }
 
+    public Questionnaire(int id, String text, int points) {
+        this.idQuestion = id;
+        this.question = text;
+        this.points = points;
+    }
+
     @Override
     public String toString() {
         return "idQuestion: " + idQuestion + "\n" +
