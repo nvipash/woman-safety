@@ -38,22 +38,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferences = SettingsFragment.this.getActivity()
                 .getSharedPreferences("shared_pref", MODE_PRIVATE);
-        Set<String> entries = preferences.getStringSet("phones", null);
         adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_single_choice, phones);
-
+        final SharedPreferences.Editor editor = preferences.edit();
         Preference selectNumber = findPreference("number_list");
         selectNumber.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference contactPreference) {
-                if (phones.isEmpty() || phones == null) {
+                if (preferences.getBoolean("first_run", true)) {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Перед тим як обрати номер, додайте його з телефонної книги",
                             Toast.LENGTH_LONG).show();
-                } else {
+                    Intent pickContactAtFirst = new Intent(Intent.ACTION_PICK,
+                            ContactsContract.Contacts.CONTENT_URI);
+                    pickContactAtFirst.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+                    startActivityForResult(pickContactAtFirst, 1);
+                    preferences.edit().putBoolean("first_run", false).apply();
+                } else if (phones != null) {
+                    Set<String> phonesSet = new  HashSet<>(phones);
+                    editor.putStringSet("phones", phonesSet);
+                    editor.apply();
                     FragmentManager manager = getChildFragmentManager();
                     NumberListDialogFragment dialog = new NumberListDialogFragment();
                     dialog.show(manager, null);
@@ -86,8 +93,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        final WomanSafetyApp application = (WomanSafetyApp) getContext().getApplicationContext();
-        final SharedPreferences.Editor editor = preferences.edit();
         if (resultCode == Activity.RESULT_OK) {
             Uri contactData = data.getData();
             assert contactData != null;
@@ -113,10 +118,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 phones.add(displayName + "\n" + displayNumber);
                 adapter.notifyDataSetChanged();
-                Set<String> phonesSet = new HashSet<>(phones);
-                editor.putStringSet("phones", phonesSet);
-                editor.apply();
-                application.setPhones(phones);
             }
         }
     }

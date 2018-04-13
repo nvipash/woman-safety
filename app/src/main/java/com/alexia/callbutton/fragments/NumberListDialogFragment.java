@@ -10,13 +10,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
-import com.alexia.callbutton.WomanSafetyApp;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -24,7 +23,7 @@ import java.util.Set;
 import static android.content.Context.MODE_PRIVATE;
 
 public class NumberListDialogFragment extends DialogFragment {
-    private ArrayList<String> phones = new ArrayList<>();
+    private ArrayList<String> phones;
     private ArrayAdapter<String> adapter;
     private ListView numberList;
     public SharedPreferences preferences;
@@ -40,8 +39,7 @@ public class NumberListDialogFragment extends DialogFragment {
         if (entries != null) {
             phones = new ArrayList<>(entries);
         }
-        final WomanSafetyApp application = (WomanSafetyApp) getContext().getApplicationContext();
-        phones = application.getPhones();
+
         numberList = (ListView) view.findViewById(R.id.number_list);
         numberList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         adapter = new ArrayAdapter<>(getActivity(),
@@ -53,18 +51,8 @@ public class NumberListDialogFragment extends DialogFragment {
         if (index != -1) {
             numberList.setItemChecked(index, false);
         }
-        numberList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int position, long arg3) {
-                adapter.remove(phones.get(position));
-                adapter.notifyDataSetChanged();
-                phones = application.getPhones();
-                application.setPhones(phones);
-                return false;
-            }
-        });
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+
+        DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 int position = numberList.getCheckedItemPosition();
@@ -76,10 +64,20 @@ public class NumberListDialogFragment extends DialogFragment {
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Номер телефону обраний", Toast.LENGTH_SHORT).show();
                 }
+                adapter.notifyDataSetChanged();
                 editor.apply();
             }
         };
+        DialogInterface.OnClickListener listenerCancel = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        "Номер не обрано", Toast.LENGTH_SHORT).show();
+                dialogInterface.dismiss();
+            }
+        };
         return new AlertDialog.Builder(getContext()).setTitle("Оберіть контакт").setView(view)
-                .setPositiveButton(android.R.string.ok, listener).create();
+                .setPositiveButton(android.R.string.ok, listenerOk)
+                .setNegativeButton(android.R.string.cancel, listenerCancel).create();
     }
 }

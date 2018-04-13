@@ -6,7 +6,6 @@
     android:id="@+id/questionnaire_survey_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -16,11 +15,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="161dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        card_view:cardElevation="15dp"
+        android:layout_marginTop="20dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="10dp"
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -33,9 +33,9 @@
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="75dp"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="50.5sp"
@@ -46,11 +46,12 @@
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="75dp"
                 android:lineSpacingMultiplier="1.2"
                 android:text="@string/question_numbers"
                 android:textSize="20.5sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -62,13 +63,33 @@
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="170dp"
                 android:gravity="center|center_vertical"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/colorPrimary"
                 android:textSize="25.5sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="145dp"
+                android:layout_weight="10"
+                android:gravity="center|center_vertical"
+                android:indeterminate="false"
+                android:progress="1" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -102,12 +123,10 @@
         android:id="@+id/floatingActionButtonNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/card_survey"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/card_survey"
-        android:layout_marginBottom="97dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginRight="65dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="95dp"
+        android:layout_marginEnd="75dp"
         android:clickable="true"
         android:focusable="true"
         app:fabSize="normal"
@@ -126,5 +145,3 @@
         android:text="@string/no_button" />
 
 </RelativeLayout>
-
-

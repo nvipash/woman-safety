@@ -28,10 +28,10 @@
         android:layout_alignLeft="@+id/survey_screen_title"
         android:layout_alignStart="@+id/survey_screen_title"
         android:layout_alignTop="@+id/surveyCard_2"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:onClick="onClick"
-        card_view:cardElevation="15dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="10dp">
 
         <TextView
             android:id="@+id/survey_text_1"
@@ -51,10 +51,11 @@
         android:layout_alignEnd="@+id/survey_screen_title"
         android:layout_alignRight="@+id/survey_screen_title"
         android:layout_below="@+id/survey_screen_title"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        card_view:cardElevation="15dp"
-        tools:ignore="DuplicateIds">
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        card_view:cardElevation="10dp"
+        tools:ignore="DuplicateIds"
+        android:layout_marginEnd="5dp">
 
         <TextView
             android:id="@+id/survey_text_2"

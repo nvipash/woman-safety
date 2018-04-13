@@ -1,6 +1,7 @@
 package com.alexia.callbutton.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import static com.google.android.gms.internal.zzagr.runOnUiThread;
 public class QuestionnaireSurveyFragment extends Fragment {
     private static int CURRENT_ID = 1;
     private String TAG = QuestionnaireSurveyFragment.class.getSimpleName();
+    private ProgressBar progressBar;
     private TextView questionTextView;
     private TextView questionIDTextView;
     public int pointSum = 0;
@@ -43,6 +46,9 @@ public class QuestionnaireSurveyFragment extends Fragment {
         FloatingActionButton noButton = (FloatingActionButton)
                 view.findViewById(R.id.floatingActionButtonNo);
 
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setMax(16);
+        progressBar.setProgress(0);
         questionTextView = (TextView) view.findViewById(R.id.question);
         questionIDTextView = (TextView) view.findViewById(R.id.question_id);
         if (getActivity().getIntent().hasExtra("bundle") && savedInstanceState == null) {
@@ -88,6 +94,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
             if (jsonStr != null) {
                 try {
                     CURRENT_ID += 1;
+                    progressBar.setProgress(CURRENT_ID);
                     JSONObject object = new JSONObject(jsonStr);
                     questionnaire = new Questionnaire(object);
 

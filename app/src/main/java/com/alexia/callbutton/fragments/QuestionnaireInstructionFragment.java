@@ -44,7 +44,6 @@ public class QuestionnaireInstructionFragment extends Fragment {
                         .replaceWithStack(new QuestionnaireSelectionFragment());
             }
         });
-        Log.e("PARSE_ERROR", Integer.toString(score));
         new GetInstruction().execute();
         return view;
     }

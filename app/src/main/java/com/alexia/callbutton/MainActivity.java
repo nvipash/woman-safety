@@ -133,11 +133,11 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getApplicationContext(),
-                            "Permission granted", Toast.LENGTH_SHORT).show();
+                            "Дозвіл надано", Toast.LENGTH_SHORT).show();
                     callAction();
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Permission denied", Toast.LENGTH_SHORT).show();
+                            "У наданні дозволу відмовлено", Toast.LENGTH_SHORT).show();
                 }
             }
             // other 'case' lines to check for other
@@ -155,10 +155,7 @@ public class MainActivity extends AppCompatActivity {
             shiftingMode.setAccessible(false);
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                //noinspection RestrictedApi
                 item.setShiftingMode(false);
-                // set once again checked value, so view will be updated
-                //noinspection RestrictedApi
                 item.setChecked(item.getItemData().isChecked());
             }
         } catch (NoSuchFieldException ignored) {

@@ -23,7 +23,7 @@
     <string name="questionnaire_screen_title">Оберіть опитування для проходження</string>
     <string name="yes_button">ТАК</string>
     <string name="no_button">НІ</string>
-    <string name="question_numbers">/12</string>
+    <string name="question_numbers">/15</string>
     <string name="finish_test_button">Завершити тест</string>
     <string name="title_activity_maps">Map</string>
 </resources>

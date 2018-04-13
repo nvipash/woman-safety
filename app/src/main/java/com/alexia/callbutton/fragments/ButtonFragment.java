@@ -10,12 +10,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alexia.callbutton.R;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 public class ButtonFragment extends Fragment {
     public SharedPreferences preferences;
@@ -55,11 +59,11 @@ public class ButtonFragment extends Fragment {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Permission granted", Toast.LENGTH_SHORT).show();
+                            "Дозвіл надано", Toast.LENGTH_SHORT).show();
                     callAction();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Permission denied", Toast.LENGTH_SHORT).show();
+                            "У наданні дозволу відмовлено", Toast.LENGTH_SHORT).show();
                 }
             }
         }
