@@ -30,5 +30,15 @@
         android:background="@null"
         android:onClick="dial"
         android:src="@drawable/sos" />
+
+    <Button
+        android:id="@+id/police_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_text"
+        android:layout_alignEnd="@+id/button_text"
+        android:layout_alignRight="@+id/button_text"
+        android:onClick="callActionPolice_onClick"
+        android:text="Call Police" />
 </RelativeLayout>
 
