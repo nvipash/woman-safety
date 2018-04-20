@@ -8,16 +8,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -46,6 +47,7 @@ public class NumberListDialogFragment extends DialogFragment {
                 android.R.layout.simple_list_item_single_choice, phones);
         final String selectedNumber = preferences.getString("phone", null);
         final SharedPreferences.Editor editor = preferences.edit();
+        Log.e("SHARED_PREF", String.valueOf(preferences));
         int index = phones.indexOf(selectedNumber);
         numberList.setAdapter(adapter);
         if (index != -1) {
@@ -63,9 +65,10 @@ public class NumberListDialogFragment extends DialogFragment {
                     editor.putString("phone", phones.get(position));
                     Toast.makeText(getActivity().getApplicationContext(),
                             "Номер телефону обраний", Toast.LENGTH_SHORT).show();
+                    Log.e("SHARED_PREF", String.valueOf(preferences));
                 }
-                adapter.notifyDataSetChanged();
                 editor.apply();
+                adapter.notifyDataSetChanged();
             }
         };
         DialogInterface.OnClickListener listenerCancel = new DialogInterface.OnClickListener() {
@@ -78,6 +81,10 @@ public class NumberListDialogFragment extends DialogFragment {
         };
         return new AlertDialog.Builder(getContext()).setTitle("Оберіть контакт").setView(view)
                 .setPositiveButton(android.R.string.ok, listenerOk)
-                .setNegativeButton(android.R.string.cancel, listenerCancel).create();
+                .setNegativeButton(android.R.string.cancel, listenerCancel).show();
+    }
+    public static NumberListDialogFragment newInstance() {
+        NumberListDialogFragment dialogFragment = new NumberListDialogFragment();
+        return dialogFragment;
     }
 }

@@ -1,12 +1,13 @@
 <resources>
-    <string name="app_name">WomanSafety</string>
+    <string name="app_name">Woman Safety</string>
     <!--Strings for BotoomNavigationView-->
     <string name="text_map">Карта</string>
     <string name="text_help">Опитування</string>
     <string name="text_sos">Допомога</string>
     <string name="text_settings">Налаштування</string>
+    <string name="text_info">Довідка</string>
     <!--Strings for SettingsFragment-->
-    <string name="settings_title">Налаштування кнопки SOS</string>
+    <string name="settings_title">Кнопка SOS</string>
     <string name="choose_number">Обрати номер для виклику</string>
     <string name="number_summary">За ним буде здійснений дзвінок після натискання кнопки SOS</string>
     <string name="contact_summary">Доданий номер можна буде використати для виклику</string>
@@ -14,7 +15,7 @@
     <string name="save_number">Зберегти обранний номер</string>
     <string name="print_number">Введіть номер мобільного телефону</string>
     <!--Strings for ButtonFragment-->
-    <string name="sos_button_text">У разі погрози вашому життю терміново натисніть на цю кнопку</string>
+    <string name="sos_button_text">У разі погрози вашому життю залежно від стану ситуації натисніть на кнопку</string>
     <!--Strings for QuestionnaireFragment-->
     <string name="test_button_text">Для визначення рівня небезпеки пропонуємо вам пройти один з тестів</string>
     <string name="choose_survey">Обрати тест</string>
@@ -26,4 +27,5 @@
     <string name="question_numbers">/15</string>
     <string name="finish_test_button">Завершити тест</string>
     <string name="title_activity_maps">Map</string>
+    <string name="сall_police">Викликати поліцію</string>
 </resources>

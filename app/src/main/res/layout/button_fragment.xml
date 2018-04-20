@@ -9,17 +9,26 @@
         android:id="@+id/button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/button"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:lineSpacingMultiplier="1.2"
         android:text="@string/sos_button_text"
-        android:textColor="#686868	"
-        android:textSize="17.5sp"
+        android:textColor="#686868"
+        android:textSize="16.5sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/police_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="253dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_text"
+        android:layout_centerHorizontal="true"
+        android:onClick="callActionPolice"
+        android:text="@string/сall_police" />
 
     <ImageButton
         android:id="@+id/button"
@@ -31,14 +40,5 @@
         android:onClick="dial"
         android:src="@drawable/sos" />
 
-    <Button
-        android:id="@+id/police_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_text"
-        android:layout_alignEnd="@+id/button_text"
-        android:layout_alignRight="@+id/button_text"
-        android:onClick="callActionPolice_onClick"
-        android:text="Call Police" />
 </RelativeLayout>
 

@@ -10,14 +10,19 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
 import com.alexia.callbutton.WomanSafetyApp;
 
@@ -35,6 +40,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preference_fragment, rootKey);
+
     }
 
     @Override
@@ -45,6 +51,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_single_choice, phones);
         final SharedPreferences.Editor editor = preferences.edit();
+        Log.e("SHARED_PREF", String.valueOf(preferences));
+//      need to fix shared preference problem
         Preference selectNumber = findPreference("number_list");
         selectNumber.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference contactPreference) {
@@ -58,12 +66,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     startActivityForResult(pickContactAtFirst, 1);
                     preferences.edit().putBoolean("first_run", false).apply();
                 } else if (phones != null) {
-                    Set<String> phonesSet = new  HashSet<>(phones);
+                    Set<String> phonesSet = new HashSet<>(phones);
                     editor.putStringSet("phones", phonesSet);
                     editor.apply();
-                    FragmentManager manager = getChildFragmentManager();
+                    FragmentManager manager = getFragmentManager();
                     NumberListDialogFragment dialog = new NumberListDialogFragment();
                     dialog.show(manager, null);
+                    Log.e("SHARED_PREF", String.valueOf(preferences));
                 }
                 return true;
             }

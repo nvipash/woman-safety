@@ -2,6 +2,7 @@ package com.alexia.callbutton;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,22 +19,27 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.alexia.callbutton.fragments.ButtonFragment;
 import com.alexia.callbutton.fragments.MapsFragment;
+import com.alexia.callbutton.fragments.NumberListDialogFragment;
 import com.alexia.callbutton.fragments.QuestionnaireFragment;
+import com.alexia.callbutton.fragments.ReferenceFragment;
 import com.alexia.callbutton.fragments.SettingsFragment;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private static boolean ACTIVITY_PASS;
     private SharedPreferences preferences;
     private FragmentManager manager;
+    private BottomNavigationView bottomNav;
+    private View shadow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         manager = getSupportFragmentManager();
-        BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
         bottomNav.setSelectedItemId(R.id.action_sos);
+        shadow = (View) findViewById(R.id.shadow);
         removeShiftModeInBottomNav(bottomNav);
     }
 
@@ -58,11 +65,20 @@ public class MainActivity extends AppCompatActivity {
         final FragmentTransaction fragmentTransaction = manager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        if (ACTIVITY_PASS) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
-        ACTIVITY_PASS = true;
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        bottomNav.setVisibility(View.VISIBLE);
+        shadow.setVisibility(View.VISIBLE);
+        setActionBarTitle("Woman Safety");
+        super.onBackPressed();
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public void setActionBarTitle(String title) {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener
@@ -71,28 +87,54 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_help:
+                    setActionBarTitle("Опитування");
                     replaceBottomNavFragment(new QuestionnaireFragment());
                     return true;
                 case R.id.action_map:
+                    setActionBarTitle("Карта");
                     replaceBottomNavFragment(new MapsFragment());
                     return true;
                 case R.id.action_sos:
+                    setActionBarTitle("Допомога");
                     replaceBottomNavFragment(new ButtonFragment());
                     return true;
-                case R.id.action_settings:
-                    replaceBottomNavFragment(new SettingsFragment());
+                case R.id.action_info:
+                    setActionBarTitle("Довідка");
+                    replaceBottomNavFragment(new ReferenceFragment());
                     return true;
             }
             return true;
         }
     };
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                setActionBarTitle("Налаштування");
+                replaceWithStack(new SettingsFragment());
+                bottomNav.setVisibility(View.INVISIBLE);
+                shadow.setVisibility(View.INVISIBLE);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void dial(View v) {
         if (isPermissionGranted()) {
             callAction();
         }
     }
-    public void callActionPolice_onClick(View view) {
+
+    public void callActionPolice(View view) {
         String toDial = "102";
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + toDial));
