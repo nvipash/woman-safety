@@ -26,7 +26,7 @@ public class UserScore extends QuestionnaireSurveyFragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            String url = "http://192.168.43.186:9090/api/tests/score/?phone=";
+            String url = "http://192.168.186.2:9090/api/tests/score/?phone=";
             String questionUrl = url + String.valueOf(userPhone) + "&score="
                     + String.valueOf(score) + "&survey=" + String.valueOf(idScore);
             sh.makeServiceCall1(questionUrl);

@@ -99,7 +99,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         @Override
         protected ArrayList<Locations> doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            String locationUrl = "http:/192.168.0.103:9090/api/locations";
+            String locationUrl = "http://192.168.186.2:9090/api/locations";
             String jsonStr = sh.makeServiceCall(locationUrl);
             if (jsonStr != null) {
                 try {

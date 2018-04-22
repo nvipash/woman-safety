@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,8 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 view.findViewById(R.id.floatingActionButtonYes);
         FloatingActionButton noButton = (FloatingActionButton)
                 view.findViewById(R.id.floatingActionButtonNo);
+        Button seldomButton = (Button)
+                view.findViewById(R.id.floatingActionButtonSeldom);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setMax(16);
@@ -61,13 +64,24 @@ public class QuestionnaireSurveyFragment extends Fragment {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int points = new GetQuestion().getScoreOften();
+                pointSum = pointSum + points;
                 new GetQuestion().execute();
-                pointSum++;
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int points = new GetQuestion().getScoreNever();
+                pointSum = pointSum + points;
+                new GetQuestion().execute();
+            }
+        });
+        seldomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int points = new GetQuestion().getScoreSeldom();
+                pointSum = pointSum + points;
                 new GetQuestion().execute();
             }
         });
@@ -82,13 +96,13 @@ public class QuestionnaireSurveyFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
-        Questionnaire questionnaire;
+        Questionnaire questionnaire = new Questionnaire();
         String error = "0";
 
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.0.103:9090/api/tests/questions/?id=";
+            String url = "http://192.168.0.102:9090/api/tests/questions/?id=";
             String questionUrl = url + String.valueOf(CURRENT_ID);
             String jsonStr = handler.makeServiceCall(questionUrl);
             if (jsonStr != null) {
@@ -97,6 +111,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
                     progressBar.setProgress(CURRENT_ID);
                     JSONObject object = new JSONObject(jsonStr);
                     questionnaire = new Questionnaire(object);
+                    Log.e(TAG, "Json parsing error: " + String.valueOf(questionnaire.points_often));
 
                 } catch (final JSONException jsonException) {
                     Log.e(TAG, "Json parsing error: " + jsonException.getMessage());
@@ -132,5 +147,17 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 pointSum = 0;
             }
         }
+
+       public int getScoreOften(){
+           Log.e(TAG, "Json parsing error: " + questionnaire.points_often);
+            return this.questionnaire.points_often;
+        }
+        public int getScoreSeldom(){
+            return this.questionnaire.points_seldom;
+        }
+        public int getScoreNever(){
+            return this.questionnaire.points_never;
+        }
+
     }
 }

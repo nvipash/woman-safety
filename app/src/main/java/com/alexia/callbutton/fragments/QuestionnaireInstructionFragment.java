@@ -63,7 +63,7 @@ public class QuestionnaireInstructionFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.0.103:9090/api/tests/instruction/?count=";
+            String url = "http://192.168.0.102:9090/api/tests/instruction/?count=";
             String instructionUrl = url + String.valueOf(score);
             String jsonStr = handler.makeServiceCall(instructionUrl);
             if (jsonStr != null) {
