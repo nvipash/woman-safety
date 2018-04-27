@@ -13,7 +13,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
+        android:gravity="center|top"
         android:lineSpacingMultiplier="1.2"
         android:text="@string/sos_button_text"
         android:textColor="#686868"

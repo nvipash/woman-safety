@@ -18,7 +18,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 
 import com.alexia.callbutton.fragments.ButtonFragment;
 import com.alexia.callbutton.fragments.MapsFragment;
-import com.alexia.callbutton.fragments.NumberListDialogFragment;
 import com.alexia.callbutton.fragments.QuestionnaireFragment;
 import com.alexia.callbutton.fragments.ReferenceFragment;
 import com.alexia.callbutton.fragments.SettingsFragment;
