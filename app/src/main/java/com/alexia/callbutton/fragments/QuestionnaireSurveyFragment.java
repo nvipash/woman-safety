@@ -35,7 +35,8 @@ public class QuestionnaireSurveyFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView questionTextView;
     private TextView questionIDTextView;
-    public int pointSum = 0;
+    public int  pointSum = 0;
+    private Questionnaire questionnaire = new Questionnaire();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,24 +65,23 @@ public class QuestionnaireSurveyFragment extends Fragment {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int points = new GetQuestion().getScoreOften();
-                pointSum = pointSum + points;
+                pointSum = pointSum + questionnaire.points_often;
+                Log.e(TAG, "POINTSUM" +" " + pointSum);
                 new GetQuestion().execute();
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int points = new GetQuestion().getScoreNever();
-                pointSum = pointSum + points;
+                pointSum = pointSum + questionnaire.points_never;
                 new GetQuestion().execute();
             }
         });
         seldomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int points = new GetQuestion().getScoreSeldom();
-                pointSum = pointSum + points;
+                pointSum = pointSum + questionnaire.points_seldom;
+                Log.e(TAG, "POINTSUM" +" " + pointSum);
                 new GetQuestion().execute();
             }
         });
@@ -96,7 +96,6 @@ public class QuestionnaireSurveyFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
-        Questionnaire questionnaire = new Questionnaire();
         String error = "0";
 
         @Override
@@ -111,8 +110,6 @@ public class QuestionnaireSurveyFragment extends Fragment {
                     progressBar.setProgress(CURRENT_ID);
                     JSONObject object = new JSONObject(jsonStr);
                     questionnaire = new Questionnaire(object);
-                    Log.e(TAG, "Json parsing error: " + String.valueOf(questionnaire.points_often));
-
                 } catch (final JSONException jsonException) {
                     Log.e(TAG, "Json parsing error: " + jsonException.getMessage());
                     runOnUiThread(new Runnable() {
@@ -128,6 +125,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
                 this.error = "500";
+                Log.e(TAG, "TOTALSUM" + pointSum);
             }
             return null;
         }
@@ -148,16 +146,6 @@ public class QuestionnaireSurveyFragment extends Fragment {
             }
         }
 
-       public int getScoreOften(){
-           Log.e(TAG, "Json parsing error: " + questionnaire.points_often);
-            return this.questionnaire.points_often;
-        }
-        public int getScoreSeldom(){
-            return this.questionnaire.points_seldom;
-        }
-        public int getScoreNever(){
-            return this.questionnaire.points_never;
-        }
 
     }
 }
