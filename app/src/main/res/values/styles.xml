@@ -11,4 +11,10 @@
             @style/PreferenceThemeOverlay.v14.Material
         </item>
     </style>
+    <!-- Splash Screen theme. -->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+    <!-- Onboarding Screen theme. -->
+    <style name="OnboardingTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
 </resources>
