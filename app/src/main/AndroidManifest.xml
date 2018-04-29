@@ -40,6 +40,10 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".onboarding.OnboardingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OnboardingTheme" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

@@ -33,7 +33,7 @@
             android:lineSpacingMultiplier="1.2"
             android:text="@string/test_button_text"
             android:textColor="@color/colorPrimary"
-            android:textSize="29sp" />
+            android:textSize="20sp" />
     </android.support.v7.widget.CardView>
 
     <Button
