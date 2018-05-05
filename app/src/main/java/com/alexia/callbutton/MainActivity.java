@@ -3,7 +3,12 @@ package com.alexia.callbutton;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,18 +44,53 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager manager;
     private BottomNavigationView bottomNav;
     private View shadow;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0 ;
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = null;
+
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+                    message = "Message sent!";
+                    break;
+                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                    message = "Error. Message not sent.";
+                    break;
+                case SmsManager.RESULT_ERROR_NO_SERVICE:
+                    message = "Error: No service.";
+                    break;
+                case SmsManager.RESULT_ERROR_NULL_PDU:
+                    message = "Error: Null PDU.";
+                    break;
+                case SmsManager.RESULT_ERROR_RADIO_OFF:
+                    message = "Error: Radio off.";
+                    break;
+            }
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerReceiver(receiver, new IntentFilter("SMS_SENT"));
         setContentView(R.layout.activity_main);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         manager = getSupportFragmentManager();
         bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
         bottomNav.setSelectedItemId(R.id.action_sos);
-        shadow = (View) findViewById(R.id.shadow);
+        shadow = findViewById(R.id.shadow);
         removeShiftModeInBottomNav(bottomNav);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        super.onDestroy();
     }
 
     public void replaceBottomNavFragment(final Fragment fragment) {
@@ -129,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
     public void dial(View v) {
         if (isPermissionGranted()) {
             callAction();
+//            sendSMSMessage();
         }
     }
 
@@ -169,6 +211,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(callIntent);
     }
 
+    protected void sendSMSMessage() {
+        String phoneNo = preferences.getString("phone", "0933797479");
+        String message = "help, lalala";
+        PendingIntent pi= PendingIntent.getActivity(getApplicationContext(), 0, new Intent("SMS_SENT"),0);
+        PendingIntent piDelivered = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent("SMS_DELIVERED"), 0);
+
+        SmsManager.getDefault().sendTextMessage(phoneNo, null, message, pi, piDelivered);
+    }
+
     public boolean isPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
@@ -198,8 +249,6 @@ public class MainActivity extends AppCompatActivity {
                             "У наданні дозволу відмовлено", Toast.LENGTH_SHORT).show();
                 }
             }
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 

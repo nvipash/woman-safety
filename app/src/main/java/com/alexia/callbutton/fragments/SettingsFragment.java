@@ -58,7 +58,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             public boolean onPreferenceClick(Preference contactPreference) {
                 if (preferences.getBoolean("first_run", true)) {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Перед тим як обрати номер, додайте його з телефонної книги",
+                            "Перед тим, як обрати номер, додайте його з телефонної книги",
                             Toast.LENGTH_LONG).show();
                     Intent pickContactAtFirst = new Intent(Intent.ACTION_PICK,
                             ContactsContract.Contacts.CONTENT_URI);
