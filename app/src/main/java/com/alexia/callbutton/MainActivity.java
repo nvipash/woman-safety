@@ -11,6 +11,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.view.Menu;
@@ -39,15 +43,18 @@ import com.alexia.callbutton.fragments.SettingsFragment;
 import java.lang.reflect.Field;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
     private SharedPreferences preferences;
     private FragmentManager manager;
     private BottomNavigationView bottomNav;
     private View shadow;
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0 ;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+
+    private LocationManager locationManager;
+    private Location currentLocation;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             String message = null;
@@ -85,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.action_sos);
         shadow = findViewById(R.id.shadow);
         removeShiftModeInBottomNav(bottomNav);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        checkLocationPermissions();
     }
 
     @Override
@@ -169,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void dial(View v) {
         if (isPermissionGranted()) {
+            sendSMSMessage();
             callAction();
-//            sendSMSMessage();
         }
     }
 
@@ -213,7 +222,15 @@ public class MainActivity extends AppCompatActivity {
 
     protected void sendSMSMessage() {
         String phoneNo = preferences.getString("phone", "0933797479");
+        int newLineIndex = phoneNo.indexOf("\n");
+        if (newLineIndex != -1) {
+            phoneNo = phoneNo.substring(newLineIndex + 1);
+        }
         String message = "help, lalala";
+        if (currentLocation != null) {
+            String params = "?q=" + String.valueOf(currentLocation.getLatitude()) + "," + String.valueOf(currentLocation.getLongitude());
+            message += "\nI'm here: http://maps.google.com/" + params;
+        }
         PendingIntent pi= PendingIntent.getActivity(getApplicationContext(), 0, new Intent("SMS_SENT"),0);
         PendingIntent piDelivered = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent("SMS_DELIVERED"), 0);
 
@@ -227,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else {
                 ActivityCompat.requestPermissions(this, new String[]
-                        {Manifest.permission.CALL_PHONE}, 1);
+                        {Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS}, 1);
                 return false;
             }
         }//permission is automatically granted on sdk<23 upon installation
@@ -237,10 +254,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
+        boolean isGranted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
         switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                if (isGranted) {
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        updateLocation();
+                    }
+                } else {
+                    Toast.makeText(this, "Location permission denied",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
             case 1: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (isGranted) {
                     Toast.makeText(getApplicationContext(),
                             "Дозвіл надано", Toast.LENGTH_SHORT).show();
                     callAction();
@@ -268,5 +297,51 @@ public class MainActivity extends AppCompatActivity {
         } catch (NoSuchFieldException ignored) {
         } catch (IllegalAccessException ignored) {
         }
+    }
+
+    private void checkLocationPermissions() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                updateLocation();
+            } else {
+                requestLocationPermissions();
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void updateLocation() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this);
+        currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    }
+
+    private void requestLocationPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                MY_PERMISSIONS_REQUEST_LOCATION);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (location == null) {
+            return;
+        }
+        currentLocation = location;
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
     }
 }
