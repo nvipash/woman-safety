@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.alexia.callbutton.fragments.PhoneAuthActivity;
 import com.alexia.callbutton.onboarding.OnboardingActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
 
             preferences.edit().putBoolean("first_launch", false).apply();
         } else {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            startActivity(new Intent(SplashActivity.this, PhoneAuthActivity.class));
         }
         finish();
     }
