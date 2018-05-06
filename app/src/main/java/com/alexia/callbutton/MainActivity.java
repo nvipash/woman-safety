@@ -226,10 +226,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (newLineIndex != -1) {
             phoneNo = phoneNo.substring(newLineIndex + 1);
         }
-        String message = "help, lalala";
+        String message = "Я в небезпеці! Будь ласка, допомжіть!";
         if (currentLocation != null) {
             String params = "?q=" + String.valueOf(currentLocation.getLatitude()) + "," + String.valueOf(currentLocation.getLongitude());
-            message += "\nI'm here: http://maps.google.com/" + params;
+            message += "\nЯ знаходжусь тут: http://maps.google.com/" + params;
         }
         PendingIntent pi= PendingIntent.getActivity(getApplicationContext(), 0, new Intent("SMS_SENT"),0);
         PendingIntent piDelivered = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent("SMS_DELIVERED"), 0);
