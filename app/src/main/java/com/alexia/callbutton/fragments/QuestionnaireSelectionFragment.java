@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
+import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class QuestionnaireSelectionFragment extends Fragment {
     private TextView chooseTestDescriptionTextView;
@@ -30,10 +31,10 @@ public class QuestionnaireSelectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.questionnaire_selection_fragment,
+        View view = inflater.inflate(R.layout.questionnaire_fragment,
                 container, false);
         chooseTestDescriptionTextView = (TextView) view.findViewById(R.id.survey_text_1);
-        new GetChooseTestDescription().execute();
+/*        new GetChooseTestDescription().execute();*/
 
         CardView firstTest = (CardView) view.findViewById(R.id.surveyCard_1);
         firstTest.setOnClickListener(new View.OnClickListener() {
@@ -42,10 +43,19 @@ public class QuestionnaireSelectionFragment extends Fragment {
                 ((MainActivity) getActivity()).replaceWithStack(new QuestionnaireStartFragment());
             }
         });
+
+        TextView selectionInfoAboutDanger = (TextView) view.findViewById(R.id.survey_text_2);
+        selectionInfoAboutDanger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity())
+                        .replaceWithStack(new DangerDescriptionFragment());
+            }
+        });
         return view;
     }
 
-    @SuppressLint("StaticFieldLeak")
+/*    @SuppressLint("StaticFieldLeak")
     private class GetChooseTestDescription extends AsyncTask<Void, Void, Void> {
         QuestionnaireSelection chooseTestDescription;
 
@@ -97,5 +107,5 @@ public class QuestionnaireSelectionFragment extends Fragment {
             chooseTestDescriptionTextView.setText((String.valueOf
                     (chooseTestDescription.chooseTestDescription)));
         }
-    }
+    }*/
 }
