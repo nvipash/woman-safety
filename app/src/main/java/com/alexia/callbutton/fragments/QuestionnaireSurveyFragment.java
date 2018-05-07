@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +35,8 @@ public class QuestionnaireSurveyFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView questionTextView;
     private TextView questionIDTextView;
-    public int pointSum = 0;
+    public int  pointSum = 0;
+    private Questionnaire questionnaire = new Questionnaire();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +47,8 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 view.findViewById(R.id.floatingActionButtonYes);
         FloatingActionButton noButton = (FloatingActionButton)
                 view.findViewById(R.id.floatingActionButtonNo);
+        Button seldomButton = (Button)
+                view.findViewById(R.id.floatingActionButtonSeldom);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setMax(16);
@@ -61,13 +65,23 @@ public class QuestionnaireSurveyFragment extends Fragment {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pointSum = pointSum + questionnaire.points_often;
+                Log.e(TAG, "POINTSUM" +" " + pointSum);
                 new GetQuestion().execute();
-                pointSum++;
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pointSum = pointSum + questionnaire.points_never;
+                new GetQuestion().execute();
+            }
+        });
+        seldomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pointSum = pointSum + questionnaire.points_seldom;
+                Log.e(TAG, "POINTSUM" +" " + pointSum);
                 new GetQuestion().execute();
             }
         });
@@ -82,13 +96,12 @@ public class QuestionnaireSurveyFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private class GetQuestion extends AsyncTask<Void, Void, Void> {
-        Questionnaire questionnaire;
         String error = "0";
 
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.0.103:9090/api/tests/questions/?id=";
+            String url = "http://192.168.0.102:9090/api/tests/questions/?id=";
             String questionUrl = url + String.valueOf(CURRENT_ID);
             String jsonStr = handler.makeServiceCall(questionUrl);
             if (jsonStr != null) {
@@ -97,7 +110,6 @@ public class QuestionnaireSurveyFragment extends Fragment {
                     progressBar.setProgress(CURRENT_ID);
                     JSONObject object = new JSONObject(jsonStr);
                     questionnaire = new Questionnaire(object);
-
                 } catch (final JSONException jsonException) {
                     Log.e(TAG, "Json parsing error: " + jsonException.getMessage());
                     runOnUiThread(new Runnable() {
@@ -113,6 +125,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
                 this.error = "500";
+                Log.e(TAG, "TOTALSUM" + pointSum);
             }
             return null;
         }
@@ -132,5 +145,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 pointSum = 0;
             }
         }
+
+
     }
 }

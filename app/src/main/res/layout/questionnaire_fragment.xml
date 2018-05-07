@@ -1,49 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/questionnaire_layout"
+    android:id="@+id/questionnaire_selection_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_survey_start"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="161dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="10dp"
-        card_view:cardUseCompatPadding="true">
-
-
-        <TextView
-            android:id="@+id/test_text"
-            style="@android:style/TextAppearance.DeviceDefault.Medium"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="18dp"
-            android:gravity="center"
-            android:lineSpacingMultiplier="1.2"
-            android:text="@string/test_button_text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="29sp" />
-    </android.support.v7.widget.CardView>
-
-    <Button
-        android:id="@+id/survey_start"
-        style="@style/Widget.AppCompat.Button.Colored"
+    <TextView
+        android:id="@+id/survey_screen_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="216dp"
+        android:gravity="center|center_vertical"
+        android:text="Тест для визначення рівня небезбеки:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25.5sp"
+        android:layout_alignParentLeft="true" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/surveyCard_1"
+        android:layout_width="269dp"
+        android:layout_height="143dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="103dp"
-        android:text="@string/choose_survey"
-        tools:ignore="MissingConstraints,NotSibling,OnClick" />
+        android:layout_marginBottom="60dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="10dp">
+
+        <TextView
+            android:id="@+id/survey_text_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="15.5sp" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/surveyCard_2"
+        android:layout_width="269dp"
+        android:layout_height="155dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        card_view:cardElevation="10dp"
+        tools:ignore="DuplicateIds">
+
+        <TextView
+            android:id="@+id/survey_text_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="Дізнатись більше про домашнє насильство" />
+    </android.support.v7.widget.CardView>
+
 </RelativeLayout>

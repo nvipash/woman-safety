@@ -2,9 +2,18 @@ package com.alexia.callbutton;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,35 +25,82 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.telephony.SmsManager;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.alexia.callbutton.fragments.ButtonFragment;
 import com.alexia.callbutton.fragments.MapsFragment;
-import com.alexia.callbutton.fragments.QuestionnaireFragment;
+import com.alexia.callbutton.fragments.QuestionnaireSelectionFragment;
+import com.alexia.callbutton.fragments.QuestionnaireSelectionFragment;
+import com.alexia.callbutton.fragments.ReferenceFragment;
 import com.alexia.callbutton.fragments.SettingsFragment;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
-    private static boolean ACTIVITY_PASS;
+public class MainActivity extends AppCompatActivity implements LocationListener {
     private SharedPreferences preferences;
     private FragmentManager manager;
+    private BottomNavigationView bottomNav;
+    private View shadow;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+
+    private LocationManager locationManager;
+    private Location currentLocation;
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = null;
+
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+                    message = "Message sent!";
+                    break;
+                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                    message = "Error. Message not sent.";
+                    break;
+                case SmsManager.RESULT_ERROR_NO_SERVICE:
+                    message = "Error: No service.";
+                    break;
+                case SmsManager.RESULT_ERROR_NULL_PDU:
+                    message = "Error: Null PDU.";
+                    break;
+                case SmsManager.RESULT_ERROR_RADIO_OFF:
+                    message = "Error: Radio off.";
+                    break;
+            }
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerReceiver(receiver, new IntentFilter("SMS_SENT"));
         setContentView(R.layout.activity_main);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         manager = getSupportFragmentManager();
-        BottomNavigationView bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
         bottomNav.setSelectedItemId(R.id.action_sos);
+        shadow = findViewById(R.id.shadow);
         removeShiftModeInBottomNav(bottomNav);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        checkLocationPermissions();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        super.onDestroy();
     }
 
     public void replaceBottomNavFragment(final Fragment fragment) {
@@ -58,11 +114,20 @@ public class MainActivity extends AppCompatActivity {
         final FragmentTransaction fragmentTransaction = manager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        if (ACTIVITY_PASS) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
-        ACTIVITY_PASS = true;
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        bottomNav.setVisibility(View.VISIBLE);
+        shadow.setVisibility(View.VISIBLE);
+        setActionBarTitle("Woman Safety");
+        super.onBackPressed();
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public void setActionBarTitle(String title) {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(title);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener
@@ -71,27 +136,72 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_help:
-                    replaceBottomNavFragment(new QuestionnaireFragment());
+                    setActionBarTitle("Опитування");
+                    replaceBottomNavFragment(new QuestionnaireSelectionFragment());
                     return true;
                 case R.id.action_map:
+                    setActionBarTitle("Карта");
                     replaceBottomNavFragment(new MapsFragment());
                     return true;
                 case R.id.action_sos:
+                    setActionBarTitle("Допомога");
                     replaceBottomNavFragment(new ButtonFragment());
                     return true;
-                case R.id.action_settings:
-                    replaceBottomNavFragment(new SettingsFragment());
+                case R.id.action_info:
+                    setActionBarTitle("Довідка");
+                    replaceBottomNavFragment(new ReferenceFragment());
                     return true;
             }
             return true;
         }
     };
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                setActionBarTitle("Налаштування");
+                replaceWithStack(new SettingsFragment());
+                bottomNav.setVisibility(View.INVISIBLE);
+                shadow.setVisibility(View.INVISIBLE);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public void dial(View v) {
         if (isPermissionGranted()) {
+            sendSMSMessage();
             callAction();
         }
     }
+
+    public void callActionPolice(View view) {
+        String toDial = "102";
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + toDial));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        startActivity(callIntent);
+    }
+
 
     public void callAction() {
         String toDial = "tel:" + preferences.getString("phone", "0933797479");
@@ -111,6 +221,23 @@ public class MainActivity extends AppCompatActivity {
         startActivity(callIntent);
     }
 
+    protected void sendSMSMessage() {
+        String phoneNo = preferences.getString("phone", "0933797479");
+        int newLineIndex = phoneNo.indexOf("\n");
+        if (newLineIndex != -1) {
+            phoneNo = phoneNo.substring(newLineIndex + 1);
+        }
+        String message = "Я в небезпеці! Будь ласка, допомжіть!";
+        if (currentLocation != null) {
+            String params = "?q=" + String.valueOf(currentLocation.getLatitude()) + "," + String.valueOf(currentLocation.getLongitude());
+            message += "\nЯ знаходжусь тут: http://maps.google.com/" + params;
+        }
+        PendingIntent pi= PendingIntent.getActivity(getApplicationContext(), 0, new Intent("SMS_SENT"),0);
+        PendingIntent piDelivered = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent("SMS_DELIVERED"), 0);
+
+        SmsManager.getDefault().sendTextMessage(phoneNo, null, message, pi, piDelivered);
+    }
+
     public boolean isPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
@@ -118,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else {
                 ActivityCompat.requestPermissions(this, new String[]
-                        {Manifest.permission.CALL_PHONE}, 1);
+                        {Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS}, 1);
                 return false;
             }
         }//permission is automatically granted on sdk<23 upon installation
@@ -128,10 +255,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
+        boolean isGranted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
         switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                if (isGranted) {
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        updateLocation();
+                    }
+                } else {
+                    Toast.makeText(this, "Location permission denied",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
             case 1: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (isGranted) {
                     Toast.makeText(getApplicationContext(),
                             "Дозвіл надано", Toast.LENGTH_SHORT).show();
                     callAction();
@@ -140,8 +279,6 @@ public class MainActivity extends AppCompatActivity {
                             "У наданні дозволу відмовлено", Toast.LENGTH_SHORT).show();
                 }
             }
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
@@ -161,5 +298,51 @@ public class MainActivity extends AppCompatActivity {
         } catch (NoSuchFieldException ignored) {
         } catch (IllegalAccessException ignored) {
         }
+    }
+
+    private void checkLocationPermissions() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                updateLocation();
+            } else {
+                requestLocationPermissions();
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void updateLocation() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this);
+        currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    }
+
+    private void requestLocationPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                MY_PERMISSIONS_REQUEST_LOCATION);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (location == null) {
+            return;
+        }
+        currentLocation = location;
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
     }
 }

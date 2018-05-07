@@ -8,6 +8,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/card_survey"
+        android:layout_alignStart="@+id/card_survey"
+        android:layout_alignTop="@+id/floatingActionButtonNo"
+        android:layout_marginLeft="65dp"
+        android:layout_marginStart="65dp"
+        android:clickable="true"
+        android:focusable="true"
+        card_view:fabSize="normal"
+        card_view:rippleColor="@color/surveyRippleColor"
+        card_view:srcCompat="@drawable/ic_check_white_48px"
+        tools:ignore="VectorDrawableCompat" />
+
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_survey"
         android:layout_width="match_parent"
@@ -35,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="75dp"
+                android:layout_marginTop="40dp"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="50.5sp"
@@ -46,7 +62,7 @@
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="75dp"
+                android:layout_marginTop="40dp"
                 android:lineSpacingMultiplier="1.2"
                 android:text="@string/question_numbers"
                 android:textSize="20.5sp"
@@ -65,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="170dp"
+                android:layout_marginTop="130dp"
                 android:gravity="center|center_vertical"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/colorPrimary"
@@ -85,29 +101,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="145dp"
+                android:layout_marginTop="110dp"
                 android:layout_weight="10"
                 android:gravity="center|center_vertical"
                 android:indeterminate="false"
                 android:progress="1" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButtonYes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/card_survey"
-        android:layout_alignStart="@+id/card_survey"
-        android:layout_alignTop="@+id/floatingActionButtonNo"
-        android:layout_marginLeft="65dp"
-        android:layout_marginStart="65dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:fabSize="normal"
-        app:rippleColor="@color/surveyRippleColor"
-        app:srcCompat="@drawable/ic_check_white_48px"
-        tools:ignore="VectorDrawableCompat" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -132,7 +132,9 @@
         app:fabSize="normal"
         app:rippleColor="@color/surveyRippleColor"
         app:srcCompat="@drawable/ic_close_white_48px"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="75dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -143,5 +145,14 @@
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
         android:text="@string/no_button" />
+
+    <Button
+        android:id="@+id/floatingActionButtonSeldom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/floatingActionButtonYes"
+        android:layout_toStartOf="@+id/floatingActionButtonNo"
+        android:text="Button"
+        android:layout_toLeftOf="@+id/floatingActionButtonNo" />
 
 </RelativeLayout>
