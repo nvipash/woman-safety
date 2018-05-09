@@ -57,7 +57,7 @@ public class QuestionnaireStartFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String testDescriptionUrl = "http://192.168.0.102:9090/api/tests/info";
+            String testDescriptionUrl = "http://192.168.43.26:9090/api/tests/info";
             String jsonStr = handler.makeServiceCall(testDescriptionUrl);
             if (jsonStr != null) {
                 try {

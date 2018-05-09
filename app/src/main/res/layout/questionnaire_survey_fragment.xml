@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/questionnaire_survey_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButtonYes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/card_survey"
-        android:layout_alignStart="@+id/card_survey"
-        android:layout_alignTop="@+id/floatingActionButtonNo"
-        android:layout_marginLeft="65dp"
-        android:layout_marginStart="65dp"
-        android:clickable="true"
-        android:focusable="true"
-        card_view:fabSize="normal"
-        card_view:rippleColor="@color/surveyRippleColor"
-        card_view:srcCompat="@drawable/ic_check_white_48px"
-        tools:ignore="VectorDrawableCompat" />
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_survey"
@@ -31,12 +14,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="161dp"
+        android:layout_marginBottom="200dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="10dp"
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -51,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="50.5sp"
@@ -62,7 +44,7 @@
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:lineSpacingMultiplier="1.2"
                 android:text="@string/question_numbers"
                 android:textSize="20.5sp"
@@ -81,12 +63,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="110dp"
                 android:gravity="center|center_vertical"
                 android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/colorPrimary"
-                android:textSize="25.5sp" />
-
+                android:textSize="20.5sp" />
 
         </LinearLayout>
 
@@ -101,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="110dp"
+                android:layout_marginTop="90dp"
                 android:layout_weight="10"
                 android:gravity="center|center_vertical"
                 android:indeterminate="false"
@@ -109,50 +90,85 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
+    <ImageButton
+        android:id="@+id/often_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/card_survey"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="-190dp"
+        android:padding="10dp"
+        android:background="@drawable/ripple_effect"
+        android:src="@drawable/ic_heart_broken"
+        android:text="@string/test_often"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/floatingActionButtonYes"
-        android:layout_alignStart="@+id/floatingActionButtonYes"
-        android:layout_below="@+id/floatingActionButtonYes"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
-        android:text="@string/yes_button" />
+        android:layout_alignEnd="@+id/often_button"
+        android:layout_alignLeft="@id/often_button"
+        android:layout_alignRight="@+id/often_button"
+        android:layout_alignStart="@id/often_button"
+        android:layout_below="@+id/often_button"
+        android:gravity="center"
+        android:shadowColor="@color/gray"
+        android:text="@string/test_often" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButtonNo"
+    <ImageButton
+        android:id="@+id/seldom_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/card_survey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-190dp"
+        android:padding="10dp"
+        android:background="@drawable/ripple_effect"
+        android:src="@drawable/ic_heart_sticker"
+        android:text="@string/test_seldom"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/seldom_button"
+        android:layout_alignLeft="@id/seldom_button"
+        android:layout_alignRight="@+id/seldom_button"
+        android:layout_alignStart="@id/seldom_button"
+        android:layout_below="@+id/seldom_button"
+        android:gravity="center"
+        android:shadowColor="@color/gray"
+        android:text="@string/test_seldom" />
+
+    <ImageButton
+        android:id="@+id/never_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="95dp"
-        android:layout_marginEnd="75dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:fabSize="normal"
-        app:rippleColor="@color/surveyRippleColor"
-        app:srcCompat="@drawable/ic_close_white_48px"
-        tools:ignore="VectorDrawableCompat"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="75dp" />
+        android:layout_below="@+id/card_survey"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="-190dp"
+        android:background="@drawable/ripple_effect"
+        android:padding="10dp"
+        android:src="@drawable/ic_heart_full"
+        android:text="@string/test_never"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/floatingActionButtonNo"
-        android:layout_alignRight="@+id/floatingActionButtonNo"
-        android:layout_below="@+id/floatingActionButtonYes"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        android:text="@string/no_button" />
-
-    <Button
-        android:id="@+id/floatingActionButtonSeldom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/floatingActionButtonYes"
-        android:layout_toStartOf="@+id/floatingActionButtonNo"
-        android:text="Button"
-        android:layout_toLeftOf="@+id/floatingActionButtonNo" />
+        android:layout_alignEnd="@+id/never_button"
+        android:layout_alignLeft="@id/never_button"
+        android:layout_alignRight="@+id/never_button"
+        android:layout_alignStart="@id/never_button"
+        android:layout_below="@+id/never_button"
+        android:gravity="center"
+        android:shadowColor="@color/gray"
+        android:text="@string/test_never" />
 
 </RelativeLayout>

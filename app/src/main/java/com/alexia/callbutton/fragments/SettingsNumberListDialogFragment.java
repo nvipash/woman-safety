@@ -18,12 +18,11 @@ import android.widget.Toast;
 import com.alexia.callbutton.R;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class NumberListDialogFragment extends DialogFragment {
+public class SettingsNumberListDialogFragment extends DialogFragment {
     private ArrayList<String> phones;
     private ArrayAdapter<String> adapter;
     private ListView numberList;
@@ -34,7 +33,7 @@ public class NumberListDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         @SuppressLint("InflateParams") View view =
                 LayoutInflater.from(getActivity()).inflate(R.layout.listview_layout, null);
-        preferences = NumberListDialogFragment.this.getActivity()
+        preferences = SettingsNumberListDialogFragment.this.getActivity()
                 .getSharedPreferences("shared_pref", MODE_PRIVATE);
         Set<String> entries = preferences.getStringSet("phones", null);
         if (entries != null) {
@@ -83,8 +82,8 @@ public class NumberListDialogFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, listenerOk)
                 .setNegativeButton(android.R.string.cancel, listenerCancel).show();
     }
-    public static NumberListDialogFragment newInstance() {
-        NumberListDialogFragment dialogFragment = new NumberListDialogFragment();
+    public static SettingsNumberListDialogFragment newInstance() {
+        SettingsNumberListDialogFragment dialogFragment = new SettingsNumberListDialogFragment();
         return dialogFragment;
     }
 }

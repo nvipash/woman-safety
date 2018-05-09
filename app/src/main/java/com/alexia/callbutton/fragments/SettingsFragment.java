@@ -10,21 +10,16 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
-import com.alexia.callbutton.WomanSafetyApp;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -70,7 +65,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     editor.putStringSet("phones", phonesSet);
                     editor.apply();
                     FragmentManager manager = getFragmentManager();
-                    NumberListDialogFragment dialog = new NumberListDialogFragment();
+                    SettingsNumberListDialogFragment dialog = new SettingsNumberListDialogFragment();
                     dialog.show(manager, null);
                     Log.e("SHARED_PREF", String.valueOf(preferences));
                 }

@@ -1,17 +1,15 @@
 package com.alexia.callbutton.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +33,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView questionTextView;
     private TextView questionIDTextView;
-    public int  pointSum = 0;
+    public int pointSum = 0;
     private Questionnaire questionnaire = new Questionnaire();
 
     @Override
@@ -43,12 +41,9 @@ public class QuestionnaireSurveyFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.questionnaire_survey_fragment,
                 container, false);
-        FloatingActionButton yesButton = (FloatingActionButton)
-                view.findViewById(R.id.floatingActionButtonYes);
-        FloatingActionButton noButton = (FloatingActionButton)
-                view.findViewById(R.id.floatingActionButtonNo);
-        Button seldomButton = (Button)
-                view.findViewById(R.id.floatingActionButtonSeldom);
+        ImageButton oftenButton = (ImageButton) view.findViewById(R.id.often_button);
+        ImageButton neverButton = (ImageButton) view.findViewById(R.id.never_button);
+        ImageButton seldomButton = (ImageButton) view.findViewById(R.id.seldom_button);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setMax(16);
@@ -62,15 +57,14 @@ public class QuestionnaireSurveyFragment extends Fragment {
             }
         }
 
-        yesButton.setOnClickListener(new View.OnClickListener() {
+        oftenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pointSum = pointSum + questionnaire.points_often;
-                Log.e(TAG, "POINTSUM" +" " + pointSum);
                 new GetQuestion().execute();
             }
         });
-        noButton.setOnClickListener(new View.OnClickListener() {
+        neverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pointSum = pointSum + questionnaire.points_never;
@@ -81,7 +75,6 @@ public class QuestionnaireSurveyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pointSum = pointSum + questionnaire.points_seldom;
-                Log.e(TAG, "POINTSUM" +" " + pointSum);
                 new GetQuestion().execute();
             }
         });
@@ -101,7 +94,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.0.102:9090/api/tests/questions/?id=";
+            String url = "http://192.168.43.26:9090/api/tests/questions/?id=";
             String questionUrl = url + String.valueOf(CURRENT_ID);
             String jsonStr = handler.makeServiceCall(questionUrl);
             if (jsonStr != null) {
@@ -145,7 +138,5 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 pointSum = 0;
             }
         }
-
-
     }
 }

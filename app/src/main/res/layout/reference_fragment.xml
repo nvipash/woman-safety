@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,6 +23,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="27dp"
                     android:layout_toEndOf="@+id/imageButton1"
+                    android:layout_toRightOf="@+id/imageButton1"
                     android:text="066 278 96 51"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -35,8 +31,10 @@
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/button14"
+                    android:layout_marginLeft="102dp"
                     android:layout_marginStart="102dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
@@ -44,6 +42,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:background="@color/preference_fallback_accent_color"
@@ -62,6 +61,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="27dp"
                     android:layout_toEndOf="@+id/imageButton2"
+                    android:layout_toRightOf="@+id/imageButton2"
                     android:text="066 278 96 51"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -70,14 +70,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/button14"
                     android:layout_marginEnd="145dp"
+                    android:layout_marginRight="145dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/button14"
                     app:srcCompat="@android:drawable/sym_action_call" />
@@ -87,8 +90,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView1"
+                    android:layout_marginLeft="-145dp"
                     android:layout_marginStart="-145dp"
                     android:layout_toEndOf="@+id/imageButton"
+                    android:layout_toRightOf="@+id/imageButton"
                     android:text="063 953 38 60 "
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -96,6 +101,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Мобільна бригада соціально-психологічної допомоги м. Львів" />
@@ -113,6 +119,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="27dp"
                     android:layout_toEndOf="@+id/imageButton2"
+                    android:layout_toRightOf="@+id/imageButton2"
                     android:text="066 279 64 57"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -121,14 +128,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/button14"
                     android:layout_marginEnd="145dp"
+                    android:layout_marginRight="145dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/button14"
                     app:srcCompat="@android:drawable/sym_action_call" />
@@ -138,8 +148,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView1"
+                    android:layout_marginLeft="-145dp"
                     android:layout_marginStart="-145dp"
                     android:layout_toEndOf="@+id/imageButton"
+                    android:layout_toRightOf="@+id/imageButton"
                     android:text="063 954 81 27"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -147,6 +159,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Мобільна бригада соціально-психологічної допомоги м. Сокаль, Червоноград, Червоноградський район" />
@@ -164,6 +177,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="27dp"
                     android:layout_toEndOf="@+id/imageButton2"
+                    android:layout_toRightOf="@+id/imageButton2"
                     android:text="066 306 59 57"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -172,14 +186,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/button14"
                     android:layout_marginEnd="145dp"
+                    android:layout_marginRight="145dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/button14"
                     app:srcCompat="@android:drawable/sym_action_call" />
@@ -189,8 +206,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView1"
+                    android:layout_marginLeft="-145dp"
                     android:layout_marginStart="-145dp"
                     android:layout_toEndOf="@+id/imageButton"
+                    android:layout_toRightOf="@+id/imageButton"
                     android:text="063 968 70 10"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -198,6 +217,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Мобільна бригада соціально-психологічної допомоги м. Золочів та Золочівський район" />
@@ -223,14 +243,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/button14"
                     android:layout_marginEnd="145dp"
+                    android:layout_marginRight="145dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/button14"
                     app:srcCompat="@android:drawable/sym_action_call" />
@@ -240,8 +263,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView1"
+                    android:layout_marginLeft="-145dp"
                     android:layout_marginStart="-145dp"
                     android:layout_toEndOf="@+id/imageButton"
+                    android:layout_toRightOf="@+id/imageButton"
                     android:text="063 968 70 51"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -249,6 +274,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Мобільна бригада соціально-психологічної допомоги Жидачів та Жидачівський район" />
@@ -266,6 +292,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="15dp"
                     android:layout_toEndOf="@+id/imageButton2"
+                    android:layout_toRightOf="@+id/imageButton2"
                     android:text="(032) 255 46 59"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -274,7 +301,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:layout_marginLeft="102dp"
                     android:layout_marginStart="102dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
@@ -282,6 +311,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Управління з питань праці та сімейної політики департаменту соціального захисту населення Львівської ОДА" />
@@ -299,6 +329,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="27dp"
                     android:layout_toEndOf="@+id/imageButton2"
+                    android:layout_toRightOf="@+id/imageButton2"
                     android:text="(032) 261 09 42"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -307,8 +338,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/button14"
                     android:layout_marginEnd="145dp"
+                    android:layout_marginRight="145dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
                 <ImageButton
@@ -324,8 +357,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView1"
+                    android:layout_marginLeft="-145dp"
                     android:layout_marginStart="-145dp"
                     android:layout_toEndOf="@+id/imageButton"
+                    android:layout_toRightOf="@+id/imageButton"
                     android:text="(032) 261 09 37"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -333,6 +368,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Львівський обласний центр соціальних служб для сім’ї, дітей та молоді" />
@@ -350,6 +386,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="27dp"
                     android:layout_toEndOf="@+id/imageButton2"
+                    android:layout_toRightOf="@+id/imageButton2"
                     android:text="(032) 237 99 20"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -358,14 +395,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_below="@+id/button14"
                     android:layout_marginEnd="145dp"
+                    android:layout_marginRight="145dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/button14"
                     app:srcCompat="@android:drawable/sym_action_call" />
@@ -375,8 +415,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/textView1"
+                    android:layout_marginLeft="-145dp"
                     android:layout_marginStart="-145dp"
                     android:layout_toEndOf="@+id/imageButton"
+                    android:layout_toRightOf="@+id/imageButton"
                     android:text="(032) 237 99 27"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -384,6 +426,7 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text="Центр соціально-психологічної допомоги у Львівській області" />
@@ -401,6 +444,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="17dp"
                     android:layout_toEndOf="@+id/imageButton2"
+                    android:layout_toRightOf="@+id/imageButton2"
                     android:text="(032) 295 50 60"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
@@ -409,7 +453,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:layout_marginLeft="102dp"
                     android:layout_marginStart="102dp"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
@@ -417,12 +463,12 @@
                     android:id="@+id/button14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:text='Західноукраїнський центр "Жіночі перспективи"' />
 
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

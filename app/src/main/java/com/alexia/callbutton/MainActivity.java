@@ -36,8 +36,7 @@ import android.widget.Toast;
 
 import com.alexia.callbutton.fragments.ButtonFragment;
 import com.alexia.callbutton.fragments.MapsFragment;
-import com.alexia.callbutton.fragments.QuestionnaireSelectionFragment;
-import com.alexia.callbutton.fragments.QuestionnaireSelectionFragment;
+import com.alexia.callbutton.fragments.QuestionnaireFragment;
 import com.alexia.callbutton.fragments.ReferenceFragment;
 import com.alexia.callbutton.fragments.SettingsFragment;
 
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             switch (item.getItemId()) {
                 case R.id.action_help:
                     setActionBarTitle("Опитування");
-                    replaceBottomNavFragment(new QuestionnaireSelectionFragment());
+                    replaceBottomNavFragment(new QuestionnaireFragment());
                     return true;
                 case R.id.action_map:
                     setActionBarTitle("Карта");
