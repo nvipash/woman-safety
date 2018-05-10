@@ -14,12 +14,22 @@ import android.widget.Toast;
 
 import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.jsonparsers.HttpHandler;
+import com.alexia.callbutton.jsonparsers.Info;
+import com.alexia.callbutton.jsonparsers.InfoService;
 import com.alexia.callbutton.jsonparsers.QuestionnaireStart;
 import com.alexia.callbutton.R;
+import com.alexia.callbutton.jsonparsers.RetroClient;
+import com.alexia.callbutton.jsonparsers.Surveys;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
@@ -33,7 +43,7 @@ public class QuestionnaireStartFragment extends Fragment {
         View view = inflater.inflate(R.layout.questionnaire_survey_start_fragment,
                 container, false);
         testDescriptionTextView = (TextView) view.findViewById(R.id.survey_info);
-        new GetTestDescription().execute();
+        //new GetTestDescription().execute();
 
         Button surveyStart = (Button) view.findViewById(R.id.survey_start);
         surveyStart.setOnClickListener(new View.OnClickListener() {
@@ -42,10 +52,25 @@ public class QuestionnaireStartFragment extends Fragment {
                 ((MainActivity) getActivity()).replaceWithStack(new QuestionnaireSurveyFragment());
             }
         });
+
+
+        RetroClient.getInfoService().getInfo().enqueue(new Callback<Info>() {
+
+            @Override
+            public void onResponse(Call<Info> call, Response<Info> response) {
+                testDescriptionTextView.setText((String.valueOf(response.body().getTestDescription().getDescription())));
+            }
+
+            @Override
+            public void onFailure(Call<Info> call, Throwable t) {
+                //Toast.makeText(getContext(), "An error occurred during networking", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
-    @SuppressLint("StaticFieldLeak")
+    /*@SuppressLint("StaticFieldLeak")
     private class GetTestDescription extends AsyncTask<Void, Void, Void> {
         QuestionnaireStart testDescription;
 
@@ -97,5 +122,6 @@ public class QuestionnaireStartFragment extends Fragment {
         protected void onPostExecute(Void result) {
             testDescriptionTextView.setText((String.valueOf(testDescription.testDescription)));
         }
-    }
+    }*/
+
 }

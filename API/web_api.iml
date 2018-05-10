@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="hibernate" name="Hibernate">
-      <configuration>
-        <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="cf9cb225-eddc-4267-9a66-7ad2e0ca0a68" />
-        </datasource-map>
-        <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
-      </configuration>
-    </facet>
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
