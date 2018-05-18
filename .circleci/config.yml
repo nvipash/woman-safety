@@ -1,0 +1,67 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/Woman_Safety
+    docker:
+      # specify the version you desire here
+      - image: circleci/android:api-27-alpha
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx1536m
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          command: sudo chmod +x ./gradlew
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Run Presentation Module Unit Tests
+          command: ./gradlew testDebugUnitTest
+      - store_artifacts:
+          path: app/build/reports
+          destination: /reports/
+      - store_test_results:
+          path: app/build/test-results
+          destination: /test-results/
+      - run:
+          name: Run Domain Module Unit Tests
+          command: ./gradlew test
+      - store_artifacts:
+          path: domain/build/reports
+          destination: /reports/
+      - store_test_results:
+          path: domain/build/test-results
+          destination: /test-results/
+      - run:
+          name: Run Data Module Unit Tests
+          command: ./gradlew testDebugUnitTest
+      - store_artifacts:
+          path: data/build/reports
+          destination: /reports/
+      - store_test_results:
+          path: data/build/test-results
+          destination: /test-results/
+      - run:
+          name: Run Lint Test
+          command: ./gradlew lint
+      - store_artifacts:
+          path: app/build/reports
