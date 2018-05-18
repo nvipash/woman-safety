@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
+public class LocationsController {
 /**
  * Created by Alexia on 19.03.2018.
  */
@@ -31,11 +33,19 @@ public class LocationsController {
         }
     }
 
+    private static Session getSession() throws HibernateException {
     public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
     @GetMapping(value = "/api/locations")
+    public List<LocationsEntity> getLocations() {
+        try (Session session = getSession()) {
+            org.hibernate.Query query = session.createQuery("from " + "LocationsEntity");
+            return (List<LocationsEntity>) query.list();
+        }
+    }
+}
     public List<LocationsEntity> getLocations(){
         final Session session = getSession();
         try {

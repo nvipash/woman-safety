@@ -35,6 +35,10 @@ captures/
 # Intellij Android Studio
 app/app.iml
 Woman_Safety.iml
+.idea/*
+
+# Intellij IDEA
+API/.idea/*
 .idea/
 .idea/libraries/
 .idea/workspace.xml
@@ -116,6 +120,7 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
+API/target/*
 API/target/
 API/pom.xml.tag
 API/pom.xml.releaseBackup

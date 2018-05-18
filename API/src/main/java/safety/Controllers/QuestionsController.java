@@ -1,4 +1,5 @@
 package safety.Controllers;
+
 import safety.Entity.QuestionsEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
+@RestController
+public class QuestionsController {
+    //int urlParameter = InstructionsEntity.idInstruction;
 
 @RestController
 public class QuestionsController {
@@ -32,11 +36,13 @@ public class QuestionsController {
     }
 
     @RequestMapping("/api/tests/questions")
+    public QuestionsEntity getQuestions(@RequestParam(value = "id") int id) {
     public QuestionsEntity getQuestions(@RequestParam(value="id") int id) {
         final Session session = getSession();
         try {
             org.hibernate.Query query = session.createQuery("from " + "QuestionsEntity where idQuestion = :code");
             query.setParameter("code", id);
+            return (QuestionsEntity) query.list().get(0);
 
             QuestionsEntity  question = (QuestionsEntity)query.list().get(0);
             return question;

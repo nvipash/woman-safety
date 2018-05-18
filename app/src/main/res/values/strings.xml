@@ -1,26 +1,163 @@
-<resources>
-    <string name="app_name">WomanSafety Lviv</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Woman Safety</string>
     <!--Strings for BotoomNavigationView-->
     <string name="text_map">Карта</string>
     <string name="text_help">Опитування</string>
     <string name="text_sos">Допомога</string>
     <string name="text_settings">Налаштування</string>
-    <!--Strings for Settings-->
-    <string name="choose_number">Виберіть номер з телефонної книги за яким бажаєте звернутись у випадку термінової допомоги</string>
-    <string name="add_contact">Додати контакт</string>
+    <string name="text_info">Довідка</string>
+
+    <!--Strings for JSON parsing-->
+    <string name="url_questionnaire_survey">
+        http://192.168.43.26:9090/api/tests/questions/?id=</string>
+    <string name="url_questionnaire_start">http://192.168.43.26:9090/api/tests/info</string>
+    <string name="url_questionnaire_instruction">
+        http://192.168.43.26:9090/api/tests/instruction/?count=</string>
+    <string name="url_questionnaire_description">http://192.168.43.26:9090/api/tests/info</string>
+    <string name="url_maps">http://192.168.43.26:9090/api/locations</string>
+    <string name="url_user_score">http://192.168.186.2:9090/api/tests/score/?phone=</string>
+
+    <!--Strings for MainActivity-->
+    <string name="text_questionnaire">Оберіть опитування</string>
+    <string name="notify_sms_sent">Повідомлення надіслано!</string>
+    <string name="notify_sms_not_sent">Не вдалося надіслати повідомлення!</string>
+    <string name="notify_sms_no_service">Відсутній мобільний зв\'язок</string>
+    <string name="notify_sms_no_pdu">Відсутній PDU</string>
+    <string name="notify_sms_airplane_mode">Вімкнений режим польоту</string>
+    <string name="violence_sms_alert">Я в небезпеці! Будь ласка, допомжіть!</string>
+    <string name="free_violence_hotline">0662789651</string>
+    <string name="maps_sms_location">Я знаходжусь тут: http://maps.google.com/</string>
+    <string name="permission_accepted">Дозвіл надано</string>
+    <string name="permission_not_accepted">У наданні дозволу відмовлено</string>
+
+    <!--Strings for SettingsFragment-->
+    <string name="settings_title">Кнопка SOS</string>
+    <string name="choose_number">Обрати номер для виклику</string>
+    <string name="number_summary">За ним буде здійснений дзвінок після
+        натискання кнопки SOS</string>
+    <string name="contact_summary">Доданий номер можна буде використати для виклику</string>
+    <string name="add_contact">Додати контакт з телефонної книги</string>
     <string name="save_number">Зберегти обранний номер</string>
     <string name="print_number">Введіть номер мобільного телефону</string>
-    <!--Strings for MainActivity-->
-    <string name="sos_button_text">У разі погрози вашому життю терміново натисніть на цю кнопку</string>
-    <!--Strings for Questionnaire-->
-    <string name="test_button_text">Для визначення рівня небезпеки пропонуємо вам пройти один з тестів</string>
-    <string name="choose_survey">Обрати тест</string>
+    <string name="number_not_selected">Номер не обрано</string>
+    <string name="number_selected">Номер телефону обраний</string>
+    <string name="notify_select_number">Оберіть контакт</string>
+    <string name="before_add_number">Перед тим, як обрати номер,
+        додайте його з телефонної книги</string>
+    <string name="add_widget_summary">Для швидкого виклику обранного номера без відкриття додатку.
+        Натисніть для додаткових інструкцій</string>
+    <string name="add_widget_title">Додати віджет на головний екран</string>
+    <string name="how_to_add_widget">
+        • Перейдіть до головного екрану та утримуйте палець на вільній області.
+        \n• Торкніться значка &quot;Віджети&quot;
+        \n• У відкритому меню віднайдіть секцію з назвою додатку.
+        \n• Утримуйте віджет. З’являться зображення головних екранів.
+        Перетягніть віджет у потрібне місце
+        \n• Підніміть палець \n\nПісля цих дій віджет готовий для користування!</string>
+
+    <!--Strings for ButtonFragment-->
+    <string name="sos_button_text">У разі погрози вашому життю натисніть на кнопку</string>
+    <string name="sos_description">Кнопка виклику допомоги</string>
+    <string name="сall_police">Викликати поліцію</string>
+    <string name="police_number">102</string>
+
+    <!--Strings for QuestionnaireFragment-->
     <string name="future_survey">Наступні опитування у розробці</string>
     <string name="start_survey">Розпочати тест</string>
-    <string name="questionnaire_screen_title">Оберіть опитування для проходження</string>
-    <string name="yes_button">ТАК</string>
-    <string name="no_button">НІ</string>
-    <string name="question_numbers">/12</string>
+    <string name="questionnaire_screen_title">Оберіть опитування</string>
+    <string name="question_numbers">/15</string>
     <string name="finish_test_button">Завершити тест</string>
     <string name="title_activity_maps">Map</string>
+    <string name="null_text" tools:ignore="TypographyEllipsis">Триває завантаження...</string>
+    <string name="test_often">ЧАСТО</string>
+    <string name="test_seldom">ІНОДІ</string>
+    <string name="test_never">НІКОЛИ</string>
+    <string name="violence_info">Дізнатись більше про фактори домашнього насильства</string>
+
+    <!--Strings for Onboarding-->
+    <string name="title_call">Будь впевненою, що тобі допоможуть</string>
+    <string name="title_test">Будь впевненою, що тобі нічого не загрожує</string>
+    <string name="title_map">Будь впевненою, що ти у безпеці</string>
+    <string name="onboarding_button">Продовжити</string>
+    <string name="description_call">У будь який момент ви можете зателефонувати
+        або відправити повідомлення з вашим розташуванням, якщо вашому життю щось загрожує</string>
+    <string name="description_test">Якщо у вашій родині відбуваються акти знущань,
+        обмежень ваших прав або ж інші дії, що можуть загрожувати вашому життю,
+        то перейдіть до блоку з опитуваннями та впевніться у правомірності цих вчинків</string>
+    <string name="description_map">Навіть коли ви не знаєте куди податись
+        у випадку загрози у власному домі, ми завжди готові допомогти та надати ночівлю
+        або допомогу у зазначених на карті місцях</string>
+
+    <!--Strings for QuestionnaireViolenceInfoFragment-->
+    <string name="description_violence">&#160; &#160; Домашнє насильство –
+        це такі  дії одного члена сім’ї по відношенню до іншого,
+        які порушують громадянські права та свободи людини, або які призводять
+        до фізичного, психічного, чи морального страждання.</string>
+    <string name="physical_violence_description">
+        •  ляпаси
+        \n• потиличники
+        \n• кусання
+        \n• здушуванння
+        \n• припікання
+        \n• примус пити або їсти те, що шкодить здоров'ю (алкоголь, наркотики)
+        \n• побиття</string>
+    <string name="psychological_violence_description">
+        • словесні образи, крики
+        \n• приниження, безпідставна критика
+        \n• залякування, погрози
+        \n• шантажуваня, переслідування
+        \n• ізоляція
+        \n• прийняття одним членом сім\'ї рішень, які не обговорюються
+        \n• навіювання почуття провини, невпевненості
+        \n• заборона бачитися/спілкуватися із рідними чи близькими людьми</string>
+    <string name="sex_violence_description">
+        • примус до статевих контактів у небажаній ситуації або час
+        \n• примус до небажаних форм статевих контактів
+        \n• примус до спостереження за статевими контактами кривдника з іншими
+        \n• підглядання
+        \n• залучення до порно індустрії чи секс• бізнесу
+        \n• згвалтування </string>
+    <string name="economic_violence_description">
+        • обмеження у доступі до власних коштів
+        \n• утиски свободи використання коштів
+        \n• позбавлення житла, одягу та іншого майна чи коштів, на які людина має законне право
+        \n• заборона навчатися або обирати місце роботи </string>
+    <string name="economic_violence_title">Економічне насильство</string>
+    <string name="sex_violence_title">Сексуальне насильство</string>
+    <string name="psychological_violence_title">Психологічне насильство</string>
+    <string name="physical_violence_title">Фізичне насильство</string>
+
+    <!--Strings for ReferenceFragment-->
+    <string name="free_hotline_title">Безкоштовна національна гаряча
+        лінія з попередження домашнього насильства</string>
+    <string name="free_hotline_reference">(066) 278–96-51</string>
+    <string name="social_help_lviv_title">Мобільна бригада соціально
+        -психологічної допомоги м. Львів</string>
+    <string name="social_help_lviv_number1">(066) 278–96-51</string>
+    <string name="social_help_lviv_number2">(063) 953–38-60</string>
+    <string name="social_help_chervonograd_title">Мобільна бригада соціально-психологічної
+        допомоги м. Сокаль, Червоноград, Червоноградський район</string>
+    <string name="social_help_chervonograd_number1">(066) 279–64-57</string>
+    <string name="social_help_chervonograd_number2">(063) 954–81-27</string>
+    <string name="social_help_zolochiv_title">Мобільна бригада соціально-психологічної допомоги
+        м. Золочів та Золочівський район</string>
+    <string name="social_help_zolochiv_number1">(066) 306-59-57</string>
+    <string name="social_help_zolochiv_number2">(063) 968-70-10</string>
+    <string name="social_help_zhidaciv_title">Мобільна бригада соціально-психологічної
+        допомоги Жидачів та Жидачівський район</string>
+    <string name="control_of_work_family_social_protection_title">Управління з питань праці та
+        сімейної політики департаменту соціального захисту населення Львівської ОДА</string>
+    <string name="control_of_work_family_social_protection_number">(032) 255-46-59</string>
+    <string name="social_help_zhidaciv_number2">(063) 968-70-51</string>
+    <string name="social_help_zhidaciv_number1">(066) 306-59-78</string>
+    <string name="lviv_social_oblast_center_for_family_title">Львівський обласний центр соціальних
+        служб для сім’ї, дітей та молоді</string>
+    <string name="lviv_social_oblast_center_for_family_number1">(032) 261-09-42</string>
+    <string name="lviv_social_oblast_center_for_family_number2">(032) 261-09-37</string>
+    <string name="lviv_oblast_social_psychological_center_title">Центр соціально-психологічної
+        допомоги у Львівській області</string>
+    <string name="lviv_oblast_social_psychological_center_number1">(032) 237-99-20</string>
+    <string name="lviv_oblast_social_psychological_center_number2">(032) 237-99-27</string>
+    <string name="west_ukrainian_center_title">Західноукраїнський центр Жіночі перспективи</string>
+    <string name="west_ukrainian_center_number">(032) 295-50-60</string>
 </resources>

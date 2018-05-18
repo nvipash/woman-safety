@@ -66,6 +66,7 @@ public class SurveysEntity {
         return userBySurvey;
     }
 
+
     public void setUserBySurvey(Collection<UserScoreEntity> userBySurvey) {
         this.userBySurvey = userBySurvey;
     }

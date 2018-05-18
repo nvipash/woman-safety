@@ -25,12 +25,16 @@ public class TestInfoController {
         }
     }
 
+    private static Session getSession() throws HibernateException {
     public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
     @RequestMapping("/api/tests/info")
     public List<SurveysEntity> getTestInfo(){
+        try (Session session = getSession()) {
+            org.hibernate.Query query = session.createQuery("from " + "SurveysEntity");
+            return (List<SurveysEntity>) query.list();
         final Session session = getSession();
         try {
             org.hibernate.Query query = session.createQuery("from " + "SurveysEntity");
@@ -40,6 +44,7 @@ public class TestInfoController {
 
         } finally {
             session.close();
+
         }
     }
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/button_text"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:gravity="center|top"
+        android:lineSpacingMultiplier="1.2"
+        android:text="@string/sos_button_text"
+        android:textAllCaps="false"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/police_button"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="56dp"
+        android:layout_below="@+id/button_text"
+        android:layout_centerHorizontal="true"
+        android:onClick="callActionPolice"
+        android:text="@string/сall_police"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ripple_effect_accent"
+        android:gravity="fill|clip_vertical|clip_horizontal|start|end"
+        android:onClick="dial"
+        android:src="@drawable/sos"
+        android:contentDescription="@string/sos_description" />
+
+</RelativeLayout>

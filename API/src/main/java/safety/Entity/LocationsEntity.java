@@ -50,6 +50,7 @@ public class LocationsEntity {
     @Basic
     @Column(name = "phone")
     public String getPhone() {
+        return phone;
         return  phone;
     }
 
@@ -87,6 +88,7 @@ public class LocationsEntity {
                 longitude == that.longitude &&
                 Objects.equals(placeName, that.placeName) &&
                 Objects.equals(description, that.description) &&
+                Objects.equals(phone, that.phone);
                 Objects.equals(phone, that.phone)
                 ;
     }

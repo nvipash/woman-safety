@@ -2,6 +2,9 @@
 <resources>
     <color name="colorPrimary">#3b3e63</color>
     <color name="colorPrimaryDark">#2b2e4a</color>
-    <color name="colorAccent">#E84545</color>
+    <color name="colorAccent">#e84545</color>
+    <color name="colorControlHighlight">#8c8fba</color>
+    <color name="surveyRippleColor">#fad6b7</color>
     <color name="white">#FFFFFF</color>
+    <color name='gray'>#7a7a7a</color>
 </resources>

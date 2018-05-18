@@ -35,6 +35,7 @@ public class ResultsController {
         try {
             org.hibernate.Query query = session.createQuery("from " + "InstructionsEntity where rangeStart<=:code and rangeEnd>=:code");
             query.setParameter("code", count);
+            return (InstructionsEntity)query.list().get(0);
             InstructionsEntity  instruction = (InstructionsEntity)query.list().get(0);
             return instruction;
         }finally {
