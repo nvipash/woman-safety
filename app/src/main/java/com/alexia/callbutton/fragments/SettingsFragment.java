@@ -35,7 +35,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preference_fragment, rootKey);
-
     }
 
     @Override
@@ -43,31 +42,33 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onCreate(savedInstanceState);
         preferences = SettingsFragment.this.getActivity()
                 .getSharedPreferences("shared_pref", MODE_PRIVATE);
+        Set<String> entries = preferences.getStringSet("phones", null);
+        if (entries != null) {
+            phones = new ArrayList<>(entries);
+        }
         adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_single_choice, phones);
         final SharedPreferences.Editor editor = preferences.edit();
-        Log.e("SHARED_PREF", String.valueOf(preferences));
-//      need to fix shared preference problem
         Preference selectNumber = findPreference("number_list");
         selectNumber.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference contactPreference) {
                 if (preferences.getBoolean("first_run", true)) {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Перед тим, як обрати номер, додайте його з телефонної книги",
+                            R.string.before_add_number,
                             Toast.LENGTH_LONG).show();
                     Intent pickContactAtFirst = new Intent(Intent.ACTION_PICK,
                             ContactsContract.Contacts.CONTENT_URI);
                     pickContactAtFirst.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                     startActivityForResult(pickContactAtFirst, 1);
                     preferences.edit().putBoolean("first_run", false).apply();
-                } else if (phones != null) {
+                } else {
                     Set<String> phonesSet = new HashSet<>(phones);
                     editor.putStringSet("phones", phonesSet);
                     editor.apply();
                     FragmentManager manager = getFragmentManager();
-                    SettingsNumberListDialogFragment dialog = new SettingsNumberListDialogFragment();
+                    SettingsNumberListDialogFragment dialog =
+                            new SettingsNumberListDialogFragment();
                     dialog.show(manager, null);
-                    Log.e("SHARED_PREF", String.valueOf(preferences));
                 }
                 return true;
             }
@@ -80,6 +81,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         ContactsContract.Contacts.CONTENT_URI);
                 pickContact.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
                 startActivityForResult(pickContact, 1);
+                return true;
+            }
+        });
+
+        Preference infoWidget = findPreference("info_widget");
+        infoWidget.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference contactPreference) {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        R.string.how_to_add_widget,
+                        Toast.LENGTH_LONG).show();
                 return true;
             }
         });

@@ -26,7 +26,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,13 +46,10 @@ import java.lang.reflect.Field;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private SharedPreferences preferences;
     private FragmentManager manager;
     private BottomNavigationView bottomNav;
-    private View shadow;
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
-
     private LocationManager locationManager;
     private Location currentLocation;
 
@@ -61,19 +60,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
             switch (getResultCode()) {
                 case Activity.RESULT_OK:
-                    message = "Message sent!";
+                    message = getString(R.string.notify_sms_sent);
                     break;
                 case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                    message = "Error. Message not sent.";
+                    message = getString(R.string.notify_sms_not_sent);
                     break;
                 case SmsManager.RESULT_ERROR_NO_SERVICE:
-                    message = "Error: No service.";
+                    message = getString(R.string.notify_sms_no_service);
                     break;
                 case SmsManager.RESULT_ERROR_NULL_PDU:
-                    message = "Error: Null PDU.";
+                    message = getString(R.string.notify_sms_no_pdu);
                     break;
                 case SmsManager.RESULT_ERROR_RADIO_OFF:
-                    message = "Error: Radio off.";
+                    message = getString(R.string.notify_sms_airplane_mode);
                     break;
             }
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -85,12 +84,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onCreate(savedInstanceState);
         registerReceiver(receiver, new IntentFilter("SMS_SENT"));
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar bar = getSupportActionBar();
+        Objects.requireNonNull(bar).setDisplayHomeAsUpEnabled(false);
         preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
         manager = getSupportFragmentManager();
         bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
         bottomNav.setSelectedItemId(R.id.action_sos);
-        shadow = findViewById(R.id.shadow);
         removeShiftModeInBottomNav(bottomNav);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         checkLocationPermissions();
@@ -119,14 +121,25 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     public void onBackPressed() {
         bottomNav.setVisibility(View.VISIBLE);
-        shadow.setVisibility(View.VISIBLE);
         setActionBarTitle("Woman Safety");
+        showActionBar();
         super.onBackPressed();
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void setActionBarTitle(String title) {
         Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void hideActionBar() {
+        Objects.requireNonNull(getSupportActionBar()).setShowHideAnimationEnabled(false);
+        getSupportActionBar().hide();
+    }
+
+    @SuppressLint("RestrictedApi")
+    protected void showActionBar(){
+        Objects.requireNonNull(getSupportActionBar()).setShowHideAnimationEnabled(false);
+        getSupportActionBar().show();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener
@@ -135,19 +148,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_help:
-                    setActionBarTitle("Опитування");
+                    setActionBarTitle(getString(R.string.text_questionnaire));
                     replaceBottomNavFragment(new QuestionnaireFragment());
                     return true;
                 case R.id.action_map:
-                    setActionBarTitle("Карта");
+                    setActionBarTitle(getString(R.string.text_map));
                     replaceBottomNavFragment(new MapsFragment());
                     return true;
                 case R.id.action_sos:
-                    setActionBarTitle("Допомога");
+                    setActionBarTitle(getString(R.string.text_sos));
                     replaceBottomNavFragment(new ButtonFragment());
                     return true;
                 case R.id.action_info:
-                    setActionBarTitle("Довідка");
+                    setActionBarTitle(getString(R.string.text_info));
                     replaceBottomNavFragment(new ReferenceFragment());
                     return true;
             }
@@ -166,10 +179,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                setActionBarTitle("Налаштування");
+                setActionBarTitle(getString(R.string.text_settings));
                 replaceWithStack(new SettingsFragment());
                 bottomNav.setVisibility(View.INVISIBLE);
-                shadow.setVisibility(View.INVISIBLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -184,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void callActionPolice(View view) {
-        String toDial = "102";
+        String toDial = getString(R.string.police_number);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + toDial));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
@@ -203,7 +215,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
     public void callAction() {
-        String toDial = "tel:" + preferences.getString("phone", "0933797479");
+        String toDial = "tel:" + preferences.getString("phone",
+                getString(R.string.free_violence_hotline));
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(toDial));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
@@ -221,19 +234,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     protected void sendSMSMessage() {
-        String phoneNo = preferences.getString("phone", "0933797479");
+        String phoneNo = preferences.getString("phone",
+                getString(R.string.free_violence_hotline));
         int newLineIndex = phoneNo.indexOf("\n");
         if (newLineIndex != -1) {
             phoneNo = phoneNo.substring(newLineIndex + 1);
         }
-        String message = "Я в небезпеці! Будь ласка, допомжіть!";
+        String message = getString(R.string.violence_sms_alert);
         if (currentLocation != null) {
-            String params = "?q=" + String.valueOf(currentLocation.getLatitude()) + "," + String.valueOf(currentLocation.getLongitude());
-            message += "\nЯ знаходжусь тут: http://maps.google.com/" + params;
+            String params = "?q=" + String.valueOf(currentLocation.getLatitude())
+                    + "," + String.valueOf(currentLocation.getLongitude());
+            message += getString(R.string.maps_sms_location) + params;
         }
-        PendingIntent pi= PendingIntent.getActivity(getApplicationContext(), 0, new Intent("SMS_SENT"),0);
-        PendingIntent piDelivered = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent("SMS_DELIVERED"), 0);
-
+        PendingIntent pi = PendingIntent
+                .getActivity(getApplicationContext(), 0, new Intent("SMS_SENT"), 0);
+        PendingIntent piDelivered = PendingIntent
+                .getBroadcast(getApplicationContext(), 0, new Intent("SMS_DELIVERED"), 0);
         SmsManager.getDefault().sendTextMessage(phoneNo, null, message, pi, piDelivered);
     }
 
@@ -254,7 +270,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
-        boolean isGranted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        boolean isGranted = grantResults.length > 0 && grantResults[0]
+                == PackageManager.PERMISSION_GRANTED;
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 if (isGranted) {
@@ -264,18 +281,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         updateLocation();
                     }
                 } else {
-                    Toast.makeText(this, "Location permission denied",
+                    Toast.makeText(this, getString(R.string.permission_not_accepted),
                             Toast.LENGTH_LONG).show();
                 }
             }
             case 1: {
                 if (isGranted) {
                     Toast.makeText(getApplicationContext(),
-                            "Дозвіл надано", Toast.LENGTH_SHORT).show();
+                            R.string.permission_accepted, Toast.LENGTH_SHORT).show();
                     callAction();
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "У наданні дозволу відмовлено", Toast.LENGTH_SHORT).show();
+                            R.string.permission_not_accepted, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -313,7 +330,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @SuppressLint("MissingPermission")
     private void updateLocation() {
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this);
+        locationManager.requestLocationUpdates
+                (LocationManager.GPS_PROVIDER, 2000, 10, this);
         currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
 

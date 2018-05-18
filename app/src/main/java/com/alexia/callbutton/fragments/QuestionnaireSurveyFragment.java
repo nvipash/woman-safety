@@ -50,6 +50,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
         progressBar.setProgress(0);
         questionTextView = (TextView) view.findViewById(R.id.question);
         questionIDTextView = (TextView) view.findViewById(R.id.question_id);
+        ((MainActivity) getActivity()).hideActionBar();
         if (getActivity().getIntent().hasExtra("bundle") && savedInstanceState == null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 savedInstanceState = Objects.requireNonNull(getActivity()
@@ -94,7 +95,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.43.26:9090/api/tests/questions/?id=";
+            String url = getString(R.string.url_questionnaire_survey);
             String questionUrl = url + String.valueOf(CURRENT_ID);
             String jsonStr = handler.makeServiceCall(questionUrl);
             if (jsonStr != null) {
@@ -104,7 +105,6 @@ public class QuestionnaireSurveyFragment extends Fragment {
                     JSONObject object = new JSONObject(jsonStr);
                     questionnaire = new Questionnaire(object);
                 } catch (final JSONException jsonException) {
-                    Log.e(TAG, "Json parsing error: " + jsonException.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -116,9 +116,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
                     });
                 }
             } else {
-                Log.e(TAG, "Couldn't get json from server.");
                 this.error = "500";
-                Log.e(TAG, "TOTALSUM" + pointSum);
             }
             return null;
         }

@@ -35,12 +35,13 @@ public class QuestionnaireFragment extends Fragment {
                 container, false);
         testDescriptionTextView = view.findViewById(R.id.survey_text_1);
         new GetChooseTestDescription().execute();
-
+        ((MainActivity) getActivity()).setActionBarTitle("Оберіть опитування");
         CardView firstTest = view.findViewById(R.id.surveyCard_1);
         firstTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((MainActivity) getActivity()).replaceWithStack(new QuestionnaireStartFragment());
+                ((MainActivity) getActivity()).hideActionBar();
             }
         });
 
@@ -67,7 +68,7 @@ public class QuestionnaireFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String chooseTestDescriptionUrl = "http://192.168.43.26:9090/api/tests/info";
+            String chooseTestDescriptionUrl = getString(R.string.url_questionnaire_description);
             String jsonStr = handler.makeServiceCall(chooseTestDescriptionUrl);
             if (jsonStr != null) {
                 try {

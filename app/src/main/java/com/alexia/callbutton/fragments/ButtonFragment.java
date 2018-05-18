@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -27,14 +26,15 @@ public class ButtonFragment extends Fragment {
     }
 
     public void callActionPolice_onClick() {
-        String toDial = "102";
+        String toDial = getString(R.string.police_number);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + toDial));
         ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
     }
 
     public void callAction() {
-        String toDial = "tel:" + preferences.getString("phone", "0933797479");
+        String toDial = "tel:" + preferences.getString("phone",
+                getString(R.string.free_violence_hotline));
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(toDial));
         ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
@@ -47,13 +47,11 @@ public class ButtonFragment extends Fragment {
             case 1: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            "Дозвіл надано", Toast.LENGTH_SHORT).show();
                     callAction();
                     callActionPolice_onClick();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "У наданні дозволу відмовлено", Toast.LENGTH_SHORT).show();
+                            R.string.permission_not_accepted, Toast.LENGTH_SHORT).show();
                 }
             }
         }

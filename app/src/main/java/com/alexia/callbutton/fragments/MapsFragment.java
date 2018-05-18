@@ -49,9 +49,6 @@ import static com.google.android.gms.internal.zzagr.runOnUiThread;
 public class MapsFragment extends Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private GoogleMap mMap;
-    private GoogleApiClient mGoogleApiClient;
-    private Marker mCurrLocationMarker;
-    public Location mLastLocation;
     private String TAG = MapsFragment.class.getSimpleName();
 
     @Override
@@ -74,8 +71,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 prepare();
-            } else {
-                System.out.println("oops");
             }
         } else {
             prepare();
@@ -89,7 +84,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     }
 
     protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks(this)
+        GoogleApiClient mGoogleApiClient
+                = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
         mGoogleApiClient.connect();
     }
@@ -99,7 +95,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         @Override
         protected ArrayList<Locations> doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            String locationUrl = "http://192.168.43.26:9090/api/locations";
+            String locationUrl = getString(R.string.url_maps);
             String jsonStr = sh.makeServiceCall(locationUrl);
             if (jsonStr != null) {
                 try {
@@ -179,34 +175,4 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         super.onResume();
         new GetLocations().execute();
     }
-
-//    @Override
-//    public void onLocationChanged(Location location) {
-//        mLastLocation = location;
-//        if (mCurrLocationMarker != null) {
-//            mCurrLocationMarker.remove();
-//        }
-//        //Place current location marker
-//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(latLng);
-//        markerOptions.title("Current Position");
-//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker
-//                (BitmapDescriptorFactory.HUE_MAGENTA));
-//        mCurrLocationMarker = mMap.addMarker(markerOptions);
-//        //move map camera
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
-//    }
-
-//    @Override
-//    public void onStatusChanged(String s, int i, Bundle bundle) {
-//    }
-//
-//    @Override
-//    public void onProviderEnabled(String s) {
-//    }
-//
-//    @Override
-//    public void onProviderDisabled(String s) {
-//    }
 }

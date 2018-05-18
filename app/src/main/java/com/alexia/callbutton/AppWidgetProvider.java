@@ -14,8 +14,10 @@ public class AppWidgetProvider extends android.appwidget.AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        SharedPreferences prefs = context.getSharedPreferences("shared_pref", MODE_PRIVATE);
-        String toDial = "tel:" + prefs.getString("phone", "");
+        SharedPreferences preference
+                = context.getSharedPreferences("shared_pref", MODE_PRIVATE);
+        String toDial = "tel:" + preference.getString("phone",
+                String.valueOf(R.string.free_violence_hotline));
         for (int appWidgetId : appWidgetIds) {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse(toDial));

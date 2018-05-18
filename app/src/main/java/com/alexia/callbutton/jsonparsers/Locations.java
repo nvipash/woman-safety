@@ -18,7 +18,6 @@ public class Locations {
         phone = json.getString("phone");
         latitude = json.getDouble("latitude");
         longitude = json.getDouble("longitude");
-
     }
 
     public Locations(int idLocation, String name, String description,

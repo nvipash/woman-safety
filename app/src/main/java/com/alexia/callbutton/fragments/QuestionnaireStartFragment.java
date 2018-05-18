@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class QuestionnaireStartFragment extends Fragment {
                 container, false);
         testDescriptionTextView = (TextView) view.findViewById(R.id.survey_info);
         new GetTestDescription().execute();
-
+        ((MainActivity) getActivity()).hideActionBar();
         Button surveyStart = (Button) view.findViewById(R.id.survey_start);
         surveyStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +58,7 @@ public class QuestionnaireStartFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String testDescriptionUrl = "http://192.168.43.26:9090/api/tests/info";
+            String testDescriptionUrl = getString(R.string.url_questionnaire_start);
             String jsonStr = handler.makeServiceCall(testDescriptionUrl);
             if (jsonStr != null) {
                 try {

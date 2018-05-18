@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.alexia.callbutton.MainActivity;
+import com.alexia.callbutton.R;
 import com.alexia.callbutton.fragments.QuestionnaireInstructionFragment;
 import com.alexia.callbutton.fragments.QuestionnaireSurveyFragment;
 
@@ -26,7 +27,7 @@ public class UserScore extends QuestionnaireSurveyFragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
-            String url = "http://192.168.186.2:9090/api/tests/score/?phone=";
+            String url = getString(R.string.url_user_score);
             String questionUrl = url + String.valueOf(userPhone) + "&score="
                     + String.valueOf(score) + "&survey=" + String.valueOf(idScore);
             sh.makeServiceCall1(questionUrl);

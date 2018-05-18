@@ -11,6 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.alexia.callbutton.R;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -35,6 +37,7 @@ public class SettingsNumberListDialogFragment extends DialogFragment {
                 LayoutInflater.from(getActivity()).inflate(R.layout.listview_layout, null);
         preferences = SettingsNumberListDialogFragment.this.getActivity()
                 .getSharedPreferences("shared_pref", MODE_PRIVATE);
+
         Set<String> entries = preferences.getStringSet("phones", null);
         if (entries != null) {
             phones = new ArrayList<>(entries);
@@ -46,12 +49,25 @@ public class SettingsNumberListDialogFragment extends DialogFragment {
                 android.R.layout.simple_list_item_single_choice, phones);
         final String selectedNumber = preferences.getString("phone", null);
         final SharedPreferences.Editor editor = preferences.edit();
-        Log.e("SHARED_PREF", String.valueOf(preferences));
+
         int index = phones.indexOf(selectedNumber);
         numberList.setAdapter(adapter);
         if (index != -1) {
             numberList.setItemChecked(index, false);
         }
+
+        numberList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long arg3) {
+                adapter.remove(phones.get(position));
+                Set<String> phonesSet = new HashSet<>(phones);
+                editor.putStringSet("phones", phonesSet);
+                editor.apply();
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
 
         DialogInterface.OnClickListener listenerOk = new DialogInterface.OnClickListener() {
             @Override
@@ -59,11 +75,11 @@ public class SettingsNumberListDialogFragment extends DialogFragment {
                 int position = numberList.getCheckedItemPosition();
                 if (position <= -1) {
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Номер не обрано", Toast.LENGTH_SHORT).show();
+                            R.string.number_not_selected, Toast.LENGTH_SHORT).show();
                 } else {
                     editor.putString("phone", phones.get(position));
                     Toast.makeText(getActivity().getApplicationContext(),
-                            "Номер телефону обраний", Toast.LENGTH_SHORT).show();
+                            R.string.number_selected, Toast.LENGTH_SHORT).show();
                     Log.e("SHARED_PREF", String.valueOf(preferences));
                 }
                 editor.apply();
@@ -74,16 +90,12 @@ public class SettingsNumberListDialogFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(getActivity().getApplicationContext(),
-                        "Номер не обрано", Toast.LENGTH_SHORT).show();
+                        R.string.number_not_selected, Toast.LENGTH_SHORT).show();
                 dialogInterface.dismiss();
             }
         };
-        return new AlertDialog.Builder(getContext()).setTitle("Оберіть контакт").setView(view)
+        return new AlertDialog.Builder(getContext()).setTitle(R.string.notify_select_number).setView(view)
                 .setPositiveButton(android.R.string.ok, listenerOk)
                 .setNegativeButton(android.R.string.cancel, listenerCancel).show();
-    }
-    public static SettingsNumberListDialogFragment newInstance() {
-        SettingsNumberListDialogFragment dialogFragment = new SettingsNumberListDialogFragment();
-        return dialogFragment;
     }
 }

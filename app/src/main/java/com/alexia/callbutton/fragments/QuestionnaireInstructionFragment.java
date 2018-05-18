@@ -37,6 +37,7 @@ public class QuestionnaireInstructionFragment extends Fragment {
         surveyInstruction = (TextView) view.findViewById(R.id.survey_instruction);
         surveyInstructionTitle = (TextView) view.findViewById(R.id.survey_instruction_title);
         Button surveyEnd = (Button) view.findViewById(R.id.finish_test_button);
+        ((MainActivity) getActivity()).hideActionBar();
         surveyEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +64,7 @@ public class QuestionnaireInstructionFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler handler = new HttpHandler();
-            String url = "http://192.168.43.26:9090/api/tests/instruction/?count=";
+            String url = getString(R.string.url_questionnaire_instruction);
             String instructionUrl = url + String.valueOf(score);
             String jsonStr = handler.makeServiceCall(instructionUrl);
             if (jsonStr != null) {
