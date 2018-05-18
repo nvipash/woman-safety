@@ -26,6 +26,7 @@ public class TestInfoController {
     }
 
     private static Session getSession() throws HibernateException {
+    public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
@@ -34,6 +35,16 @@ public class TestInfoController {
         try (Session session = getSession()) {
             org.hibernate.Query query = session.createQuery("from " + "SurveysEntity");
             return (List<SurveysEntity>) query.list();
+        final Session session = getSession();
+        try {
+            org.hibernate.Query query = session.createQuery("from " + "SurveysEntity");
+            List<SurveysEntity> list = query.list();
+            return list;
+
+
+        } finally {
+            session.close();
+
         }
     }
 }

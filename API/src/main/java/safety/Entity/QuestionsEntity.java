@@ -11,6 +11,8 @@ public class QuestionsEntity {
     private int points_often;
     private int points_seldom;
     private int points_never;
+    private int points;
+
     @Id
     @Column(name = "id_question")
     public int getIdQuestion() {
@@ -57,6 +59,13 @@ public class QuestionsEntity {
 
     public void setPointsNever(int points_never) {
         this.points_often = points_never;
+    @Column(name = "points")
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     @Override
@@ -65,14 +74,18 @@ public class QuestionsEntity {
         if (o == null || getClass() != o.getClass()) return false;
         QuestionsEntity that = (QuestionsEntity) o;
         return idQuestion == that.idQuestion &&
+
                 points_often == that.points_often &&
                 points_seldom == that.points_seldom &&
                 points_never == that.points_never &&
+                points == that.points &&
                 Objects.equals(question, that.question);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(idQuestion, question, points_often, points_seldom, points_never);
+
+        return Objects.hash(idQuestion, question, points);
     }
 }

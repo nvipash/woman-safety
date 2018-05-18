@@ -12,12 +12,21 @@ import java.util.List;
 
 @RestController
 public class LocationsController {
+/**
+ * Created by Alexia on 19.03.2018.
+ */
+
+@RestController
+public class LocationsController {
+
+
     private static final SessionFactory ourSessionFactory;
 
     static {
         try {
             Configuration configuration = new Configuration();
             configuration.configure();
+
             ourSessionFactory = configuration.buildSessionFactory();
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
@@ -25,6 +34,7 @@ public class LocationsController {
     }
 
     private static Session getSession() throws HibernateException {
+    public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
@@ -35,4 +45,19 @@ public class LocationsController {
             return (List<LocationsEntity>) query.list();
         }
     }
+}
+    public List<LocationsEntity> getLocations(){
+        final Session session = getSession();
+        try {
+            org.hibernate.Query query = session.createQuery("from " + "LocationsEntity");
+            List<LocationsEntity> list = query.list();
+            return list;
+
+
+        } finally {
+            session.close();
+        }
+    }
+
+
 }

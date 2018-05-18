@@ -10,6 +10,7 @@ public class UserScoreEntity {
     private String userPhone;
     private int score;
     private SurveysEntity surveysEntity;
+    SurveysEntity surveysEntity;
 
     public UserScoreEntity (){}
     public UserScoreEntity(String phone, int score){

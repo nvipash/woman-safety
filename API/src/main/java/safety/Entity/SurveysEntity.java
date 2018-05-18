@@ -56,6 +56,7 @@ public class SurveysEntity {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(idSurvey, survey, description);
     }
 
@@ -64,6 +65,8 @@ public class SurveysEntity {
     public Collection<UserScoreEntity> getUserBySurvey() {
         return userBySurvey;
     }
+
+
     public void setUserBySurvey(Collection<UserScoreEntity> userBySurvey) {
         this.userBySurvey = userBySurvey;
     }

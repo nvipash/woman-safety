@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ResultsController {
+
     private static final SessionFactory ourSessionFactory;
 
     static {
@@ -35,6 +36,8 @@ public class ResultsController {
             org.hibernate.Query query = session.createQuery("from " + "InstructionsEntity where rangeStart<=:code and rangeEnd>=:code");
             query.setParameter("code", count);
             return (InstructionsEntity)query.list().get(0);
+            InstructionsEntity  instruction = (InstructionsEntity)query.list().get(0);
+            return instruction;
         }finally {
             session.close();
         }

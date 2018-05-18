@@ -76,6 +76,7 @@ public class InstructionsEntity {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(idInstruction, title, instruction, rangeStart, rangeEnd);
     }
 }

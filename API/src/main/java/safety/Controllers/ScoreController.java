@@ -26,6 +26,7 @@ public class ScoreController {
     }
 
     private static Session getSession() throws HibernateException {
+    public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
@@ -42,4 +43,20 @@ public class ScoreController {
             session.getTransaction().commit();
         }
     }
+        final Session session = getSession();
+        try {
+        session.beginTransaction();
+        SurveysEntity surveysEntity = (SurveysEntity)session.get(SurveysEntity.class, id);
+            System.out.println(surveysEntity.getIdSurvey());
+        UserScoreEntity userScoreEntity =new UserScoreEntity(phone, score);
+        userScoreEntity.setSurveyBySurvey(surveysEntity);
+        session.save(userScoreEntity);
+        session.getTransaction().commit();
+        } finally {
+            session.close();
+        }
+
+
+    }
+
 }

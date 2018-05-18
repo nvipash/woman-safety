@@ -16,6 +16,7 @@ public class LocationsEntity {
     private double latitude;
     private double longitude;
 
+
     @Id
     @Column(name = "id_place")
     public int getIdPlace() {
@@ -50,6 +51,7 @@ public class LocationsEntity {
     @Column(name = "phone")
     public String getPhone() {
         return phone;
+        return  phone;
     }
 
     public void setphone(String phone) {
@@ -87,10 +89,13 @@ public class LocationsEntity {
                 Objects.equals(placeName, that.placeName) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(phone, that.phone);
+                Objects.equals(phone, that.phone)
+                ;
     }
 
     @Override
     public int hashCode() {
+
         return Objects.hash(idPlace, placeName, description, phone, latitude, longitude);
     }
 }

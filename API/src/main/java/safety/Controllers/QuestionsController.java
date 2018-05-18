@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class QuestionsController {
     //int urlParameter = InstructionsEntity.idInstruction;
+
+@RestController
+public class QuestionsController {
+    //int urlParameter = InstructionsEntity.idInstruction;
+
     private static final SessionFactory ourSessionFactory;
 
     static {
         try {
             Configuration configuration = new Configuration();
             configuration.configure();
+
             ourSessionFactory = configuration.buildSessionFactory();
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
@@ -31,11 +37,17 @@ public class QuestionsController {
 
     @RequestMapping("/api/tests/questions")
     public QuestionsEntity getQuestions(@RequestParam(value = "id") int id) {
+    public QuestionsEntity getQuestions(@RequestParam(value="id") int id) {
         final Session session = getSession();
         try {
             org.hibernate.Query query = session.createQuery("from " + "QuestionsEntity where idQuestion = :code");
             query.setParameter("code", id);
             return (QuestionsEntity) query.list().get(0);
+
+            QuestionsEntity  question = (QuestionsEntity)query.list().get(0);
+            return question;
+
+
         } finally {
             session.close();
         }
