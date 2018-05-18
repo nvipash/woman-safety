@@ -40,7 +40,8 @@ public class QuestionnaireStartFragment extends Fragment {
         surveyStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceWithStack(new QuestionnaireSurveyFragment());
+                ((MainActivity) getActivity()).replaceBottomNavWithoutStack
+                        (new QuestionnaireSurveyFragment());
             }
         });
         return view;

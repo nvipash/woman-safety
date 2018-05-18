@@ -45,10 +45,10 @@ public class SurveysEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SurveysEntity that = (SurveysEntity) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        SurveysEntity that = (SurveysEntity) object;
         return idSurvey == that.idSurvey &&
                 Objects.equals(survey, that.survey) &&
                 Objects.equals(description, that.description);
@@ -56,7 +56,6 @@ public class SurveysEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(idSurvey, survey, description);
     }
 
@@ -65,7 +64,6 @@ public class SurveysEntity {
     public Collection<UserScoreEntity> getUserBySurvey() {
         return userBySurvey;
     }
-
 
     public void setUserBySurvey(Collection<UserScoreEntity> userBySurvey) {
         this.userBySurvey = userBySurvey;

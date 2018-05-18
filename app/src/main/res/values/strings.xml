@@ -9,13 +9,13 @@
 
     <!--Strings for JSON parsing-->
     <string name="url_questionnaire_survey">
-        http://192.168.43.26:9090/api/tests/questions/?id=</string>
-    <string name="url_questionnaire_start">http://192.168.43.26:9090/api/tests/info</string>
+        http://192.168.0.103:9090/api/tests/questions/?id=</string>
+    <string name="url_questionnaire_start">http://192.168.0.103:9090/api/tests/info</string>
     <string name="url_questionnaire_instruction">
-        http://192.168.43.26:9090/api/tests/instruction/?count=</string>
-    <string name="url_questionnaire_description">http://192.168.43.26:9090/api/tests/info</string>
-    <string name="url_maps">http://192.168.43.26:9090/api/locations</string>
-    <string name="url_user_score">http://192.168.186.2:9090/api/tests/score/?phone=</string>
+        http://192.168.0.103:9090/api/tests/instruction/?count=</string>
+    <string name="url_questionnaire_description">http://192.168.0.103:9090/api/tests/info</string>
+    <string name="url_maps">http://192.168.0.103:9090/api/locations</string>
+    <string name="url_user_score">http://192.168.0.103:9090/api/tests/score/?phone=</string>
 
     <!--Strings for MainActivity-->
     <string name="text_questionnaire">Оберіть опитування</string>

@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,7 +130,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
                         .getApplicationContext();
                 application.setScore(pointSum);
                 ((MainActivity) getActivity())
-                        .replaceWithStack(new QuestionnaireInstructionFragment());
+                        .replaceBottomNavWithoutStack(new QuestionnaireInstructionFragment());
                 CURRENT_ID = 1;
                 pointSum = 0;
             }

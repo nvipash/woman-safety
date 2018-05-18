@@ -2,7 +2,6 @@ package com.alexia.callbutton;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onDestroy();
     }
 
-    public void replaceBottomNavFragment(final Fragment fragment) {
+    public void replaceBottomNavWithoutStack(final Fragment fragment) {
         final FragmentTransaction fragmentTransaction = manager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     @SuppressLint("RestrictedApi")
-    protected void showActionBar(){
+    public void showActionBar() {
         Objects.requireNonNull(getSupportActionBar()).setShowHideAnimationEnabled(false);
         getSupportActionBar().show();
     }
@@ -149,19 +148,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             switch (item.getItemId()) {
                 case R.id.action_help:
                     setActionBarTitle(getString(R.string.text_questionnaire));
-                    replaceBottomNavFragment(new QuestionnaireFragment());
+                    replaceBottomNavWithoutStack(new QuestionnaireFragment());
                     return true;
                 case R.id.action_map:
                     setActionBarTitle(getString(R.string.text_map));
-                    replaceBottomNavFragment(new MapsFragment());
+                    replaceBottomNavWithoutStack(new MapsFragment());
                     return true;
                 case R.id.action_sos:
                     setActionBarTitle(getString(R.string.text_sos));
-                    replaceBottomNavFragment(new ButtonFragment());
+                    replaceBottomNavWithoutStack(new ButtonFragment());
                     return true;
                 case R.id.action_info:
                     setActionBarTitle(getString(R.string.text_info));
-                    replaceBottomNavFragment(new ReferenceFragment());
+                    replaceBottomNavWithoutStack(new ReferenceFragment());
                     return true;
             }
             return true;

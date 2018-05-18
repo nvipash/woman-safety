@@ -3,9 +3,6 @@ package safety.Entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-/**
- * Created by Alexia on 19.03.2018.
- */
 @Entity
 @Table(name = "locations", schema = "womansafety", catalog = "")
 public class LocationsEntity {
@@ -15,7 +12,6 @@ public class LocationsEntity {
     private String phone;
     private double latitude;
     private double longitude;
-
 
     @Id
     @Column(name = "id_place")
@@ -51,7 +47,6 @@ public class LocationsEntity {
     @Column(name = "phone")
     public String getPhone() {
         return phone;
-        return  phone;
     }
 
     public void setphone(String phone) {
@@ -79,23 +74,20 @@ public class LocationsEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LocationsEntity that = (LocationsEntity) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        LocationsEntity that = (LocationsEntity) object;
         return idPlace == that.idPlace &&
                 latitude == that.latitude &&
                 longitude == that.longitude &&
                 Objects.equals(placeName, that.placeName) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(phone, that.phone);
-                Objects.equals(phone, that.phone)
-                ;
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(idPlace, placeName, description, phone, latitude, longitude);
     }
 }

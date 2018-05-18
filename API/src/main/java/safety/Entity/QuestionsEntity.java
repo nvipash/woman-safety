@@ -11,7 +11,6 @@ public class QuestionsEntity {
     private int points_often;
     private int points_seldom;
     private int points_never;
-    private int points;
 
     @Id
     @Column(name = "id_question")
@@ -42,6 +41,7 @@ public class QuestionsEntity {
     public void setPointsOften(int points_often) {
         this.points_often = points_often;
     }
+
     @Basic
     @Column(name = "points_seldom")
     public int getPointsSeldom() {
@@ -51,6 +51,7 @@ public class QuestionsEntity {
     public void setPointsSeldom(int points_seldom) {
         this.points_seldom = points_seldom;
     }
+
     @Basic
     @Column(name = "points_never")
     public int getPointsNever() {
@@ -59,33 +60,22 @@ public class QuestionsEntity {
 
     public void setPointsNever(int points_never) {
         this.points_often = points_never;
-    @Column(name = "points")
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        QuestionsEntity that = (QuestionsEntity) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        QuestionsEntity that = (QuestionsEntity) object;
         return idQuestion == that.idQuestion &&
-
                 points_often == that.points_often &&
                 points_seldom == that.points_seldom &&
                 points_never == that.points_never &&
-                points == that.points &&
                 Objects.equals(question, that.question);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(idQuestion, question, points_often, points_seldom, points_never);
-
-        return Objects.hash(idQuestion, question, points);
     }
 }

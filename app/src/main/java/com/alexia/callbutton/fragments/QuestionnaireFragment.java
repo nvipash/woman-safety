@@ -35,6 +35,7 @@ public class QuestionnaireFragment extends Fragment {
                 container, false);
         testDescriptionTextView = view.findViewById(R.id.survey_text_1);
         new GetChooseTestDescription().execute();
+        ((MainActivity) getActivity()).showActionBar();
         ((MainActivity) getActivity()).setActionBarTitle("Оберіть опитування");
         CardView firstTest = view.findViewById(R.id.surveyCard_1);
         firstTest.setOnClickListener(new View.OnClickListener() {

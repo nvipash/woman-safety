@@ -10,10 +10,11 @@ public class UserScoreEntity {
     private String userPhone;
     private int score;
     private SurveysEntity surveysEntity;
-    SurveysEntity surveysEntity;
 
-    public UserScoreEntity (){}
-    public UserScoreEntity(String phone, int score){
+    public UserScoreEntity() {
+    }
+
+    public UserScoreEntity(String phone, int score) {
         this.userPhone = phone;
         this.score = score;
     }
@@ -49,10 +50,10 @@ public class UserScoreEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserScoreEntity that = (UserScoreEntity) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        UserScoreEntity that = (UserScoreEntity) object;
         return idScore == that.idScore &&
                 score == that.score &&
                 Objects.equals(userPhone, that.userPhone);
@@ -60,7 +61,6 @@ public class UserScoreEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(idScore, userPhone, score);
     }
 

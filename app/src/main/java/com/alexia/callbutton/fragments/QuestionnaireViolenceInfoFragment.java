@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alexia.callbutton.MainActivity;
 import com.alexia.callbutton.R;
 
 public class QuestionnaireViolenceInfoFragment extends Fragment {
@@ -13,6 +14,7 @@ public class QuestionnaireViolenceInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Фактори");
         return inflater.inflate(R.layout.questionnaire_info_fragment, container, false);
     }
 }

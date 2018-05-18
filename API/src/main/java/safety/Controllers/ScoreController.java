@@ -1,13 +1,12 @@
 package safety.Controllers;
-import safety.Entity.SurveysEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import safety.Entity.SurveysEntity;
 import safety.Entity.UserScoreEntity;
 
 @RestController
@@ -26,7 +25,6 @@ public class ScoreController {
     }
 
     private static Session getSession() throws HibernateException {
-    public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
 
@@ -43,20 +41,4 @@ public class ScoreController {
             session.getTransaction().commit();
         }
     }
-        final Session session = getSession();
-        try {
-        session.beginTransaction();
-        SurveysEntity surveysEntity = (SurveysEntity)session.get(SurveysEntity.class, id);
-            System.out.println(surveysEntity.getIdSurvey());
-        UserScoreEntity userScoreEntity =new UserScoreEntity(phone, score);
-        userScoreEntity.setSurveyBySurvey(surveysEntity);
-        session.save(userScoreEntity);
-        session.getTransaction().commit();
-        } finally {
-            session.close();
-        }
-
-
-    }
-
 }

@@ -63,10 +63,10 @@ public class InstructionsEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        InstructionsEntity that = (InstructionsEntity) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        InstructionsEntity that = (InstructionsEntity) object;
         return idInstruction == that.idInstruction &&
                 rangeStart == that.rangeStart &&
                 rangeEnd == that.rangeEnd &&
@@ -76,7 +76,6 @@ public class InstructionsEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(idInstruction, title, instruction, rangeStart, rangeEnd);
     }
 }
