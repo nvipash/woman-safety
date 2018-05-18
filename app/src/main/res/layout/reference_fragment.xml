@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/free_hotline_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/free_hotline_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/free_hotline_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/free_hotline_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/free_hotline_number"
+                        android:layout_toStartOf="@id/free_hotline_number"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/free_hotline_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/free_hotline_title"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/free_hotline_reference" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/social_help_lviv_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/social_help_lviv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/social_help_lviv_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/social_help_lviv_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignLeft="@+id/social_help_lviv_title"
+                        android:layout_alignStart="@+id/social_help_lviv_title"
+                        android:layout_alignTop="@+id/social_help_lviv_number1"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription"/>
+
+                    <TextView
+                        android:id="@+id/social_help_lviv_number1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/social_help_lviv_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@id/social_help_lviv_image1"
+                        android:layout_toRightOf="@id/social_help_lviv_image1"
+                        android:text="@string/social_help_lviv_number1" />
+
+                    <ImageButton
+                        android:id="@+id/social_help_lviv_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/social_help_lviv_number2"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/social_help_lviv_number2"
+                        android:layout_toStartOf="@id/social_help_lviv_number2"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/social_help_lviv_number2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignEnd="@+id/social_help_lviv_title"
+                        android:layout_alignRight="@+id/social_help_lviv_title"
+                        android:layout_alignTop="@+id/social_help_lviv_number1"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/social_help_lviv_number2" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/social_help_chervonograd_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/social_help_chervonograd_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/social_help_chervonograd_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/social_help_chervonograd_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignLeft="@+id/social_help_chervonograd_title"
+                        android:layout_alignStart="@+id/social_help_chervonograd_title"
+                        android:layout_alignTop="@+id/social_help_chervonograd_number1"
+                        android:layout_below="@+id/social_help_chervonograd_title"
+                        android:layout_marginBottom="10dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/social_help_chervonograd_number1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/social_help_chervonograd_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@id/social_help_chervonograd_image1"
+                        android:layout_toRightOf="@id/social_help_chervonograd_image1"
+                        android:text="@string/social_help_chervonograd_number1" />
+
+                    <ImageButton
+                        android:id="@+id/social_help_chervonograd_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/social_help_chervonograd_number2"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/social_help_chervonograd_number2"
+                        android:layout_toStartOf="@id/social_help_chervonograd_number2"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/social_help_chervonograd_number2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignEnd="@+id/social_help_chervonograd_title"
+                        android:layout_alignRight="@+id/social_help_chervonograd_title"
+                        android:layout_alignTop="@+id/social_help_chervonograd_number1"
+                        android:layout_below="@+id/social_help_chervonograd_title"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/social_help_chervonograd_number2" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/social_help_zolochiv_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/social_help_zolochiv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/social_help_zolochiv_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/social_help_zolochiv_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignLeft="@+id/social_help_zolochiv_title"
+                        android:layout_alignStart="@+id/social_help_zolochiv_title"
+                        android:layout_alignTop="@+id/social_help_zolochiv_number1"
+                        android:layout_below="@+id/social_help_zolochiv_title"
+                        android:layout_marginBottom="10dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/social_help_zolochiv_number1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/social_help_zolochiv_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@id/social_help_zolochiv_image1"
+                        android:layout_toRightOf="@id/social_help_zolochiv_image1"
+                        android:text="@string/social_help_zolochiv_number1" />
+
+                    <ImageButton
+                        android:id="@+id/social_help_zolochiv_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/social_help_zolochiv_number2"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/social_help_zolochiv_number2"
+                        android:layout_toStartOf="@id/social_help_zolochiv_number2"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/social_help_zolochiv_number2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignEnd="@+id/social_help_zolochiv_title"
+                        android:layout_alignRight="@+id/social_help_zolochiv_title"
+                        android:layout_alignTop="@+id/social_help_zolochiv_number1"
+                        android:layout_below="@+id/social_help_zolochiv_title"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/social_help_zolochiv_number2" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/social_help_zhidaciv_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/social_help_zhidaciv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/social_help_zhidaciv_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/social_help_zhidaciv_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignLeft="@+id/social_help_zhidaciv_title"
+                        android:layout_alignStart="@+id/social_help_zhidaciv_title"
+                        android:layout_alignTop="@+id/social_help_zhidaciv_number1"
+                        android:layout_below="@+id/social_help_zhidaciv_title"
+                        android:layout_marginBottom="10dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/social_help_zhidaciv_number1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/social_help_zhidaciv_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@id/social_help_zhidaciv_image1"
+                        android:layout_toRightOf="@id/social_help_zhidaciv_image1"
+                        android:text="@string/social_help_zhidaciv_number1" />
+
+
+                    <ImageButton
+                        android:id="@+id/social_help_zhidaciv_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/social_help_zhidaciv_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/social_help_zhidaciv_number2"
+                        android:layout_toStartOf="@id/social_help_zhidaciv_number2"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/social_help_zhidaciv_number2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignEnd="@+id/social_help_zhidaciv_title"
+                        android:layout_alignRight="@+id/social_help_zhidaciv_title"
+                        android:layout_alignTop="@+id/social_help_zhidaciv_number1"
+                        android:layout_below="@+id/social_help_zhidaciv_title"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/social_help_zhidaciv_number2" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/control_of_work_family_social_protection_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/control_of_work_family_social_protection_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/control_of_work_family_social_protection_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/control_of_work_family_social_protection_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/control_of_work_family_social_protection_title"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/control_of_work_family_social_protection_number" />
+
+                    <ImageButton
+                        android:id="@+id/control_of_work_family_social_protection_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/control_of_work_family_social_protection_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/control_of_work_family_social_protection_number"
+                        android:layout_toStartOf="@id/control_of_work_family_social_protection_number"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/lviv_social_oblast_center_for_family_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/lviv_social_oblast_center_for_family_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/lviv_social_oblast_center_for_family_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignLeft="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_alignStart="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_alignTop="@+id/lviv_social_oblast_center_for_family_number1"
+                        android:layout_below="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_marginBottom="10dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/lviv_social_oblast_center_for_family_number1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@id/lviv_social_oblast_center_for_family_image1"
+                        android:layout_toRightOf="@id/lviv_social_oblast_center_for_family_image1"
+                        android:text="@string/lviv_social_oblast_center_for_family_number1" />
+
+                    <ImageButton
+                        android:id="@+id/lviv_social_oblast_center_for_family_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lviv_social_oblast_center_for_family_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/lviv_social_oblast_center_for_family_number2"
+                        android:layout_toStartOf="@id/lviv_social_oblast_center_for_family_number2"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/lviv_social_oblast_center_for_family_number2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignEnd="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_alignRight="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_alignTop="@+id/lviv_social_oblast_center_for_family_number1"
+                        android:layout_below="@+id/lviv_social_oblast_center_for_family_title"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/lviv_social_oblast_center_for_family_number2" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/lviv_oblast_social_psychological_center_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/lviv_oblast_social_psychological_center_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/lviv_oblast_social_psychological_center_image1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_alignLeft="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_alignStart="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_alignTop="@+id/lviv_oblast_social_psychological_center_number1"
+                        android:layout_below="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_marginBottom="10dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/lviv_oblast_social_psychological_center_number1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@id/lviv_oblast_social_psychological_center_image1"
+                        android:layout_toRightOf="@id/lviv_oblast_social_psychological_center_image1"
+                        android:text="@string/lviv_oblast_social_psychological_center_number1" />
+
+                    <ImageButton
+                        android:id="@+id/lviv_oblast_social_psychological_center_image2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lviv_oblast_social_psychological_center_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/lviv_oblast_social_psychological_center_number2"
+                        android:layout_toStartOf="@id/lviv_oblast_social_psychological_center_number2"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/lviv_oblast_social_psychological_center_number2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignEnd="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_alignRight="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_alignTop="@+id/lviv_oblast_social_psychological_center_number1"
+                        android:layout_below="@+id/lviv_oblast_social_psychological_center_title"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/lviv_oblast_social_psychological_center_number2" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/west_ukrainian_center_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_effect_primary"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/west_ukrainian_center_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:text="@string/west_ukrainian_center_title"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/west_ukrainian_center_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/west_ukrainian_center_title"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toLeftOf="@id/west_ukrainian_center_number"
+                        android:layout_toStartOf="@id/west_ukrainian_center_number"
+                        android:background="@null"
+                        android:src="@drawable/ic_sharp_phone_in_talk_24px"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/west_ukrainian_center_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/west_ukrainian_center_title"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/west_ukrainian_center_number" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

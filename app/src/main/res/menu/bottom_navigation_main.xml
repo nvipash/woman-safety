@@ -6,24 +6,24 @@
         android:enabled="true"
         android:icon="@drawable/ic_help_white_24dp"
         android:title="@string/text_help"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_map"
         android:enabled="true"
         android:icon="@drawable/ic_map_white_24dp"
         android:title="@string/text_map"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_sos"
         android:enabled="true"
         android:icon="@drawable/ic_sos_white_24dp"
         android:title="@string/text_sos"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|withText" />
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_info"
         android:enabled="true"
-        android:icon="@drawable/ic_settings_white_24dp"
-        android:title="@string/text_settings"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_description_white_24px"
+        android:title="@string/text_info"
+        app:showAsAction="ifRoom|withText" />
 </menu>

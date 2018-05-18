@@ -33,21 +33,12 @@ proguard/
 captures/
 
 # Intellij Android Studio
-*.iml
-.idea/workspace.xml
-.idea/modules.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
+app/app.iml
+Woman_Safety.iml
 
 # Intellij IDEA
-*.iml
-API/.idea/workspace.xml
-API/.idea/tasks.xml
-API/.idea/gradle.xml
-API/.idea/dictionaries
-API/.idea/libraries
+API/.idea/*
+.idea/*
 
 # Keystore files
 *.jks
@@ -101,16 +92,16 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-API/target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
+API/target/*
+API/pom.xml.tag
+API/pom.xml.releaseBackup
+API/pom.xml.versionsBackup
+API/pom.xml.next
+API/release.properties
+API/dependency-reduced-pom.xml
+API/buildNumber.properties
+API/.mvn/timing.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
-!/.mvn/wrapper/maven-wrapper.jar
+API/!/.mvn/wrapper/maven-wrapper.jar
 

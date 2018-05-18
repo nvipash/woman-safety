@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings_title" />
+    <Preference
+        android:key="number_list"
+        android:summary="@string/number_summary"
+        android:title="@string/choose_number" />
+    <Preference
+        android:key="add_number"
+        android:summary="@string/contact_summary"
+        android:title="@string/add_contact" />
+    <Preference
+        android:key="info_widget"
+        android:summary="@string/add_widget_summary"
+        android:title="@string/add_widget_title" />
+</PreferenceScreen>
