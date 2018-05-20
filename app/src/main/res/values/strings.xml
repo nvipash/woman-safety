@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Woman Safety</string>
     <!--Strings for BotoomNavigationView-->
     <string name="text_map">Карта</string>
@@ -23,7 +23,7 @@
     <string name="notify_sms_not_sent">Не вдалося надіслати повідомлення!</string>
     <string name="notify_sms_no_service">Відсутній мобільний зв\'язок</string>
     <string name="notify_sms_no_pdu">Відсутній PDU</string>
-    <string name="notify_sms_airplane_mode">Вімкнений режим польоту</string>
+    <string name="notify_sms_airplane_mode">Увімкнений режим польоту</string>
     <string name="violence_sms_alert">Я в небезпеці! Будь ласка, допомжіть!</string>
     <string name="free_violence_hotline">0662789651</string>
     <string name="maps_sms_location">Я знаходжусь тут: http://maps.google.com/</string>
@@ -68,11 +68,12 @@
     <string name="question_numbers">/15</string>
     <string name="finish_test_button">Завершити тест</string>
     <string name="title_activity_maps">Map</string>
-    <string name="null_text" tools:ignore="TypographyEllipsis">Триває завантаження...</string>
+    <string name="null_text">Триває завантаження&#8230;</string>
     <string name="test_often">ЧАСТО</string>
     <string name="test_seldom">ІНОДІ</string>
     <string name="test_never">НІКОЛИ</string>
     <string name="violence_info">Дізнатись більше про фактори домашнього насильства</string>
+    <string name="questionnaire_info_title">Фактори</string>
 
     <!--Strings for Onboarding-->
     <string name="title_call">Будь впевненою, що тобі допоможуть</string>
@@ -139,7 +140,8 @@
         допомоги м. Сокаль, Червоноград, Червоноградський район</string>
     <string name="social_help_chervonograd_number1">(066) 279–64&#8211;57</string>
     <string name="social_help_chervonograd_number2">(063) 954–81&#8211;27</string>
-    <string name="social_help_zolochiv_title">Мобільна бригада соціально&#8211;психологічної допомоги
+    <string name="social_help_zolochiv_title">
+        Мобільна бригада соціально&#8211;психологічної допомоги
         м. Золочів та Золочівський район</string>
     <string name="social_help_zolochiv_number1">(066) 306&#8211;59&#8211;57</string>
     <string name="social_help_zolochiv_number2">(063) 968&#8211;70&#8211;10</string>
@@ -147,7 +149,8 @@
         допомоги Жидачів та Жидачівський район</string>
     <string name="control_of_work_family_social_protection_title">Управління з питань праці та
         сімейної політики департаменту соціального захисту населення Львівської ОДА</string>
-    <string name="control_of_work_family_social_protection_number">(032) 255&#8211;46&#8211;59</string>
+    <string name="control_of_work_family_social_protection_number">
+        (032) 255&#8211;46&#8211;59</string>
     <string name="social_help_zhidaciv_number2">(063) 968&#8211;70&#8211;51</string>
     <string name="social_help_zhidaciv_number1">(066) 306&#8211;59&#8211;78</string>
     <string name="lviv_social_oblast_center_for_family_title">Львівський обласний центр соціальних
@@ -156,8 +159,10 @@
     <string name="lviv_social_oblast_center_for_family_number2">(032) 261&#8211;09&#8211;37</string>
     <string name="lviv_oblast_social_psychological_center_title">Центр соціально&#8211;психологічної
         допомоги у Львівській області</string>
-    <string name="lviv_oblast_social_psychological_center_number1">(032) 237&#8211;99&#8211;20</string>
-    <string name="lviv_oblast_social_psychological_center_number2">(032) 237&#8211;99&#8211;27</string>
+    <string name="lviv_oblast_social_psychological_center_number1">
+        (032) 237&#8211;99&#8211;20</string>
+    <string name="lviv_oblast_social_psychological_center_number2">
+        (032) 237&#8211;99&#8211;27</string>
     <string name="west_ukrainian_center_title">Західноукраїнський центр Жіночі перспективи</string>
     <string name="west_ukrainian_center_number">(032) 295&#8211;50&#8211;60</string>
 </resources>

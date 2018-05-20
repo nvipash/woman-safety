@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
+import static java.util.ResourceBundle.getBundle;
 
 public class QuestionnaireSurveyFragment extends Fragment {
     private static int CURRENT_ID = 1;
@@ -36,7 +38,7 @@ public class QuestionnaireSurveyFragment extends Fragment {
     private Questionnaire questionnaire = new Questionnaire();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.questionnaire_survey_fragment,
                 container, false);
@@ -49,12 +51,10 @@ public class QuestionnaireSurveyFragment extends Fragment {
         progressBar.setProgress(0);
         questionTextView = (TextView) view.findViewById(R.id.question);
         questionIDTextView = (TextView) view.findViewById(R.id.question_id);
-        ((MainActivity) getActivity()).hideActionBar();
+        ((MainActivity) Objects.requireNonNull(getActivity())).hideActionBar();
         if (getActivity().getIntent().hasExtra("bundle") && savedInstanceState == null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 savedInstanceState = Objects.requireNonNull(getActivity()
                         .getIntent().getExtras()).getBundle("bundle");
-            }
         }
 
         oftenButton.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +107,8 @@ public class QuestionnaireSurveyFragment extends Fragment {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity().getApplicationContext(),
+                            Toast.makeText(Objects.requireNonNull(getActivity())
+                                            .getApplicationContext(),
                                     "Json parsing error: " + jsonException.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
@@ -126,10 +127,11 @@ public class QuestionnaireSurveyFragment extends Fragment {
                 questionIDTextView.setText(String.valueOf(questionnaire.idQuestion));
                 questionTextView.setText(String.valueOf(questionnaire.question));
             } else {
-                final WomanSafetyApp application = (WomanSafetyApp) getContext()
+                final WomanSafetyApp application = (WomanSafetyApp)
+                        Objects.requireNonNull(getContext())
                         .getApplicationContext();
                 application.setScore(pointSum);
-                ((MainActivity) getActivity())
+                ((MainActivity) Objects.requireNonNull(getActivity()))
                         .replaceBottomNavWithoutStack(new QuestionnaireInstructionFragment());
                 CURRENT_ID = 1;
                 pointSum = 0;

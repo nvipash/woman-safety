@@ -28,7 +28,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -81,7 +81,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -162,7 +162,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -247,7 +247,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -331,7 +331,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -416,7 +416,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -471,7 +471,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -555,7 +555,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 
@@ -639,7 +639,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="@drawable/ripple_effect_primary"
+                android:foreground="@null"
                 card_view:cardCornerRadius="5dp"
                 card_view:cardElevation="10dp">
 

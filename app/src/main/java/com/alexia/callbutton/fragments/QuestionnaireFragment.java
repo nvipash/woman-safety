@@ -1,8 +1,11 @@
 package com.alexia.callbutton.fragments;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -22,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireFragment extends Fragment {
@@ -29,15 +34,16 @@ public class QuestionnaireFragment extends Fragment {
     private String TAG = QuestionnaireFragment.class.getSimpleName();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.questionnaire_fragment,
                 container, false);
         testDescriptionTextView = view.findViewById(R.id.survey_text_1);
         new GetChooseTestDescription().execute();
-        ((MainActivity) getActivity()).showActionBar();
-        ((MainActivity) getActivity()).setActionBarTitle("Оберіть опитування");
-        CardView firstTest = view.findViewById(R.id.surveyCard_1);
+        ((MainActivity) Objects.requireNonNull(getActivity())).showActionBar();
+        ((MainActivity) getActivity()).setActionBarTitle
+                (getString(R.string.questionnaire_screen_title));
+        CardView firstTest = (CardView) view.findViewById(R.id.surveyCard_1);
         firstTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,13 +82,14 @@ public class QuestionnaireFragment extends Fragment {
                     JSONArray array = new JSONArray(jsonStr);
                     JSONObject object = array.getJSONObject(0);
                     chooseTestDescription = new QuestionnaireSelection(object);
-                    String.valueOf(object.getString("survey"));
+                    object.getString("survey");
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity().getApplicationContext(),
+                            Toast.makeText(Objects.requireNonNull(getActivity())
+                                            .getApplicationContext(),
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
@@ -94,7 +101,8 @@ public class QuestionnaireFragment extends Fragment {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity().getApplicationContext(),
+                        Toast.makeText(Objects.requireNonNull(getActivity())
+                                        .getApplicationContext(),
                                 "Couldn't get json from server. Check LogCat for possible errors!",
                                 Toast.LENGTH_LONG)
                                 .show();

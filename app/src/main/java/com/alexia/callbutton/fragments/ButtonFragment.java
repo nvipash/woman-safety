@@ -16,11 +16,13 @@ import android.widget.Toast;
 
 import com.alexia.callbutton.R;
 
+import java.util.Objects;
+
 public class ButtonFragment extends Fragment {
     public SharedPreferences preferences;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.button_fragment, container, false);
     }
@@ -29,7 +31,8 @@ public class ButtonFragment extends Fragment {
         String toDial = getString(R.string.police_number);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + toDial));
-        ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
+        ActivityCompat.checkSelfPermission(Objects.requireNonNull(getActivity()),
+                Manifest.permission.CALL_PHONE);
     }
 
     public void callAction() {
@@ -37,7 +40,8 @@ public class ButtonFragment extends Fragment {
                 getString(R.string.free_violence_hotline));
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse(toDial));
-        ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
+        ActivityCompat.checkSelfPermission(Objects.requireNonNull(getActivity()),
+                Manifest.permission.CALL_PHONE);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class ButtonFragment extends Fragment {
                     callAction();
                     callActionPolice_onClick();
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(),
+                    Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(),
                             R.string.permission_not_accepted, Toast.LENGTH_SHORT).show();
                 }
             }

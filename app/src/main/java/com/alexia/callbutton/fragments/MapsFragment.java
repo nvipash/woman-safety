@@ -43,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
@@ -52,7 +53,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     private String TAG = MapsFragment.class.getSimpleName();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.maps_fragment, container, false);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -85,7 +86,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
 
     protected synchronized void buildGoogleApiClient() {
         GoogleApiClient mGoogleApiClient
-                = new GoogleApiClient.Builder(getActivity()).addConnectionCallbacks(this)
+                = new GoogleApiClient.Builder(Objects.requireNonNull(getActivity()))
+                .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
         mGoogleApiClient.connect();
     }
@@ -118,7 +120,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity().getApplicationContext(),
+                            Toast.makeText(Objects.requireNonNull(getActivity())
+                                            .getApplicationContext(),
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
@@ -130,7 +133,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity().getApplicationContext(),
+                        Toast.makeText(Objects.requireNonNull(getActivity())
+                                        .getApplicationContext(),
                                 "Couldn't get json from server. Check LogCat for possible errors!",
                                 Toast.LENGTH_LONG)
                                 .show();

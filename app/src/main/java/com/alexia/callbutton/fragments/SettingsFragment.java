@@ -23,6 +23,7 @@ import com.alexia.callbutton.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -40,7 +41,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = SettingsFragment.this.getActivity()
+        preferences = Objects.requireNonNull(SettingsFragment.this.getActivity())
                 .getSharedPreferences("shared_pref", MODE_PRIVATE);
         Set<String> entries = preferences.getStringSet("phones", null);
         if (entries != null) {
@@ -115,7 +116,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     ContactsContract.CommonDataKinds.Phone.NUMBER,
                     ContactsContract.Contacts.HAS_PHONE_NUMBER,
                     ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-            @SuppressLint("Recycle") Cursor query = getActivity()
+            @SuppressLint("Recycle") Cursor query = Objects.requireNonNull(getActivity())
                     .getContentResolver()
                     .query(contactData, projection, null, null, null);
             assert query != null;

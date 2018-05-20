@@ -3,6 +3,7 @@ package com.alexia.callbutton.fragments;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import com.alexia.callbutton.jsonparsers.QuestionnaireInstruction;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireInstructionFragment extends Fragment {
@@ -30,14 +33,14 @@ public class QuestionnaireInstructionFragment extends Fragment {
     private int score;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.questionnaire_survey_end_fragment,
                 container, false);
         surveyInstruction = (TextView) view.findViewById(R.id.survey_instruction);
         surveyInstructionTitle = (TextView) view.findViewById(R.id.survey_instruction_title);
         Button surveyEnd = (Button) view.findViewById(R.id.finish_test_button);
-        ((MainActivity) getActivity()).hideActionBar();
+        ((MainActivity) Objects.requireNonNull(getActivity())).hideActionBar();
         surveyEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +55,8 @@ public class QuestionnaireInstructionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        final WomanSafetyApp application = (WomanSafetyApp) getContext().getApplicationContext();
+        final WomanSafetyApp application = (WomanSafetyApp) Objects.requireNonNull
+                (getContext()).getApplicationContext();
         score = application.getScore();
         new GetInstruction().execute();
     }
@@ -77,7 +81,8 @@ public class QuestionnaireInstructionFragment extends Fragment {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity().getApplicationContext(),
+                            Toast.makeText(Objects.requireNonNull(getActivity())
+                                            .getApplicationContext(),
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
@@ -89,7 +94,8 @@ public class QuestionnaireInstructionFragment extends Fragment {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity().getApplicationContext(),
+                        Toast.makeText(Objects.requireNonNull(getActivity())
+                                        .getApplicationContext(),
                                 "Couldn't get json from server. Check LogCat for possible errors!",
                                 Toast.LENGTH_LONG)
                                 .show();

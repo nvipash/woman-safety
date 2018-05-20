@@ -15,7 +15,6 @@ public class SplashActivity extends AppCompatActivity {
                 .getSharedPreferences("onboarding_pref", MODE_PRIVATE);
         if (preferences.getBoolean("first_launch", true)) {
             startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
-
             preferences.edit().putBoolean("first_launch", false).apply();
         } else {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));

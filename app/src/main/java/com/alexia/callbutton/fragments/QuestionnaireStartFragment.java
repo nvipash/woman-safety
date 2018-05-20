@@ -3,6 +3,7 @@ package com.alexia.callbutton.fragments;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
@@ -22,6 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 public class QuestionnaireStartFragment extends Fragment {
@@ -29,13 +32,13 @@ public class QuestionnaireStartFragment extends Fragment {
     private String TAG = QuestionnaireStartFragment.class.getSimpleName();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.questionnaire_survey_start_fragment,
                 container, false);
         testDescriptionTextView = (TextView) view.findViewById(R.id.survey_info);
         new GetTestDescription().execute();
-        ((MainActivity) getActivity()).hideActionBar();
+        ((MainActivity) Objects.requireNonNull(getActivity())).hideActionBar();
         Button surveyStart = (Button) view.findViewById(R.id.survey_start);
         surveyStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +69,14 @@ public class QuestionnaireStartFragment extends Fragment {
                     JSONArray array = new JSONArray(jsonStr);
                     JSONObject object = array.getJSONObject(0);
                     testDescription = new QuestionnaireStart(object);
-                    String.valueOf(object.getString("description"));
+                    object.getString("description");
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity().getApplicationContext(),
+                            Toast.makeText(Objects.requireNonNull(getActivity())
+                                            .getApplicationContext(),
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
@@ -85,7 +89,8 @@ public class QuestionnaireStartFragment extends Fragment {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity().getApplicationContext(),
+                        Toast.makeText(Objects.requireNonNull(getActivity())
+                                        .getApplicationContext(),
                                 "Couldn't get json from server. Check LogCat for possible errors!",
                                 Toast.LENGTH_LONG)
                                 .show();

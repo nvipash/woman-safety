@@ -20,6 +20,7 @@ import com.alexia.callbutton.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -35,7 +36,7 @@ public class SettingsNumberListDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         @SuppressLint("InflateParams") View view =
                 LayoutInflater.from(getActivity()).inflate(R.layout.listview_layout, null);
-        preferences = SettingsNumberListDialogFragment.this.getActivity()
+        preferences = Objects.requireNonNull(SettingsNumberListDialogFragment.this.getActivity())
                 .getSharedPreferences("shared_pref", MODE_PRIVATE);
 
         Set<String> entries = preferences.getStringSet("phones", null);

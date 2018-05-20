@@ -52,6 +52,27 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationManager locationManager;
     private Location currentLocation;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        registerReceiver(receiver, new IntentFilter("SMS_SENT"));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ActionBar bar = getSupportActionBar();
+        setSupportActionBar(toolbar);
+        if (bar != null) {
+            bar.setDisplayHomeAsUpEnabled(false);
+        }
+        preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
+        manager = getSupportFragmentManager();
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
+        bottomNav.setSelectedItemId(R.id.action_sos);
+        removeShiftModeInBottomNav(bottomNav);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        checkLocationPermissions();
+    }
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -79,25 +100,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        registerReceiver(receiver, new IntentFilter("SMS_SENT"));
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar bar = getSupportActionBar();
-        Objects.requireNonNull(bar).setDisplayHomeAsUpEnabled(false);
-        preferences = MainActivity.this.getSharedPreferences("shared_pref", MODE_PRIVATE);
-        manager = getSupportFragmentManager();
-        bottomNav = (BottomNavigationView) findViewById(R.id.bottom_nav);
-        bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
-        bottomNav.setSelectedItemId(R.id.action_sos);
-        removeShiftModeInBottomNav(bottomNav);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        checkLocationPermissions();
-    }
-
-    @Override
     protected void onDestroy() {
         unregisterReceiver(receiver);
         super.onDestroy();
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     public void onBackPressed() {
         bottomNav.setVisibility(View.VISIBLE);
-        setActionBarTitle("Woman Safety");
+        setActionBarTitle(getString(R.string.app_name));
         showActionBar();
         super.onBackPressed();
     }
@@ -129,16 +131,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Objects.requireNonNull(getSupportActionBar()).setTitle(title);
     }
 
-    @SuppressLint("RestrictedApi")
     public void hideActionBar() {
-        Objects.requireNonNull(getSupportActionBar()).setShowHideAnimationEnabled(false);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
     }
 
-    @SuppressLint("RestrictedApi")
     public void showActionBar() {
-        Objects.requireNonNull(getSupportActionBar()).setShowHideAnimationEnabled(false);
-        getSupportActionBar().show();
+        Objects.requireNonNull(getSupportActionBar()).show();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavListener
@@ -187,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    public void dial(View v) {
+    public void dial(View view) {
         if (isPermissionGranted()) {
             sendSMSMessage();
             callAction();
@@ -310,8 +308,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 item.setShiftingMode(false);
                 item.setChecked(item.getItemData().isChecked());
             }
-        } catch (NoSuchFieldException ignored) {
-        } catch (IllegalAccessException ignored) {
+        } catch (NoSuchFieldException | IllegalAccessException ignored) {
         }
     }
 
